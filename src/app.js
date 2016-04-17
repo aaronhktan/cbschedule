@@ -4,7 +4,7 @@ var moment = require('moment');
 
 // Create a Card with title and subtitle
 var card = new UI.Card({
-  title:'What day?',
+  title:'CB Schedule',
   subtitle:'Fetching...'
 });
 
@@ -22,13 +22,10 @@ request();
 function request() {
   ajax(
     {
-      datatype: JSON,
       url: URL + "&timeMin=" + start + "&timeMax=" + end,
-      type: 'get'
     },
     function(data) {
       // Success!
-      console.log("Successfully fetched day!");
       
       // Extract data
       var Day = FindDay(data);

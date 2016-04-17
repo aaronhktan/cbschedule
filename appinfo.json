@@ -4,7 +4,7 @@
         "configurable"
     ],
     "companyName": "cheeseisdisgusting",
-    "longName": "What day?",
+    "longName": "CB Schedule",
     "projectType": "pebblejs",
     "resources": {
         "media": [
@@ -32,7 +32,7 @@
         ]
     },
     "sdkVersion": "3",
-    "shortName": "Day?",
+    "shortName": "CBschedule",
     "targetPlatforms": [
         "aplite",
         "basalt"
