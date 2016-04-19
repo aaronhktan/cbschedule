@@ -5,6 +5,7 @@ var moment = require('moment');
 // Create a Card with title and subtitle
 var card = new UI.Card({
   title:'CB Schedule',
+  scrollable: true,
   subtitle:'Fetching...'
 });
 
@@ -20,6 +21,7 @@ var twoa = localStorage.getItem('twoa');
 var twob = localStorage.getItem('twob');
 var twoc = localStorage.getItem('twoc');
 var twod = localStorage.getItem('twod');
+var skipped = false;
 
 // Construct URL
 var URL = 'https://www.googleapis.com/calendar/v3/calendars/ocdsb.ca_9dul7c0nu4poqkgbhsfu0qe2t0@group.calendar.google.com/events?key=AIzaSyB4JbJ8B3jPBr-uwqLkF6p-qD7lzBIadgw';
@@ -131,10 +133,14 @@ function request() {
 
 //Gets the Day from JSON
 function FindDay(data) {
-  if (data.search('Day') > 0) {
-      return data.substring(data.search('Day'), data.search('Day')+ 5);
+  if (moment().isAfter(moment().hours(15).minutes(15)) && skipped === false) {
+    skipped = true;
+    return 'no school';
     }
-  return 'no school' ;
+  else if (data.search('Day') > 0) {
+    return data.substring(data.search('Day'), data.search('Day')+ 5);
+    }
+    return 'no school';
   }
 
 //App Settings
