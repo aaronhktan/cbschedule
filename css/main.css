@@ -1,0 +1,27 @@
+body {
+    background-color: lightblue;
+}
+
+#title {
+	font-family: Roboto;
+	font-size: 26;
+	font-weight: 700;
+	text-align: center;
+	vertical-align: text-top;
+}
+
+div.input-title {
+	display: inline-block;
+    font-family: Roboto;
+	font-weight: 300;
+	text-align: center;
+}
+
+#savebutton {
+	border: none;
+	color: green;
+	font-family: Roboto;
+	font-weight: 300;
+	padding-top: 10px;
+	text-align: center;
+}
