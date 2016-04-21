@@ -23,12 +23,13 @@ var twoc = localStorage.getItem('twoc');
 var twod = localStorage.getItem('twod');
 var skipped = false;
 var Day = 'day';
+var Time = 'time';
 
 // Construct URL
 var URL = 'https://www.googleapis.com/calendar/v3/calendars/ocdsb.ca_9dul7c0nu4poqkgbhsfu0qe2t0@group.calendar.google.com/events?key=AIzaSyB4JbJ8B3jPBr-uwqLkF6p-qD7lzBIadgw';
 var start = moment().startOf('day').format();
 var end = moment().endOf('day').format();
-var day = 0;
+var daySkipped = 0;
 
 // Make the request
 request();
@@ -42,25 +43,28 @@ function request() {
       
       // Extract data and save
       Day = FindDay(data);
-      localStorage.setItem('Day', Day);
   
       // Interpret data; try next day if not school day
       if (Day == 'no school') {
-        day ++;
-        start = moment().startOf('day').add(day, 'days').format();
-        end = moment().endOf('day').add(day, 'days').format();
+        daySkipped ++;
+        start = moment().startOf('day').add(daySkipped, 'days').format();
+        end = moment().endOf('day').add(daySkipped, 'days').format();
         request();
       } 
       //Show to user if school day
       else {
-        display(day);
+        localStorage.setItem('Day', Day);
+        localStorage.setItem('Time', moment().add(daySkipped, 'days').format("dddd") + ' the ' + moment().add(daySkipped, 'days').format("do"));
+        display(daySkipped);
       }
     },
     function(error) {
       // Failure!
       console.log('Failed fetching schedule data: ' + error);
       Day = localStorage.getItem('Day');
-      display(day);
+      Time = localStorage.getItem('Time');
+      card.subtitle(Time + ' was a ' + Day + '.');
+      card.body('You are offline or the day could not be fetched. Please try again later.');
     }
   );
 }
@@ -84,8 +88,11 @@ function display(day) {
       card.subtitle('It\'s a ' + Day + '.');
       console.log(Day);
       break;
+    case 1:
+      card.subtitle('Tomorrow will be a ' + Day + '.');
+      break;
     default:
-      card.subtitle(moment().add(day, 'days').format("dddd") + ' will be a ' + Day + '.');
+      card.subtitle(moment().add(day, 'days').format("dddd") + ' the ' + moment().add(day, 'days').format("do") + ' will be a ' + Day + '.');
   }
   if (onea === null) {
     card.body('Set your periods here with the Pebble app!');
