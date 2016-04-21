@@ -16,14 +16,14 @@
 
     // Make a data object to be sent, coercing value types to integers
     var options = {
-      'onea': period-1a-input.value,
-      'oneb': period-1b-input.value,
-      'onec': period-1c-input.value,
-      'oned': period-1d-input.value,
-      'twoa': period-2a-input.value,
-      'twob': period-2b-input.value,
-      'twoc': period-2c-input.value,
-      'twod': period-2d-input.value
+      'onea': onea,
+      'oneb': oneb,
+      'onec': onec,
+      'oned': oned,
+      'twoa': twoa,
+      'twob': twob,
+      'twoc': twoc,
+      'twod': twod
     };
 
     // Determine the correct return URL (emulator vs real watch)
