@@ -110,41 +110,6 @@
 			return s
 		};
 		
-		function updateControls() {
-			var onea = decodeURIcomponent($.urlParam("onea"));
-			if (onea != "") {
-				document.getElementById('period-1a-input').value = onea;
-			}
-			var oneb = decodeURIcomponent($.urlParam("oneb"));
-			if (oneb != "") {
-				document.getElementById('period-1b-input').value = oneb;
-			}
-			var onec = decodeURIcomponent($.urlParam("onec"));
-			if (onec != "") {
-				document.getElementById('period-1c-input').value = onec;
-			}
-			var oned = decodeURIcomponent($.urlParam("oned"));
-			if (oned != "") {
-				document.getElementById('period-1d-input').value = oned;
-			}
-			var twoa = decodeURIcomponent($.urlParam("twoa"));
-			if (twoa != "") {
-				document.getElementById('period-2a-input').value = twoa;
-			}
-			var twob = decodeURIcomponent($.urlParam("twob"));
-			if (twob != "") {
-				document.getElementById('period-2b-input').value = twob;
-			}
-			var twoc = decodeURIcomponent($.urlParam("twoc"));
-			if (twoc != "") {
-				document.getElementById('period-2c-input').value = twoc;
-			}
-			var twod = decodeURIcomponent($.urlParam("twod"));
-			if (twod != "") {
-				document.getElementById('period-2d-input').value = twod;
-			}
-		};
-		
 		function queryPeriods(paramName) {
 		    url = window.location.search.substring(1);
 		    params = url.split("&");
