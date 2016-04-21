@@ -15,12 +15,12 @@
 			</div>
 			<div class="input-title">
 				<strong>Period 1A</strong>
-				<input id="period-1a-input" type="text" onblur="this.value=removeSpaces(this.value);">
+				<input id="period-1a-input" type="text" onblur="this.value=trimSpaces(this.value);">
 				</input>
 			</div>
 			<div class="input-title">
 				<strong>Period 1B</strong>
-				<input id="period-1b-input" type="text" onblur="this.value=removeSpaces(this.value);">
+				<input id="period-1b-input" type="text" onblur="this.value=trimSpaces(this.value);">
 				</input>
 			</div>
 			<div class="input-title">
@@ -30,27 +30,27 @@
 			</div>
 			<div class="input-title">
 				<strong>Period 1D</strong>
-				<input id="period-1d-input" type="text" onblur="this.value=removeSpaces(this.value);">
+				<input id="period-1d-input" type="text" onblur="this.value=trimSpaces(this.value);">
 				</input>
 			</div>
 			<div class="input-title">
 				<strong>Period 2A</strong>
-				<input id="period-2a-input" type="text" onblur="this.value=removeSpaces(this.value);">
+				<input id="period-2a-input" type="text" onblur="this.value=trimSpaces(this.value);">
 				</input>
 			</div>
 			<div class="input-title">
 				<strong>Period 2B</strong>
-				<input id="period-2b-input" type="text" onblur="this.value=removeSpaces(this.value);">
+				<input id="period-2b-input" type="text" onblur="this.value=trimSpaces(this.value);">
 				</input>
 			</div>
 			<div class="input-title">
 				<strong>Period 2C</strong>
-				<input id="period-2c-input" type="text" onblur="this.value=removeSpaces(this.value);">
+				<input id="period-2c-input" type="text" onblur="this.value=trimSpaces(this.value);">
 				</input>
 			</div>
 			<div class="input-title">
 				<strong>Period 2D</strong>
-				<input id="period-2d-input" type="text" onblur="this.value=removeSpaces(this.value);">
+				<input id="period-2d-input" type="text" onblur="this.value=trimSpaces(this.value);">
 				</input>
 			</div>
 			<div id="savebutton">
@@ -103,8 +103,12 @@
 		    document.location = return_to + encodeURIComponent(JSON.stringify(options));
 		  });
 
-		function removeSpaces(string) {
- 		return string.split(' ').join('');
+		function trimSpaces(value){
+			s = value;
+			s = s.replace(/(^\s*)|(\s*$)/gi,"");
+			s = s.replace(/[ ]{2,}/gi," ");
+			s = s.replace(/\n /,"\n");
+			return s
 		}
 		
 		function updateControls() {
