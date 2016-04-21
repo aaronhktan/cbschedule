@@ -145,13 +145,13 @@
 			}
 		};
 		
-		function queryPeriods(string) {
+		function queryPeriods(paramName) {
 		    url = window.location.search.substring(1);
 		    params = url.split("&");
 		
 		    for (i=0; i<params.length; i++) {
 		        param = params[i].split("=");
-		        if (param[0] == string) {
+		        if (param[0] == paramName) {
 		            return param[1];
 		        }
 		    }
