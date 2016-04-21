@@ -23,7 +23,8 @@ var twoc = localStorage.getItem('twoc');
 var twod = localStorage.getItem('twod');
 var skipped = false;
 var Day = 'day';
-var Time = 'time';
+var dateFetched = 'date';
+var cycleDay = 0;
 
 // Construct URL
 var URL = 'https://www.googleapis.com/calendar/v3/calendars/ocdsb.ca_9dul7c0nu4poqkgbhsfu0qe2t0@group.calendar.google.com/events?key=AIzaSyB4JbJ8B3jPBr-uwqLkF6p-qD7lzBIadgw';
@@ -54,7 +55,7 @@ function request() {
       //Show to user if school day
       else {
         localStorage.setItem('Day', Day);
-        localStorage.setItem('Time', moment().add(daySkipped, 'days').format('YYYY-MM-DD'));
+        localStorage.setItem('dateFetched', moment().add(daySkipped, 'days').format('YYYY-MM-DD'));
         display(daySkipped);
       }
     },
@@ -62,9 +63,9 @@ function request() {
       // Failure!
       console.log('Failed fetching schedule data: ' + error);
       Day = localStorage.getItem('Day');
-      Time = localStorage.getItem('Time');
-      if (moment().isAfter(Time, 'day')) {
-        var timeShown = moment(Time).format('ddd Do MMMM');
+      dateFetched = localStorage.getItem('dateFetched');
+      if (moment().isAfter(dateFetched, 'day')) {
+        var timeShown = moment(dateFetched).format('ddd Do MMMM');
         card.subtitle(timeShown + ' was a ' + Day + '.');
       }
       else {
@@ -104,63 +105,71 @@ function display(day) {
     card.body('Set your periods here with the Pebble app!');
   }
   else {
-    switch(day.substring(4, 4)) {
+    cycleDay = parseInt(Day.substring(4,5));
+    console.log(cycleDay);
+    switch(cycleDay) {
       case 1:
-        if (moment().isBefore(moment().add(day, 'days').hour(9).minute(15))) {
-          card.body('Your first period is: ' + onea + '.');
+        if (moment().isBefore(moment().set({'hour': 09, 'minute':15}))) {
+          card.body('First period: ' + onea + '.');
         }
-        else if (moment().isBefore(moment().hour(10).minute(30))) {
-          card.body('Your second period is: ' + oneb + '.');
+        else if (moment().isBefore(moment().set({'hour': 10, 'minute':30}))) {
+          card.body('Second period: ' + oneb + '.');
         }
-        else if (moment().isBefore(moment().hour(12).minute(40))) {
-          card.body('Your third period is: ' + onec + '.');
+        else if (moment().isBefore(moment().set({'hour': 12, 'minute':40}))) {
+          card.body('Third period: ' + onec + '.');
         }
-        else if (moment().isBefore(moment().hour(14).minute(0))) {
-          card.body('Your fourth period is: ' + oned + '.');
+        else if (moment().isBefore(moment().set({'hour': 14, 'minute':0}))) {
+          card.body('Fourth period: ' + oned + '.');
+        }
+        else {
+          console.log(onea);
+          card.body('Tomorrow\'s first period: ' + onea + '.');
         }
         break;
       case 2:
         if (moment().isBefore(moment().add(day, 'days').hour(9).minute(15))) {
-          card.body('Your first period is: ' + twoa + '.');
+          card.body('First period: ' + twoa + '.');
         }
         else if (moment().isBefore(moment().hour(10).minute(30))) {
-          card.body('Your second period is: ' + twob + '.');
+          card.body('Second period: ' + twob + '.');
         }
         else if (moment().isBefore(moment().hour(12).minute(40))) {
-          card.body('Your third period is: ' + twoc + '.');
+          card.body('Third period: ' + twoc + '.');
         }
         else if (moment().isBefore(moment().hour(14).minute(0))) {
-          card.body('Your fourth period is: ' + twod + '.');
+          card.body('Fourth period: ' + twod + '.');
         }
         break;
       case 3:
         if (moment().isBefore(moment().add(day, 'days').hour(9).minute(15))) {
-          card.body('Your first period is: ' + oneb + '.');
+          card.body('First period: ' + oneb + '.');
         }
         else if (moment().isBefore(moment().hour(10).minute(30))) {
-          card.body('Your second period is: ' + onea + '.');
+          card.body('Second period: ' + onea + '.');
         }
         else if (moment().isBefore(moment().hour(12).minute(40))) {
-          card.body('Your third period is: ' + oned + '.');
+          card.body('Third period: ' + oned + '.');
         }
         else if (moment().isBefore(moment().hour(14).minute(0))) {
-          card.body('Your fourth period is: ' + onec + '.');
+          card.body('Fourth period: ' + onec + '.');
         }
         break;
       case 4:
         if (moment().isBefore(moment().add(day, 'days').hour(9).minute(15))) {
-          card.body('Your first period is: ' + twob + '.');
+          card.body('First period: ' + twob + '.');
         }
         else if (moment().isBefore(moment().hour(10).minute(30))) {
-          card.body('Your second period is: ' + twoa + '.');
+          card.body('Second period: ' + twoa + '.');
         }
         else if (moment().isBefore(moment().hour(12).minute(40))) {
-          card.body('Your third period is: ' + twod + '.');
+          card.body('Third period: ' + twod + '.');
         }
         else if (moment().isBefore(moment().hour(14).minute(0))) {
-          card.body('Your fourth period is: ' + twoc + '.');
+          card.body('Fourth period: ' + twoc + '.');
         }
         break;
+      default:
+        console.log('error');
     }
   }
 }
@@ -169,11 +178,13 @@ function display(day) {
 Pebble.addEventListener('showConfiguration', function() {
   var configURL = 'http://cbschedulemana.ga/index.html';
   Pebble.openURL(configURL);
+  console.log('Settings launched.');
 });
 
 // Decode the user's preferences
 Pebble.addEventListener('webviewclosed', function(e) {
   var configData = JSON.parse(decodeURIComponent(e.response));
+  console.log(configData.onea);
   onea = configData.onea;
   oneb = configData.oneb;
   onea = configData.onec;
