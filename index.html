@@ -151,9 +151,9 @@
 		
 		    for (i=0; i<params.length; i++) {
 		        param = params[i].split("=");
-		        alert(param);
 		        if (param[0] == paramName) {
-		            return param[1];
+		        	return param[1];
+		        	alert(param[1]);
 		        }
 	        	else if (window.location.search.substring(1).prototype.indexOf(paramName) == -1) {
 	        		return "";
