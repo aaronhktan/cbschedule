@@ -7,53 +7,56 @@
 		<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdCb3g9IjAgMCA4IDgiPgogIDxwYXRoIGQ9Ik01LjUgMGMtMS4zOCAwLTIuNSAxLjEyLTIuNSAyLjUgMCAuMTYgMCAuMzIuMDMuNDdsLTMuMDMgMy4wM3YyaDN2LTJoMnYtMWwuMDMtLjAzYy4xNS4wMy4zMS4wMy40Ny4wMyAxLjM4IDAgMi41LTEuMTIgMi41LTIuNXMtMS4xMi0yLjUtMi41LTIuNXptLjUgMWMuNTUgMCAxIC40NSAxIDFzLS40NSAxLTEgMS0xLS40NS0xLTEgLjQ1LTEgMS0xeiIgLz4KPC9zdmc+"</link>
 		<link href='https://fonts.googleapis.com/css?family=Roboto:300,700,400' rel='stylesheet' type='text/css'>
 		<link href="css/main.css" rel="stylesheet"></link>
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	</head>
 	<body>
-		<div id="title">
-			<p>CB Schedule Manager</p>
-		</div>
-		<div class="input-title">
-			<strong>Period 1A</strong>
-			<input id="period-1a-input" type="text" onblur=removeSpaces(this.value)>
-			</input>
-		</div>
-		<div class="input-title">
-			<strong>Period 1B</strong>
-			<input id="period-1b-input" type="text" onblur=removeSpaces(this.value)>
-			</input>
-		</div>
-		<div class="input-title">
-			<strong>Period 1C</strong>
-			<input id="period-1c-input" type="text" onblur=removeSpaces(this.value)>
-			</input>
-		</div>
-		<div class="input-title">
-			<strong>Period 1D</strong>
-			<input id="period-1d-input" type="text" onblur=removeSpaces(this.value)>
-			</input>
-		</div>
-		<div class="input-title">
-			<strong>Period 2A</strong>
-			<input id="period-2a-input" type="text" onblur=removeSpaces(this.value)>
-			</input>
-		</div>
-		<div class="input-title">
-			<strong>Period 2B</strong>
-			<input id="period-2b-input" type="text" onblur=removeSpaces(this.value)>
-			</input>
-		</div>
-		<div class="input-title">
-			<strong>Period 2C</strong>
-			<input id="period-2c-input" type="text" onblur=removeSpaces(this.value)>
-			</input>
-		</div>
-		<div class="input-title">
-			<strong>Period 2D</strong>
-			<input id="period-2d-input" type="text" onblur=removeSpaces(this.value)>
-			</input>
-		</div>
-		<div id="savebutton">
-			<input id="submit_button" type="button" value="Save">
+		<div data-role="page" id="page1">
+			<div id="title">
+				<p>CB Schedule Manager</p>
+			</div>
+			<div class="input-title">
+				<strong>Period 1A</strong>
+				<input id="period-1a-input" type="text" onblur=removeSpaces(this.value)>
+				</input>
+			</div>
+			<div class="input-title">
+				<strong>Period 1B</strong>
+				<input id="period-1b-input" type="text" onblur=removeSpaces(this.value)>
+				</input>
+			</div>
+			<div class="input-title">
+				<strong>Period 1C</strong>
+				<input id="period-1c-input" type="text" onblur=removeSpaces(this.value)>
+				</input>
+			</div>
+			<div class="input-title">
+				<strong>Period 1D</strong>
+				<input id="period-1d-input" type="text" onblur=removeSpaces(this.value)>
+				</input>
+			</div>
+			<div class="input-title">
+				<strong>Period 2A</strong>
+				<input id="period-2a-input" type="text" onblur=removeSpaces(this.value)>
+				</input>
+			</div>
+			<div class="input-title">
+				<strong>Period 2B</strong>
+				<input id="period-2b-input" type="text" onblur=removeSpaces(this.value)>
+				</input>
+			</div>
+			<div class="input-title">
+				<strong>Period 2C</strong>
+				<input id="period-2c-input" type="text" onblur=removeSpaces(this.value)>
+				</input>
+			</div>
+			<div class="input-title">
+				<strong>Period 2D</strong>
+				<input id="period-2d-input" type="text" onblur=removeSpaces(this.value)>
+				</input>
+			</div>
+			<div id="savebutton">
+				<input id="submit_button" type="button" value="Save">
+			</div>
 		</div>
 		<script>
 		  // Get a handle to the button's HTML element
@@ -100,11 +103,46 @@
 		    // Encode and send the data when the page closes
 		    document.location = return_to + encodeURIComponent(JSON.stringify(options));
 		  });
-		</script>
-		<script>
+
 		function removeSpaces(string) {
  		return string.split(' ').join('');
 		}
+		
+		function updateControls()
+			var onea = decodeURIcomponent($.urlParam("onea"));
+			if (onea != "") {
+				document.getElementById('period-1a-input').value = onea;
+			}
+			var oneb = decodeURIcomponent($.urlParam("oneb"));
+			if (oneb != "") {
+				document.getElementById('period-1b-input').value = oneb;
+			}
+			var onec = decodeURIcomponent($.urlParam("onec"));
+			if (onec != "") {
+				document.getElementById('period-1c-input').value = onec;
+			}
+			var oned = decodeURIcomponent($.urlParam("oned"));
+			if (oned != "") {
+				document.getElementById('period-1d-input').value = oned;
+			}
+			var twoa = decodeURIcomponent($.urlParam("twoa"));
+			if (twoa != "") {
+				document.getElementById('period-2a-input').value = twoa;
+			}
+			var twob = decodeURIcomponent($.urlParam("twob"));
+			if (twob != "") {
+				document.getElementById('period-2b-input').value = twob;
+			}
+			var twoc = decodeURIcomponent($.urlParam("twoc"));
+			if (twoc != "") {
+				document.getElementById('period-2c-input').value = twoc;
+			}
+			var twod = decodeURIcomponent($.urlParam("twod"));
+			if (twod != "") {
+				document.getElementById('period-2d-input').value = twod;
+			}
+		
+		$('#page1').bind('pageinit', updateControls)
 		</script>
 	</body>
 </html>
