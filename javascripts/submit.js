@@ -20,7 +20,7 @@
       'oneb': period-1b-input.value,
       'onec': period-1c-input.value,
       'oned': period-1d-input.value,
-	  'twoa': period-2a-input.value,
+      'twoa': period-2a-input.value,
       'twob': period-2b-input.value,
       'twoc': period-2c-input.value,
       'twod': period-2d-input.value
