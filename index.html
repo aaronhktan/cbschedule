@@ -8,15 +8,7 @@
 		<link href='https://fonts.googleapis.com/css?family=Roboto:300,700,400' rel='stylesheet' type='text/css'>
 		<link href="css/main.css" rel="stylesheet"></link>
 	</head>
-	<body>
-		document.getElementById('period-1a-input').value = querySt("onea")
-		document.getElementById('period-1b-input').value = querySt("oneb")
-		document.getElementById('period-1c-input').value = querySt("onec")
-		document.getElementById('period-1d-input').value = querySt("oned")
-		document.getElementById('period-2a-input').value = querySt("twoa")
-		document.getElementById('period-2b-input').value = querySt("twob")
-		document.getElementById('period-2c-input').value = querySt("twoc")
-		document.getElementById('period-2d-input').value = querySt("twod")
+	<body onload="loadSettings()"
 		
 		<div id="title">
 			<p>CB Schedule Manager</p>
@@ -116,7 +108,7 @@
 			s = s.replace(/[ ]{2,}/gi," ");
 			s = s.replace(/\n /,"\n");
 			return s
-		}
+		};
 		
 		function updateControls() {
 			var onea = decodeURIcomponent($.urlParam("onea"));
@@ -151,7 +143,7 @@
 			if (twod != "") {
 				document.getElementById('period-2d-input').value = twod;
 			}
-		}
+		};
 		
 		function queryPeriods(string) {
 		    url = window.location.search.substring(1);
@@ -163,6 +155,17 @@
 		            return param[1];
 		        }
 		    }
+		};
+		
+		function loadSettings() {
+			document.getElementById('period-1a-input').value = querySt("onea")
+			document.getElementById('period-1b-input').value = querySt("oneb")
+			document.getElementById('period-1c-input').value = querySt("onec")
+			document.getElementById('period-1d-input').value = querySt("oned")
+			document.getElementById('period-2a-input').value = querySt("twoa")
+			document.getElementById('period-2b-input').value = querySt("twob")
+			document.getElementById('period-2c-input').value = querySt("twoc")
+			document.getElementById('period-2d-input').value = querySt("twod")
 		}
 		
 		</script>
