@@ -7,56 +7,62 @@
 		<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdCb3g9IjAgMCA4IDgiPgogIDxwYXRoIGQ9Ik01LjUgMGMtMS4zOCAwLTIuNSAxLjEyLTIuNSAyLjUgMCAuMTYgMCAuMzIuMDMuNDdsLTMuMDMgMy4wM3YyaDN2LTJoMnYtMWwuMDMtLjAzYy4xNS4wMy4zMS4wMy40Ny4wMyAxLjM4IDAgMi41LTEuMTIgMi41LTIuNXMtMS4xMi0yLjUtMi41LTIuNXptLjUgMWMuNTUgMCAxIC40NSAxIDFzLS40NSAxLTEgMS0xLS40NS0xLTEgLjQ1LTEgMS0xeiIgLz4KPC9zdmc+"</link>
 		<link href='https://fonts.googleapis.com/css?family=Roboto:300,700,400' rel='stylesheet' type='text/css'>
 		<link href="css/main.css" rel="stylesheet"></link>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	</head>
 	<body>
-		<div data-role="page" id="page1">
-			<div id="title">
-				<p>CB Schedule Manager</p>
-			</div>
-			<div class="input-title">
-				<strong>Period 1A</strong>
-				<input id="period-1a-input" type="text" onblur="this.value=trimSpaces(this.value);">
-				</input>
-			</div>
-			<div class="input-title">
-				<strong>Period 1B</strong>
-				<input id="period-1b-input" type="text" onblur="this.value=trimSpaces(this.value);">
-				</input>
-			</div>
-			<div class="input-title">
-				<strong>Period 1C</strong>
-				<input id="period-1c-input" type="text" onblur="this.value=removeSpaces(this.value);">
-				</input>
-			</div>
-			<div class="input-title">
-				<strong>Period 1D</strong>
-				<input id="period-1d-input" type="text" onblur="this.value=trimSpaces(this.value);">
-				</input>
-			</div>
-			<div class="input-title">
-				<strong>Period 2A</strong>
-				<input id="period-2a-input" type="text" onblur="this.value=trimSpaces(this.value);">
-				</input>
-			</div>
-			<div class="input-title">
-				<strong>Period 2B</strong>
-				<input id="period-2b-input" type="text" onblur="this.value=trimSpaces(this.value);">
-				</input>
-			</div>
-			<div class="input-title">
-				<strong>Period 2C</strong>
-				<input id="period-2c-input" type="text" onblur="this.value=trimSpaces(this.value);">
-				</input>
-			</div>
-			<div class="input-title">
-				<strong>Period 2D</strong>
-				<input id="period-2d-input" type="text" onblur="this.value=trimSpaces(this.value);">
-				</input>
-			</div>
-			<div id="savebutton">
-				<input id="submit_button" type="button" value="Save">
-			</div>
+		document.getElementById('period-1a-input').value = querySt("onea")
+		document.getElementById('period-1b-input').value = querySt("oneb")
+		document.getElementById('period-1c-input').value = querySt("onec")
+		document.getElementById('period-1d-input').value = querySt("oned")
+		document.getElementById('period-2a-input').value = querySt("twoa")
+		document.getElementById('period-2b-input').value = querySt("twob")
+		document.getElementById('period-2c-input').value = querySt("twoc")
+		document.getElementById('period-2d-input').value = querySt("twod")
+		
+		<div id="title">
+			<p>CB Schedule Manager</p>
+		</div>
+		<div class="input-title">
+			<strong>Period 1A</strong>
+			<input id="period-1a-input" type="text" onblur="this.value=trimSpaces(this.value);">
+			</input>
+		</div>
+		<div class="input-title">
+			<strong>Period 1B</strong>
+			<input id="period-1b-input" type="text" onblur="this.value=trimSpaces(this.value);">
+			</input>
+		</div>
+		<div class="input-title">
+			<strong>Period 1C</strong>
+			<input id="period-1c-input" type="text" onblur="this.value=removeSpaces(this.value);">
+			</input>
+		</div>
+		<div class="input-title">
+			<strong>Period 1D</strong>
+			<input id="period-1d-input" type="text" onblur="this.value=trimSpaces(this.value);">
+			</input>
+		</div>
+		<div class="input-title">
+			<strong>Period 2A</strong>
+			<input id="period-2a-input" type="text" onblur="this.value=trimSpaces(this.value);">
+			</input>
+		</div>
+		<div class="input-title">
+			<strong>Period 2B</strong>
+			<input id="period-2b-input" type="text" onblur="this.value=trimSpaces(this.value);">
+			</input>
+		</div>
+		<div class="input-title">
+			<strong>Period 2C</strong>
+			<input id="period-2c-input" type="text" onblur="this.value=trimSpaces(this.value);">
+			</input>
+		</div>
+		<div class="input-title">
+			<strong>Period 2D</strong>
+			<input id="period-2d-input" type="text" onblur="this.value=trimSpaces(this.value);">
+			</input>
+		</div>
+		<div id="savebutton">
+			<input id="submit_button" type="button" value="Save">
 		</div>
 		<script>
 		  // Get a handle to the button's HTML element
@@ -147,7 +153,18 @@
 			}
 		}
 		
-		$('#page1').bind('pageinit', updateControls);
+		function queryPeriods(string) {
+		    url = window.location.search.substring(1);
+		    params = url.split("&");
+		
+		    for (i=0; i<params.length; i++) {
+		        param = params[i].split("=");
+		        if (param[0] == string) {
+		            return param[1];
+		        }
+		    }
+		}
+		
 		</script>
 	</body>
 </html>
