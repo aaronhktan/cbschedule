@@ -108,7 +108,7 @@
  		return string.split(' ').join('');
 		}
 		
-		function updateControls()
+		function updateControls() {
 			var onea = decodeURIcomponent($.urlParam("onea"));
 			if (onea != "") {
 				document.getElementById('period-1a-input').value = onea;
@@ -141,7 +141,7 @@
 			if (twod != "") {
 				document.getElementById('period-2d-input').value = twod;
 			}
-		
+		}
 		$('#page1').bind('pageinit', updateControls)
 		</script>
 	</body>
