@@ -27,9 +27,9 @@ var Time = 'time';
 
 // Construct URL
 var URL = 'https://www.googleapis.com/calendar/v3/calendars/ocdsb.ca_9dul7c0nu4poqkgbhsfu0qe2t0@group.calendar.google.com/events?key=AIzaSyB4JbJ8B3jPBr-uwqLkF6p-qD7lzBIadgw';
+var daySkipped = 0;
 var start = moment().startOf('day').format();
 var end = moment().endOf('day').format();
-var daySkipped = 0;
 
 // Make the request
 request();
@@ -54,7 +54,7 @@ function request() {
       //Show to user if school day
       else {
         localStorage.setItem('Day', Day);
-        localStorage.setItem('Time', moment().add(daySkipped, 'days').format("dddd") + ' the ' + moment().add(daySkipped, 'days').format("do"));
+        localStorage.setItem('Time', moment().add(daySkipped, 'days').format('YYYY-MM-DD'));
         display(daySkipped);
       }
     },
@@ -63,8 +63,14 @@ function request() {
       console.log('Failed fetching schedule data: ' + error);
       Day = localStorage.getItem('Day');
       Time = localStorage.getItem('Time');
-      card.subtitle(Time + ' was a ' + Day + '.');
-      card.body('You are offline or the day could not be fetched. Please try again later.');
+      if (moment().isAfter(Time, 'day')) {
+        var timeShown = moment(Time).format('ddd Do MMMM');
+        card.subtitle(timeShown + ' was a ' + Day + '.');
+      }
+      else {
+        card.subtitle('It is a ' + Day + '.');
+      }
+      card.body('You\'re offline!  :( Try again later.');
     }
   );
 }
