@@ -8,49 +8,49 @@
 		<link href='https://fonts.googleapis.com/css?family=Roboto:300,700,400' rel='stylesheet' type='text/css'>
 		<link href="css/main.css" rel="stylesheet"></link>
 	</head>
-	<body onload="loadSettings()">
+	<body>
 		
 		<div id="title">
 			<p>CB Schedule Manager</p>
 		</div>
 		<div class="input-title">
 			<strong>Period 1A</strong>
-			<input id="period-1a-input" type="text" onblur="this.value=trimSpaces(this.value);">
+			<input id="period-1a-input" type="text" onblur="this.value=trimSpaces(this.value);" value="queryPeriods(onea)">
 			</input>
 		</div>
 		<div class="input-title">
 			<strong>Period 1B</strong>
-			<input id="period-1b-input" type="text" onblur="this.value=trimSpaces(this.value);">
+			<input id="period-1b-input" type="text" onblur="this.value=trimSpaces(this.value);" value="queryPeriods(oneb)">
 			</input>
 		</div>
 		<div class="input-title">
 			<strong>Period 1C</strong>
-			<input id="period-1c-input" type="text" onblur="this.value=removeSpaces(this.value);">
+			<input id="period-1c-input" type="text" onblur="this.value=removeSpaces(this.value);" value="queryPeriods(onec)">
 			</input>
 		</div>
 		<div class="input-title">
 			<strong>Period 1D</strong>
-			<input id="period-1d-input" type="text" onblur="this.value=trimSpaces(this.value);">
+			<input id="period-1d-input" type="text" onblur="this.value=trimSpaces(this.value);" value="queryPeriods(oned)">
 			</input>
 		</div>
 		<div class="input-title">
 			<strong>Period 2A</strong>
-			<input id="period-2a-input" type="text" onblur="this.value=trimSpaces(this.value);">
+			<input id="period-2a-input" type="text" onblur="this.value=trimSpaces(this.value);" value="queryPeriods(twoa)">
 			</input>
 		</div>
 		<div class="input-title">
 			<strong>Period 2B</strong>
-			<input id="period-2b-input" type="text" onblur="this.value=trimSpaces(this.value);">
+			<input id="period-2b-input" type="text" onblur="this.value=trimSpaces(this.value);" value="queryPeriods(twob)">
 			</input>
 		</div>
 		<div class="input-title">
 			<strong>Period 2C</strong>
-			<input id="period-2c-input" type="text" onblur="this.value=trimSpaces(this.value);">
+			<input id="period-2c-input" type="text" onblur="this.value=trimSpaces(this.value);" value="queryPeriods(twoc)">
 			</input>
 		</div>
 		<div class="input-title">
 			<strong>Period 2D</strong>
-			<input id="period-2d-input" type="text" onblur="this.value=trimSpaces(this.value);">
+			<input id="period-2d-input" type="text" onblur="this.value=trimSpaces(this.value);" value="queryPeriods(twod)">
 			</input>
 		</div>
 		<div id="savebutton">
@@ -125,20 +125,6 @@
 		        }
 		    }
 		};
-		
-		function loadSettings() {
-			document.getElementById('period-1a-input').value = queryPeriods("onea");
-			alert("one a done!")
-			document.getElementById('period-1b-input').value = queryPeriods("oneb");
-			alert("one b done!")
-			document.getElementById('period-1c-input').value = queryPeriods("onec");
-			alert("one c done!")
-			document.getElementById('period-1d-input').value = queryPeriods("oned");
-			document.getElementById('period-2a-input').value = queryPeriods("twoa");
-			document.getElementById('period-2b-input').value = queryPeriods("twob");
-			document.getElementById('period-2c-input').value = queryPeriods("twoc");
-			document.getElementById('period-2d-input').value = queryPeriods("twod")
-		}
 		
 		</script>
 	</body>
