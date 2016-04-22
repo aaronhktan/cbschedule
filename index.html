@@ -23,6 +23,7 @@
 			    for (i=0; i<params.length; i++) {
 			        param = params[i].split("=");
 			        if (param[0] == paramName) {
+			        	alert(param[1]);
 			        	return param[1];
 			        }
 		        	else if (window.location.search.substring(1).prototype.indexOf(paramName) == -1) {
@@ -126,6 +127,7 @@
 		var twobinput = queryPeriods("twob");
 		var twocinput = queryPeriods("twoc");
 		var twodinput = queryPeriods("twod");
+		alert(oneainput);
 		document.getElementByID('period-1a-input').value = oneainput;
 		document.getElementByID('period-1b-input').value = onebinput;
 		document.getElementByID('period-1c-input').value = onecinput;
