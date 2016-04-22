@@ -39,7 +39,7 @@
 		</div>
 		<div class="input-title">
 			<strong>Period 1A</strong>
-			<input id="period-1a-input" type="text" onblur="this.value=trimSpaces(this.value)" value=queryPeriods(onea)>
+			<input id="period-1a-input" type="text" onblur="this.value=trimSpaces(this.value)">
 		</div>
 		<div class="input-title">
 			<strong>Period 1B</strong>
@@ -118,5 +118,22 @@
 		    // Encode and send the data when the page closes
 		    document.location = return_to + encodeURIComponent(JSON.stringify(options));
 		  });
+		  
+		var oneainput = queryPeriods("onea");
+		var onebinput = queryPeriods("oneb");
+		var onecinput = queryPeriods("onec");
+		var onedinput = queryPeriods("oned");
+		var twoainput = queryPeriods("twoa");
+		var twobinput = queryPeriods("twob");
+		var twocinput = queryPeriods("twoc");
+		var twodinput = queryPeriods("twod");
+		document.getElementByID('period-1a-input').color = red;
+		document.getElementByID('period-1b-input').value = onebinput;
+		document.getElementByID('period-1c-input').value = onecinput;
+		document.getElementByID('period-1d-input').value = onedinput;
+		document.getElementByID('period-2a-input').value = twoainput;
+		document.getElementByID('period-2b-input').value = twobinput;
+		document.getElementByID('period-2c-input').value = twocinput;
+		document.getElementByID('period-2d-input').value = twodinput;
 	</script>
 </html>
