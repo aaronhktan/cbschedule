@@ -14,7 +14,7 @@
  		</div>
  		<div class="input-title">
  			<strong>Period 1A</strong>
-			<input id="period-1a-input" type="text" onload="this.value=queryPeriods(onea)" onblur="this.value=removeSpaces(this.value)"/>
+			<input id="period-1a-input" type="text" onload="this.value=queryPeriods('onea')" onblur="this.value=removeSpaces(this.value)"/>
 		</div>
 		<div class="input-title">
 			<strong>Period 1B</strong>
@@ -104,7 +104,6 @@
 		</script>
 		<script>
 		function queryPeriods(paramName) {
-			alert("hello");
 			url = window.location.search.substring(1);
 			params = url.split("&");
 			for (i=0; i<params.length; i++) {
