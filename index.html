@@ -32,6 +32,15 @@
 		        	}
 			    }
 			};
+			
+			var oneainput = queryPeriods("onea");
+			var onebinput = queryPeriods("oneb");
+			var onecinput = queryPeriods("onec");
+			var onedinput = queryPeriods("oned");
+			var twoainput = queryPeriods("twoa");
+			var twobinput = queryPeriods("twob");
+			var twocinput = queryPeriods("twoc");
+			var twodinput = queryPeriods("twod");
 		</script>
 	</head>
 	<body>
@@ -127,16 +136,5 @@
 		    // Encode and send the data when the page closes
 		    document.location = return_to + encodeURIComponent(JSON.stringify(options));
 		  });
-		
-		var oneainput = queryPeriods("onea")
-		alert(oneainput);
-		document.getElementbyID('period-1a-input').value= "Gah";
-		document.getElementbyID("period-1b-input").value = queryPeriods("oneb");
-		document.getElementbyID("period-1c-input").value = queryPeriods("onec");
-		document.getElementbyID("period-1d-input").value = queryPeriods("oned");
-		document.getElementbyID("period-2a-input").value = queryPeriods("twoa");
-		document.getElementbyID("period-2b-input").value = queryPeriods("twob");
-		document.getElementbyID("period-2c-input").value = queryPeriods("twoc");
-		document.getElementbyID("period-2d-input").value = queryPeriods("twod");
 	</script>
 </html>
