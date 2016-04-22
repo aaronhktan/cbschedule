@@ -7,6 +7,18 @@
  		<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdCb3g9IjAgMCA4IDgiPgogIDxwYXRoIGQ9Ik01LjUgMGMtMS4zOCAwLTIuNSAxLjEyLTIuNSAyLjUgMCAuMTYgMCAuMzIuMDMuNDdsLTMuMDMgMy4wM3YyaDN2LTJoMnYtMWwuMDMtLjAzYy4xNS4wMy4zMS4wMy40Ny4wMyAxLjM4IDAgMi41LTEuMTIgMi41LTIuNXMtMS4xMi0yLjUtMi41LTIuNXptLjUgMWMuNTUgMCAxIC40NSAxIDFzLS40NSAxLTEgMS0xLS40NS0xLTEgLjQ1LTEgMS0xeiIgLz4KPC9zdmc+"/>
  		<link href='https://fonts.googleapis.com/css?family=Roboto:300,700,400' rel='stylesheet' type='text/css'>
  		<link href="css/main.css" rel="stylesheet"/>
+ 		<script>
+		function queryPeriods(paramName) {
+			url = window.location.search.substring(1);
+			params = url.split("&");
+			for (i=0; i<params.length; i++) {
+				param = params[i].split("=");
+			        if (param[0] == paramName) {
+			        	return param[1];
+			        }
+			}
+		};
+		</script>
  	</head>
  	<body>
  		<div id="title">
@@ -16,7 +28,8 @@
  			<strong>Period 1A</strong>
 			<input id="period-1a-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
 			<script>
-			document.getElementById('period-1a-input').value=queryPeriods(onea);
+			var koko = queryPeriods(onea);
+			document.getElementById('period-1a-input').value= koko;
 			</script>
 		</div>
 		<div class="input-title">
@@ -104,18 +117,6 @@
 			s = s.replace(/\n /,"\n");
 			return s
 		}
-		</script>
-		<script>
-		function queryPeriods(paramName) {
-			url = window.location.search.substring(1);
-			params = url.split("&");
-			for (i=0; i<params.length; i++) {
-				param = params[i].split("=");
-			        if (param[0] == paramName) {
-			        	return param[1];
-			        }
-			}
-		};
 		</script>
  	</body>
  </html>
