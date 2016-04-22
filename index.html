@@ -14,7 +14,7 @@
  		</div>
  		<div class="input-title">
  			<strong>Period 1A</strong>
-			<input id="period-1a-input" type="text" onload = "this.value=hello" onblur="this.value=removeSpaces(this.value);"/>
+			<input id="period-1a-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
 		</div>
 		<div class="input-title">
 			<strong>Period 1B</strong>
@@ -91,14 +91,18 @@
  		
  		    // Encode and send the data when the page closes
  		    document.location = return_to + encodeURIComponent(JSON.stringify(options));
- 		  });
+ 		  })
+ 		</script>
+ 		<script>
 		function removeSpaces(string) {
  			s = string;
 			s = s.replace(/(^\s*)|(\s*$)/gi,"");
 			s = s.replace(/[ ]{2,}/gi," ");
 			s = s.replace(/\n /,"\n");
 			return s
-		};
+		}
+		</script>
+		<script>
 		function queryPeriods(paramName) {
 			url = window.location.search.substring(1);
 			params = url.split("&");
