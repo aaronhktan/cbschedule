@@ -116,9 +116,9 @@
 		    // Encode and send the data when the page closes
 		    document.location = return_to + encodeURIComponent(JSON.stringify(options));
 		  });
-		  
-		var oneainput = queryPeriods("onea");
+		
 		document.getElementByID('period-onea-input').value = "hello";
+		var oneainput = queryPeriods("onea");
 		var onebinput = queryPeriods("oneb");
 		var onecinput = queryPeriods("onec");
 		var onedinput = queryPeriods("oned");
