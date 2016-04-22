@@ -126,9 +126,9 @@
 		    // Encode and send the data when the page closes
 		    document.location = return_to + encodeURIComponent(JSON.stringify(options));
 		  });
-		  
-		var text1 = document.getElementbyID("period-1a-input")
-		text1.value = "screams";
+		
+		var oneainput = queryPeriods("onea")
+		document.getElementbyID("period-1a-input").value = oneainput
 		document.getElementbyID("period-1b-input").value = queryPeriods("oneb");
 		document.getElementbyID("period-1c-input").value = queryPeriods("onec");
 		document.getElementbyID("period-1d-input").value = queryPeriods("oned");
