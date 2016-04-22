@@ -8,7 +8,7 @@
 		<link href='https://fonts.googleapis.com/css?family=Roboto:300,700,400' rel='stylesheet' type='text/css'>
 		<link href="css/main.css" rel="stylesheet"></link>
 	</head>
-	<body onload="loadSettings();">
+	<body>
 		<div id="title">
 			<p>CB Schedule Manager</p>
 		</div>
@@ -55,7 +55,6 @@
 		<div id="savebutton">
 			<input id="submit_button" type="button" value="Save">
 		</div>
-		
 		<script>
 		function loadSettings() {
 			document.getElementbyID('period-1a-input').value = queryPeriods(onea);
