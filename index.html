@@ -10,13 +10,19 @@
  		<script>
 		function queryPeriods(paramName) {
 			url = window.location.search.substring(1);
-			params = url.split("&");
-			for (i=0; i<params.length; i++) {
-				param = params[i].split("=");
-			        if (param[0] == paramName) {
-			        	return param[1];
-			        }
+			if (url.search(paramName) != -1) {
+				params = url.split("&");
+				for (i=0; i<params.length; i++) {
+					param = params[i].split("=");
+				        if (param[0] == paramName) {
+				        	return param[1];
+				        }
+				}
 			}
+			else {
+				return "";
+			}
+			
 		};
 		</script>
  	</head>
@@ -69,7 +75,7 @@
 			<input id="period-2b-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
 			<script>
 			var twobinput = queryPeriods("twob");
-			document.getElementById('period-2b-input').value= 2binput;
+			document.getElementById('period-2b-input').value= twobinput;
 			</script>
 		</div>
 		<div class="input-title">
