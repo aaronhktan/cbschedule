@@ -110,6 +110,7 @@
 		};
 		
 		function queryPeriods(paramName) {
+			alert("hello!");
 		    url = window.location.search.substring(1);
 		    params = url.split("&");
 		
@@ -117,17 +118,14 @@
 		        param = params[i].split("=");
 		        if (param[0] == paramName) {
 		        	return param[1];
-		        	alert(param[1]);
 		        }
 	        	else if (window.location.search.substring(1).prototype.indexOf(paramName) == -1) {
 	        		return "";
-	        		alert("error");
 	        	}
 		    }
 		};
 		
 		function loadSettings() {
-			alert("hello!");
 			document.getElementbyID('period-1a-input').value = queryPeriods(onea);
 			document.getElementbyID('period-1b-input').value = queryPeriods(oneb);
 			document.getElementbyID('period-1c-input').value = queryPeriods(onec);
