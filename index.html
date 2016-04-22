@@ -7,30 +7,6 @@
 		<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdCb3g9IjAgMCA4IDgiPgogIDxwYXRoIGQ9Ik01LjUgMGMtMS4zOCAwLTIuNSAxLjEyLTIuNSAyLjUgMCAuMTYgMCAuMzIuMDMuNDdsLTMuMDMgMy4wM3YyaDN2LTJoMnYtMWwuMDMtLjAzYy4xNS4wMy4zMS4wMy40Ny4wMyAxLjM4IDAgMi41LTEuMTIgMi41LTIuNXMtMS4xMi0yLjUtMi41LTIuNXptLjUgMWMuNTUgMCAxIC40NSAxIDFzLS40NSAxLTEgMS0xLS40NS0xLTEgLjQ1LTEgMS0xeiIgLz4KPC9zdmc+"/>
 		<link href='https://fonts.googleapis.com/css?family=Roboto:300,700,400' rel='stylesheet' type='text/css'/>
 		<link href="css/main.css" rel="stylesheet"/>
-		<script>
-			function trimSpaces(value){
-				s = value;
-				s = s.replace(/(^\s*)|(\s*$)/gi,"");
-				s = s.replace(/[ ]{2,}/gi," ");
-				s = s.replace(/\n /,"\n");
-				return s
-			};
-			
-			function queryPeriods(paramName) {
-			    url = window.location.search.substring(1);
-			    params = url.split("&");
-			
-			    for (i=0; i<params.length; i++) {
-			        param = params[i].split("=");
-			        if (param[0] == paramName) {
-			        	return param[1];
-			        }
-		        	else if (window.location.search.substring(1).prototype.indexOf(paramName) == -1) {
-		        		return "";
-		        	}
-			    }
-			};
-		</script>
 	</head>
 	<body>
 		<div id="title">
@@ -116,6 +92,29 @@
 		    // Encode and send the data when the page closes
 		    document.location = return_to + encodeURIComponent(JSON.stringify(options));
 		  });
+		  
+		  function trimSpaces(value){
+				s = value;
+				s = s.replace(/(^\s*)|(\s*$)/gi,"");
+				s = s.replace(/[ ]{2,}/gi," ");
+				s = s.replace(/\n /,"\n");
+				return s
+			};
+			
+			function queryPeriods(paramName) {
+			    url = window.location.search.substring(1);
+			    params = url.split("&");
+			
+			    for (i=0; i<params.length; i++) {
+			        param = params[i].split("=");
+			        if (param[0] == paramName) {
+			        	return param[1];
+			        }
+		        	else if (window.location.search.substring(1).prototype.indexOf(paramName) == -1) {
+		        		return "";
+		        	}
+			    }
+			};
 		</script>
 	</body>
 </html>
