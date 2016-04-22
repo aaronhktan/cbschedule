@@ -14,7 +14,10 @@
  		</div>
  		<div class="input-title">
  			<strong>Period 1A</strong>
-			<input id="period-1a-input" type="text" onload="this.value=queryPeriods('onea')" onblur="this.value=removeSpaces(this.value)"/>
+			<input id="period-1a-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+			<script>
+			document.getElementById('period-1a-input').value=queryPeriods(onea);
+			</script>
 		</div>
 		<div class="input-title">
 			<strong>Period 1B</strong>
