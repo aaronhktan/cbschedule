@@ -47,7 +47,8 @@
 		<div id="savebutton">
 			<input type="button" id="submit_button" value="Save"/>
 		</div>
-		<script>
+	</body>
+	<script>
 		  // Get a handle to the button's HTML element
 		  var submitButton = document.getElementById('submit_button');
 		
@@ -76,7 +77,7 @@
 		    };
 		
 		    // Determine the correct return URL (emulator vs real watch)
-		    function getQueryParam(variable, defaultValue) {
+		function getQueryParam(variable, defaultValue) {
 		      var query = location.search.substring(1);
 		      var vars = query.split('&');
 		      for (var i = 0; i < vars.length; i++) {
@@ -91,30 +92,29 @@
 		
 		    // Encode and send the data when the page closes
 		    document.location = return_to + encodeURIComponent(JSON.stringify(options));
-		  });
+		});
 		  
-		  function trimSpaces(value){
+		function trimSpaces(value){
 				s = value;
 				s = s.replace(/(^\s*)|(\s*$)/gi,"");
 				s = s.replace(/[ ]{2,}/gi," ");
 				s = s.replace(/\n /,"\n");
 				return s
-			};
+		};
 			
-			function queryPeriods(paramName) {
-			    url = window.location.search.substring(1);
-			    params = url.split("&");
-			
-			    for (i=0; i<params.length; i++) {
-			        param = params[i].split("=");
-			        if (param[0] == paramName) {
-			        	return param[1];
-			        }
-		        	else if (window.location.search.substring(1).prototype.indexOf(paramName) == -1) {
-		        		return "";
-		        	}
-			    }
-			};
-		</script>
-	</body>
+		function queryPeriods(paramName) {
+		    url = window.location.search.substring(1);
+		    params = url.split("&");
+		
+		    for (i=0; i<params.length; i++) {
+		        param = params[i].split("=");
+		        if (param[0] == paramName) {
+		        	return param[1];
+		        }
+	        	else if (window.location.search.substring(1).prototype.indexOf(paramName) == -1) {
+	        		return "";
+	        	}
+		    }
+		};
+	</script>
 </html>
