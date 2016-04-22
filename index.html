@@ -39,7 +39,7 @@
 		<form>
 			<div class="input-title">
 				<strong>Period 1A</strong>
-				<input type="text" id="period-onea-input" onblur="this.value=trimSpaces(this.value)" value="hello"/>
+				<input type="text" id="period-onea-input" onblur="this.value=trimSpaces(this.value)"/>
 			</div>
 			<div class="input-title">
 				<strong>Period 1B</strong>
@@ -74,24 +74,24 @@
 			</div>
 		</form>
 		<script>
-			var oneainput = queryPeriods("onea");
+			var oneavalue = queryPeriods("onea");
 			alert(hello);
-			var onebinput = queryPeriods("oneb");
+			var onebvalue = queryPeriods("oneb");
 			alert(hello);
-			var onecinput = queryPeriods("onec");
-			var onedinput = queryPeriods("oned");
-			var twoainput = queryPeriods("twoa");
-			var twobinput = queryPeriods("twob");
-			var twocinput = queryPeriods("twoc");
-			var twodinput = queryPeriods("twod");
-			document.getElementByID('period-onea-input').value=hello;
-			document.getElementByID('period-oneb-input').value=onebinput;
-			document.getElementByID('period-onec-input').value=onecinput;
-			document.getElementByID('period-oned-input').value=onedinput;
-			document.getElementByID('period-twoa-input').value=twoainput;
-			document.getElementByID('period-twob-input').value=twobinput;
-			document.getElementByID('period-twoc-input').value=twocinput;
-			document.getElementByID('period-twod-input').value=twodinput;
+			var onecvalue = queryPeriods("onec");
+			var onedvalue = queryPeriods("oned");
+			var twoavalue = queryPeriods("twoa");
+			var twobvalue = queryPeriods("twob");
+			var twocvalue = queryPeriods("twoc");
+			var twodvalue = queryPeriods("twod");
+			document.getElementByID('period-onea-input').value=oneavalue;
+			document.getElementByID('period-oneb-input').value=onebvalue;
+			document.getElementByID('period-onec-input').value=onecvalue;
+			document.getElementByID('period-oned-input').value=onedvalue;
+			document.getElementByID('period-twoa-input').value=twoavalue;
+			document.getElementByID('period-twob-input').value=twobvalue;
+			document.getElementByID('period-twoc-input').value=twocvalue;
+			document.getElementByID('period-twod-input').value=twodvalue;
 		
 		  // Get a handle to the button's HTML element
 		  var submitButton = document.getElementById('submit_button');
