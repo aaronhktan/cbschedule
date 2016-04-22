@@ -39,7 +39,7 @@
 		</div>
 		<div class="input-title">
 			<strong>Period 1A</strong>
-			<input id="period-1a-input" type="text" onblur="this.value=trimSpaces(this.value)">
+			<input id="period-1a-input" type="text" onblur="this.value=trimSpaces(this.value)" defaultvalue="queryPeriods(onea)">
 		</div>
 		<div class="input-title">
 			<strong>Period 1B</strong>
@@ -127,7 +127,6 @@
 		var twobinput = queryPeriods("twob");
 		var twocinput = queryPeriods("twoc");
 		var twodinput = queryPeriods("twod");
-		alert(oneainput);
 		document.getElementByID('period-1a-input').value = oneainput;
 		document.getElementByID('period-1b-input').value = onebinput;
 		document.getElementByID('period-1c-input').value = onecinput;
