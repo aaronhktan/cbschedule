@@ -38,35 +38,35 @@
 		</div>
 		<div class="input-title">
 			<strong>Period 1A</strong>
-			<input id="period-1a-input" type="text" onblur="this.value=trimSpaces(this.value)"/>
+			<input id="period-onea-input" type="text" onblur="this.value=trimSpaces(this.value)"/>
 		</div>
 		<div class="input-title">
 			<strong>Period 1B</strong>
-			<input id="period-1b-input" type="text" onblur="this.value=trimSpaces(this.value)"/>
+			<input id="period-oneb-input" type="text" onblur="this.value=trimSpaces(this.value)"/>
 		</div>
 		<div class="input-title">
 			<strong>Period 1C</strong>
-			<input id="period-1c-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+			<input id="period-onec-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
 		</div>
 		<div class="input-title">
 			<strong>Period 1D</strong>
-			<input id="period-1d-input" type="text" onblur="this.value=trimSpaces(this.value)"/>
+			<input id="period-oned-input" type="text" onblur="this.value=trimSpaces(this.value)"/>
 		</div>
 		<div class="input-title">
 			<strong>Period 2A</strong>
-			<input id="period-2a-input" type="text" onblur="this.value=trimSpaces(this.value)"/>
+			<input id="period-onea-input" type="text" onblur="this.value=trimSpaces(this.value)"/>
 		</div>
 		<div class="input-title">
 			<strong>Period 2B</strong>
-			<input id="period-2b-input" type="text" onblur="this.value=trimSpaces(this.value)"/>
+			<input id="period-oneb-input" type="text" onblur="this.value=trimSpaces(this.value)"/>
 		</div>
 		<div class="input-title">
 			<strong>Period 2C</strong>
-			<input id="period-2c-input" type="text" onblur="this.value=trimSpaces(this.value)"/>
+			<input id="period-onec-input" type="text" onblur="this.value=trimSpaces(this.value)"/>
 		</div>
 		<div class="input-title">
 			<strong>Period 2D</strong>
-			<input id="period-2d-input" type="text" onblur="this.value=trimSpaces(this.value)"/>
+			<input id="period-oned-input" type="text" onblur="this.value=trimSpaces(this.value)"/>
 		</div>
 		<div id="savebutton">
 			<input id="submit_button" type="button" value="Save"/>
@@ -78,14 +78,14 @@
 		  // Add a 'click' listener
 		  submitButton.addEventListener('click', function() {
 		    // Get the config data from the UI elements
-		    var onea = document.getElementById('period-1a-input').value;
-		    var oneb = document.getElementById('period-1b-input').value;
-		    var onec = document.getElementById('period-1c-input').value;
-		    var oned = document.getElementById('period-1d-input').value;
-		    var twoa = document.getElementById('period-2a-input').value;
-		    var twob = document.getElementById('period-2b-input').value;
-		    var twoc = document.getElementById('period-2c-input').value;
-		    var twod = document.getElementById('period-2d-input').value;
+		    var onea = document.getElementById('period-onea-input').value;
+		    var oneb = document.getElementById('period-oneb-input').value;
+		    var onec = document.getElementById('period-onec-input').value;
+		    var oned = document.getElementById('period-oned-input').value;
+		    var twoa = document.getElementById('period-twoa-input').value;
+		    var twob = document.getElementById('period-twob-input').value;
+		    var twoc = document.getElementById('period-twoc-input').value;
+		    var twod = document.getElementById('period-twod-input').value;
 		
 		    // Make a data object to be sent, coercing value types to integers
 		    var options = {
@@ -118,8 +118,7 @@
 		  });
 		  
 		var oneainput = queryPeriods("onea");
-		alert(oneainput + "hello");
-		document.getElementByID('period-1a-input').value = "hello";
+		document.getElementByID('period-onea-input').value = "hello";
 		var onebinput = queryPeriods("oneb");
 		var onecinput = queryPeriods("onec");
 		var onedinput = queryPeriods("oned");
@@ -127,13 +126,13 @@
 		var twobinput = queryPeriods("twob");
 		var twocinput = queryPeriods("twoc");
 		var twodinput = queryPeriods("twod");
-		document.getElementByID('period-1b-input').value = onebinput;
-		document.getElementByID('period-1c-input').value = onecinput;
-		document.getElementByID('period-1d-input').value = onedinput;
-		document.getElementByID('period-2a-input').value = twoainput;
-		document.getElementByID('period-2b-input').value = twobinput;
-		document.getElementByID('period-2c-input').value = twocinput;
-		document.getElementByID('period-2d-input').value = twodinput;
+		document.getElementByID('period-oneb-input').value = onebinput;
+		document.getElementByID('period-onec-input').value = onecinput;
+		document.getElementByID('period-oned-input').value = onedinput;
+		document.getElementByID('period-twoa-input').value = twoainput;
+		document.getElementByID('period-twob-input').value = twobinput;
+		document.getElementByID('period-twoc-input').value = twocinput;
+		document.getElementByID('period-twod-input').value = twodinput;
 		</script>
 	</body>
 </html>
