@@ -14,7 +14,7 @@
  		</div>
  		<div class="input-title">
  			<strong>Period 1A</strong>
-			<input id="period-1a-input" type="text" onload = "this.value=queryPeriods(onea)" onblur="this.value=removeSpaces(this.value);"/>
+			<input id="period-1a-input" type="text" onload = "this.value=hello" onblur="this.value=removeSpaces(this.value);"/>
 		</div>
 		<div class="input-title">
 			<strong>Period 1B</strong>
@@ -98,6 +98,16 @@
 			s = s.replace(/[ ]{2,}/gi," ");
 			s = s.replace(/\n /,"\n");
 			return s
+		};
+		function queryPeriods(paramName) {
+			url = window.location.search.substring(1);
+			params = url.split("&");
+			for (i=0; i<params.length; i++) {
+				param = params[i].split("=");
+			        if (param[0] == paramName) {
+			        	return param[1];
+			        }
+			}
 		};
 		</script>
  	</body>
