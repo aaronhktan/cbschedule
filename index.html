@@ -127,9 +127,8 @@
 		    document.location = return_to + encodeURIComponent(JSON.stringify(options));
 		  });
 		  
-		alert("hello");
-		document.getElementbyID("period-1a-input").value = "screams";
-		alert("hello");
+		var text1 = document.getElementbyID("period-1a-input")
+		text1.value = "screams";
 		document.getElementbyID("period-1b-input").value = queryPeriods("oneb");
 		document.getElementbyID("period-1c-input").value = queryPeriods("onec");
 		document.getElementbyID("period-1d-input").value = queryPeriods("oned");
