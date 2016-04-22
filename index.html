@@ -8,7 +8,7 @@
 		<link href='https://fonts.googleapis.com/css?family=Roboto:300,700,400' rel='stylesheet' type='text/css'>
 		<link href="css/main.css" rel="stylesheet"></link>
 	</head>
-	<body>
+	<body onload="loadSettings()">
 		<div id="title">
 			<p>CB Schedule Manager</p>
 		</div>
@@ -55,18 +55,6 @@
 		<div id="savebutton">
 			<input id="submit_button" type="button" value="Save">
 		</div>
-		<script>
-		function loadSettings() {
-			document.getElementbyID('period-1a-input').value = queryPeriods(onea);
-			document.getElementbyID('period-1b-input').value = queryPeriods(oneb);
-			document.getElementbyID('period-1c-input').value = queryPeriods(onec);
-			document.getElementbyID('period-1d-input').value = queryPeriods(oned);
-			document.getElementbyID('period-2a-input').value = queryPeriods(twoa);
-			document.getElementbyID('period-2b-input').value = queryPeriods(twob);
-			document.getElementbyID('period-2c-input').value = queryPeriods(twoc);
-			document.getElementbyID('period-2d-input').value = queryPeriods(twod)
-		}
-		</script>
 	</body>
 	<script>
 		  // Get a handle to the button's HTML element
@@ -137,5 +125,16 @@
 	        	}
 		    }
 		};
+		
+		function loadSettings() {
+			document.getElementbyID('period-1a-input').value = queryPeriods(onea);
+			document.getElementbyID('period-1b-input').value = queryPeriods(oneb);
+			document.getElementbyID('period-1c-input').value = queryPeriods(onec);
+			document.getElementbyID('period-1d-input').value = queryPeriods(oned);
+			document.getElementbyID('period-2a-input').value = queryPeriods(twoa);
+			document.getElementbyID('period-2b-input').value = queryPeriods(twob);
+			document.getElementbyID('period-2c-input').value = queryPeriods(twoc);
+			document.getElementbyID('period-2d-input').value = queryPeriods(twod)
+		}
 	</script>
 </html>
