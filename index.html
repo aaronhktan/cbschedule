@@ -30,9 +30,30 @@
 		        	}
 			    }
 			};
+			
+			function loadSettings() {
+			var oneavalue = queryPeriods("onea");
+			alert(hello);
+			var onebvalue = queryPeriods("oneb");
+			alert(hello);
+			var onecvalue = queryPeriods("onec");
+			var onedvalue = queryPeriods("oned");
+			var twoavalue = queryPeriods("twoa");
+			var twobvalue = queryPeriods("twob");
+			var twocvalue = queryPeriods("twoc");
+			var twodvalue = queryPeriods("twod");
+			document.getElementByID('period-onea-input').value=oneavalue;
+			document.getElementByID('period-oneb-input').value=onebvalue;
+			document.getElementByID('period-onec-input').value=onecvalue;
+			document.getElementByID('period-oned-input').value=onedvalue;
+			document.getElementByID('period-twoa-input').value=twoavalue;
+			document.getElementByID('period-twob-input').value=twobvalue;
+			document.getElementByID('period-twoc-input').value=twocvalue;
+			document.getElementByID('period-twod-input').value=twodvalue;
+			};
 		</script>
 	</head>
-	<body>
+	<body onload="loadSettings()">
 		<div id="title">
 			<p>CB Schedule Manager</p>
 		</div>
@@ -74,25 +95,6 @@
 			</div>
 		</form>
 		<script>
-			var oneavalue = queryPeriods("onea");
-			alert(hello);
-			var onebvalue = queryPeriods("oneb");
-			alert(hello);
-			var onecvalue = queryPeriods("onec");
-			var onedvalue = queryPeriods("oned");
-			var twoavalue = queryPeriods("twoa");
-			var twobvalue = queryPeriods("twob");
-			var twocvalue = queryPeriods("twoc");
-			var twodvalue = queryPeriods("twod");
-			document.getElementByID('period-onea-input').value=oneavalue;
-			document.getElementByID('period-oneb-input').value=onebvalue;
-			document.getElementByID('period-onec-input').value=onecvalue;
-			document.getElementByID('period-oned-input').value=onedvalue;
-			document.getElementByID('period-twoa-input').value=twoavalue;
-			document.getElementByID('period-twob-input').value=twobvalue;
-			document.getElementByID('period-twoc-input').value=twocvalue;
-			document.getElementByID('period-twod-input').value=twodvalue;
-		
 		  // Get a handle to the button's HTML element
 		  var submitButton = document.getElementById('submit_button');
 		
