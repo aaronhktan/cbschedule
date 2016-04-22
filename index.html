@@ -48,7 +48,7 @@
 		</div>
 		<div class="input-title">
 			<strong>Period 1A</strong>
-			<input id="period-1a-input" type="text" onblur="this.value=trimSpaces(this.value)" value=onainput>
+			<input id="period-1a-input" type="text" onblur="this.value=trimSpaces(this.value)">
 		</div>
 		<div class="input-title">
 			<strong>Period 1B</strong>
@@ -127,5 +127,7 @@
 		    // Encode and send the data when the page closes
 		    document.location = return_to + encodeURIComponent(JSON.stringify(options));
 		  });
+		  
+		  document.getElementByID('period-1a-input').value = oneainput;
 	</script>
 </html>
