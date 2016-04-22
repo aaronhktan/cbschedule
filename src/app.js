@@ -64,12 +64,12 @@ function request() {
       console.log('Failed fetching schedule data: ' + error);
       Day = localStorage.getItem('Day');
       dateFetched = localStorage.getItem('dateFetched');
+      var timeShown = moment(dateFetched).format('ddd Do MMMM');
       if (moment().isAfter(dateFetched, 'day')) {
-        var timeShown = moment(dateFetched).format('ddd Do MMMM');
         card.subtitle(timeShown + ' was a ' + Day + '.');
       }
       else {
-        card.subtitle('It is a ' + Day + '.');
+        card.subtitle(timeShown + ' is a ' + Day + '.');
       }
       card.body('You\'re offline!  :( Try again later.');
     }
@@ -176,9 +176,9 @@ function display(day) {
 
 //App Settings
 Pebble.addEventListener('showConfiguration', function() {
-  var configURL = 'http://cbschedulemana.ga/index.html';
+  var configURL = 'http://cbschedulemana.ga/index.html?' + 'onea=' + encodeURIComponent(onea) + '&oneb=' + encodeURIComponent(oneb) + '&onec=' + encodeURIComponent(onec)+ '&oned=' + encodeURIComponent(oned) + '&twoa=' + encodeURIComponent(twoa) + '&twob=' + encodeURIComponent(twob) + '&twoc=' + encodeURIComponent(twoc) + '&twod=' + encodeURIComponent(twod);
   Pebble.openURL(configURL);
-  console.log('Settings launched.');
+  console.log(configURL);
 });
 
 // Decode the user's preferences
@@ -187,12 +187,12 @@ Pebble.addEventListener('webviewclosed', function(e) {
   console.log(configData.onea);
   onea = configData.onea;
   oneb = configData.oneb;
-  onea = configData.onec;
-  onea = configData.oned;
+  onec = configData.onec;
+  oned = configData.oned;
   twoa = configData.twoa;
-  twoa = configData.twoa;
-  twoa = configData.twoa;
-  twoa = configData.twoa;
+  twob = configData.twob;
+  twoc = configData.twoc;
+  twod = configData.twod;
   localStorage.setItem('onea', onea);
   localStorage.setItem('oneb', oneb);
   localStorage.setItem('onec', onec);
@@ -201,4 +201,5 @@ Pebble.addEventListener('webviewclosed', function(e) {
   localStorage.setItem('twob', twob);
   localStorage.setItem('twoc', twoc);
   localStorage.setItem('twod', twod);
+  request();
 });
