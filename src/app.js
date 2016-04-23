@@ -56,6 +56,7 @@ function request() {
       else {
         localStorage.setItem('Day', Day);
         localStorage.setItem('dateFetched', moment().add(daySkipped, 'days').format('YYYY-MM-DD'));
+        console.log(moment().add(daySkipped, 'days').format('YYYY-MM-DD'));
         display(daySkipped);
       }
     },
@@ -85,7 +86,7 @@ function FindDay(data) {
   else if (data.search('Day') > 0) {
     return data.substring(data.search('Day'), data.search('Day')+ 5);
     }
-    return 'no school';
+  return 'no school';
   }
 
 //Displays things to user
@@ -93,20 +94,18 @@ function display(day) {
   switch(day) {
     case 0:
       card.subtitle('It\'s a ' + Day + '.');
-      console.log(Day);
       break;
     case 1:
       card.subtitle('Tomorrow will be a ' + Day + '.');
       break;
     default:
-      card.subtitle(moment().add(day, 'days').format("dddd") + ' the ' + moment().add(day, 'days').format("do") + ' will be a ' + Day + '.');
+      card.subtitle(moment().add(day, 'days').format("dddd") + ' the ' + moment().add(day, 'days').format("Do") + ' will be a ' + Day + '.');
   }
   if (onea === null) {
     card.body('Set your periods here with the Pebble app!');
   }
   else {
     cycleDay = parseInt(Day.substring(4,5));
-    console.log(cycleDay);
     switch(cycleDay) {
       case 1:
         if (moment().isBefore(moment().set({'hour': 09, 'minute':15}))) {
