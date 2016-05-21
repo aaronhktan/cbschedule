@@ -1,16 +1,130 @@
 var UI = require('ui');
 var ajax = require('ajax');
 var moment = require('moment');
+var Vector2 = require('vector2');
 
-// Create a Card with title and subtitle
-var card = new UI.Card({
-  title:'CB Schedule',
-  scrollable: true,
-  subtitle:'Fetching...',
+// Create a Window to show main information
+var mainWind = new UI.Window({
+  backgroundColor: 'black'
+});
+
+//Colours in top half in blue
+var backTop = new UI.Rect({
+  size: new Vector2(144, 84),
+  backgroundColor: 'blue moon'
+});
+
+//Colours in bottom half in green
+var backBottom = new UI.Rect({
+  size: new Vector2(144, 84),
+  position: new Vector2(0, 84),
+  backgroundColor: 'jaeger green'
+});
+
+//Colours in main area in white
+var backMain = new UI.Rect({
+  size: new Vector2(120, 146),
+  position: new Vector2(11, 12),
+  backgroundColor: 'white'
+});
+
+//Top of rectangle
+var borderTop = new UI.Line({
+  position: new Vector2(11,12),
+  position2: new Vector2(131, 12),
+  strokeColor: 'black',
+  strokeWidth: 5
+});
+
+//Left of rectangle
+var borderLeft = new UI.Line({
+  position: new Vector2(11,12),
+  position2: new Vector2(11, 156),
+  strokeColor: 'black',
+  strokeWidth: 5
+});
+
+//Right of rectangle
+var borderRight = new UI.Line({
+  position: new Vector2(131,12),
+  position2: new Vector2(131, 156),
+  strokeColor: 'black',
+  strokeWidth: 5
+});
+
+//Bottom of rectangle
+var borderBottom = new UI.Line({
+  position: new Vector2(11,156),
+  position2: new Vector2(131, 156),
+  strokeColor: 'black',
+  strokeWidth: 5
+});
+
+//Today is...
+var dayDescription = new UI.Text({
+  size: new Vector2(144, 25),
+  font: 'gothic-18',
+  position: new Vector2(0,22),
+  color: 'black',
+  text: 'Fetching...',
+  textAlign: 'center'
+});
+
+//Day
+var dayText = new UI.Text({
+  size: new Vector2(144, 42),
+  font: 'gothic-28-bold',
+  position: new Vector2(0, 40),
+  color: 'black',
+  text: '...',
+  textAlign: 'center'
+});
+
+//Next period is...
+var periodDescription = new UI.Text({
+  size: new Vector2(144, 25),
+  font: 'gothic-18',
+  position: new Vector2(0, 90),
+  color: 'black',
+  text: 'Fetching...',
+  textAlign: 'center'
+});
+
+//French or English or whatever
+var periodText = new UI.Text({
+  size: new Vector2(100, 35),
+  font: 'gothic-28-bold',
+  position: new Vector2(22, 110),
+  color: 'black',
+  text: '...',
+  textAlign: 'center',
+  textOverflow: 'ellipsis'
+});
+
+//Center separation lines
+var separatorLines = new UI.Text({
+  size: new Vector2(100, 35),
+  font: 'gothic-18',
+  position: new Vector2(22, 71),
+  color: 'black',
+  text: '- - - - - - - - - - -',
+  textAlign: 'center',
 });
 
 // Display the Card
-card.show();
+mainWind.add(backTop);
+mainWind.add(backBottom);
+mainWind.add(backMain);
+mainWind.add(borderTop);
+mainWind.add(borderLeft);
+mainWind.add(borderRight);
+mainWind.add(borderBottom);
+mainWind.add(dayDescription);
+mainWind.add(dayText);
+mainWind.add(periodDescription);
+mainWind.add(periodText);
+mainWind.add(separatorLines);
+mainWind.show();
 
 // Construct periods
 var onea = localStorage.getItem('onea');
@@ -22,6 +136,7 @@ var twob = localStorage.getItem('twob');
 var twoc = localStorage.getItem('twoc');
 var twod = localStorage.getItem('twod');
 var skipped = false;
+var online = true;
 var Day = 'day';
 var dateFetched = 'date';
 
@@ -36,7 +151,7 @@ request();
 function request() {
   ajax(
     {
-      url: URL + "&timeMin=" + start + "&timeMax=" + end,
+      url: URL + "&timeMin=" + start + "&timeMax=" + end
     },
     function(data) {
       // Success!
@@ -63,15 +178,19 @@ function request() {
     function(error) {
       // Failure!
       console.log('Failed fetching schedule data: ' + error);
+      online = false;
       Day = localStorage.getItem('Day');
       dateFetched = localStorage.getItem('dateFetched');
       var timeShown = moment(dateFetched).format('ddd Do MMMM');
       if (moment().isAfter(dateFetched, 'day')) {
-        card.subtitle(timeShown + ' was a ' + Day + '.');
-        card.body('You\'re offline!  :( Try again later.');
+        dayDescription.text(timeShown + ' was a');
+        dayText.text(Day);
+        periodDescription.text('You\'re offline!');
+        periodText.text(':(');
       }
       else {
-        card.subtitle(timeShown + ' is a ' + Day + '.');
+        dayDescription.text(timeShown + ' is a');
+        dayText.text(Day);
         setPeriod(parseInt(Day.substring(4,5)));
       }
     }
@@ -81,26 +200,46 @@ function request() {
 //Gets the Day from JSON
 function FindDay(data) {
   if (moment().isAfter(moment().hours(15).minutes(15)) && skipped === false) {
+    console.log('skipped');
     skipped = true;
     return 'no school';
-    }
-  else if (data.search('Day') > 0) {
-    return data.substring(data.search('Day'), data.search('Day')+ 5);
-    }
-  return 'no school';
+  } else if (data.search('Day') >= 0) {
+      console.log('Day found');
+      for (var i=0; i<data.length; i++) {
+        console.log(i);
+        if (isNaN(parseInt(data.substring(data.indexOf('Day', i) + 4, data.indexOf('Day', i) + 5))) === false) {
+          console.log(data.substring(data.indexOf('Day', i), data.indexOf('Day', i) + 5));
+          return data.substring(data.indexOf('Day', i), data.indexOf('Day', i)+ 5);
+        } else {
+          if (data.indexOf('Day', i + 1) > 0) {
+            i = data.indexOf('Day', i + 1) - 1;
+          } else {
+            { break; }
+          }
+        }
+        }
+      console.log('*gasp* fake day');
+      return 'no school';
+  } else {
+    console.log('no day');
+    return 'no school';
   }
+}
 
 //Displays things to user
 function display(day) {
   switch(day) {
     case 0:
-      card.subtitle('It\'s a ' + Day + '.');
+      dayDescription.text('It\'s a');
+      dayText.text(Day);
       break;
     case 1:
-      card.subtitle('Tomorrow will be a ' + Day + '.');
+      dayDescription.text('Tomorrow will be a');
+      dayText.text(Day);
       break;
     default:
-      card.subtitle(moment().add(day, 'days').format("dddd") + ' the ' + moment().add(day, 'days').format("Do") + ' will be a ' + Day + '.');
+      dayDescription.text(moment().add(day, 'days').format("ddd ") + moment().add(day, 'days').format("Do") + ' will be a');
+      dayText.text(Day);
   }
 }
 
@@ -177,26 +316,33 @@ function setPeriod(day) {
       break;
   }
   if (onea === null) {
-    card.body('Set your periods here with the Pebble app!');
+    periodDescription.text('Set your periods');
+    periodText.text('IN THE APP!');
   }
   else {
   if (moment().isBefore(moment().set({'hour': 09, 'minute':15}))) {
-            card.body('First period: ' + Periods[0] + '.');
+            periodDescription.text('First period');
+            periodText.text(Periods[0].toUpperCase);
           }
           else if (moment().isBefore(moment().set({'hour': 10, 'minute':35}))) {
-            card.body('Second period: ' + Periods[1] + '.');
+            periodDescription.text('Second period');
+            periodText.text(Periods[1].toUpperCase);
           }
           else if (moment().isBefore(moment().set({'hour': 12, 'minute':40}))) {
-            card.body('Third period: ' + Periods[2] + '.');
+            periodDescription.text('Third period');
+            periodText.text(Periods[2].toUpperCase);
           }
           else if (moment().isBefore(moment().set({'hour': 14, 'minute':0}))) {
-            card.body('Fourth period: ' + Periods[3] + '.');
+            periodDescription.text('Fourth period');
+            periodText.text(Periods[3].toUpperCase);
           }
-          else if (moment().isAfter(moment().set({'hour': 21, 'minute':0}))) {
-                card.body('Tomorrow\'s first period: ' + Periods[0] + '.');
+          else if (moment().isAfter(moment().set({'hour': 21, 'minute':0})) && online) {
+            periodDescription.text('First period tomorrow');
+            periodText.text(Periods[0].toUpperCase);
           }
           else {
-            card.body('Have a great rest of the day!');
+            periodDescription.text('School is...');
+            periodText.text('DONE!');
           }
   }
 }
