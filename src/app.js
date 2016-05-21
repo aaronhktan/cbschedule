@@ -139,6 +139,7 @@ var skipped = false;
 var online = true;
 var Day = 'day';
 var dateFetched = 'date';
+var timesSkipped = '0';
 
 // Construct URL
 var URL = 'https://www.googleapis.com/calendar/v3/calendars/ocdsb.ca_9dul7c0nu4poqkgbhsfu0qe2t0@group.calendar.google.com/events?key=AIzaSyB4JbJ8B3jPBr-uwqLkF6p-qD7lzBIadgw';
@@ -161,10 +162,18 @@ function request() {
   
       // Interpret data; try next day if not school day
       if (Day == 'no school') {
+        timesSkipped++;
+        if (timesSkipped <30) {
         daySkipped ++;
         start = moment().startOf('day').add(daySkipped, 'days').format();
         end = moment().endOf('day').add(daySkipped, 'days').format();
         request();
+        } else {
+          dayDescription.text('Sum ting wong.');
+          dayText.text('Uh oh.');
+          periodDescription.text('Not good.');
+          periodText.text(':(');
+        }
       } 
       //Show to user if school day
       else {
@@ -226,58 +235,22 @@ function FindDay(data) {
   }
 }
 
-//Displays things to user
+//Displays day to user
 function display(day) {
   switch(day) {
     case 0:
       dayDescription.text('It\'s a');
-      dayText.text(Day);
+      dayText.text(Day.toUpperCase());
       break;
     case 1:
       dayDescription.text('Tomorrow will be a');
-      dayText.text(Day);
+      dayText.text(Day.toUpperCase());
       break;
     default:
       dayDescription.text(moment().add(day, 'days').format("ddd ") + moment().add(day, 'days').format("Do") + ' will be a');
-      dayText.text(Day);
+      dayText.text(Day.toUpperCase());
   }
 }
-
-//App Settings
-Pebble.addEventListener('showConfiguration', function() {
-  var configURL = "";
-  if (onea === null) {
-    configURL = 'http://cbschedulemana.ga/index.html';
-  }
-  else {
-    configURL = 'http://cbschedulemana.ga/index.html?' + 'onea=' + encodeURIComponent(onea) + '&oneb=' + encodeURIComponent(oneb) + '&onec=' + encodeURIComponent(onec)+ '&oned=' + encodeURIComponent(oned) + '&twoa=' + encodeURIComponent(twoa) + '&twob=' + encodeURIComponent(twob) + '&twoc=' + encodeURIComponent(twoc) + '&twod=' + encodeURIComponent(twod);
-  }
-  Pebble.openURL(configURL);
-  console.log(configURL);
-});
-
-// Decode the user's preferences
-Pebble.addEventListener('webviewclosed', function(e) {
-  var configData = JSON.parse(decodeURIComponent(e.response));
-  console.log(configData.onea);
-  onea = configData.onea;
-  oneb = configData.oneb;
-  onec = configData.onec;
-  oned = configData.oned;
-  twoa = configData.twoa;
-  twob = configData.twob;
-  twoc = configData.twoc;
-  twod = configData.twod;
-  localStorage.setItem('onea', onea);
-  localStorage.setItem('oneb', oneb);
-  localStorage.setItem('onec', onec);
-  localStorage.setItem('oned', oned);
-  localStorage.setItem('twoa', twoa);
-  localStorage.setItem('twob', twob);
-  localStorage.setItem('twoc', twoc);
-  localStorage.setItem('twod', twod);
-  request();
-});
 
 //Displays periods by setting according to day
 function setPeriod(day) {
@@ -320,29 +293,62 @@ function setPeriod(day) {
     periodText.text('IN THE APP!');
   }
   else {
-  if (moment().isBefore(moment().set({'hour': 09, 'minute':15}))) {
-            periodDescription.text('First period');
-            periodText.text(Periods[0].toUpperCase);
-          }
-          else if (moment().isBefore(moment().set({'hour': 10, 'minute':35}))) {
-            periodDescription.text('Second period');
-            periodText.text(Periods[1].toUpperCase);
-          }
-          else if (moment().isBefore(moment().set({'hour': 12, 'minute':40}))) {
-            periodDescription.text('Third period');
-            periodText.text(Periods[2].toUpperCase);
-          }
-          else if (moment().isBefore(moment().set({'hour': 14, 'minute':0}))) {
-            periodDescription.text('Fourth period');
-            periodText.text(Periods[3].toUpperCase);
-          }
-          else if (moment().isAfter(moment().set({'hour': 21, 'minute':0})) && online) {
-            periodDescription.text('First period tomorrow');
-            periodText.text(Periods[0].toUpperCase);
-          }
-          else {
-            periodDescription.text('School is...');
-            periodText.text('DONE!');
-          }
+    if (moment().isBefore(moment().set({'hour': 09, 'minute':15})) || moment().isAfter(moment().set({'hour': 21, 'minute':0})) && online) {
+      periodDescription.text('First period');
+      periodText.text(Periods[0].toUpperCase());
+    }
+    else if (moment().isBefore(moment().set({'hour': 10, 'minute':35}))) {
+      periodDescription.text('Second period');
+      periodText.text(Periods[1].toUpperCase());
+    }
+    else if (moment().isBefore(moment().set({'hour': 12, 'minute':40}))) {
+      periodDescription.text('Third period');
+      periodText.text(Periods[2].toUpperCase());
+    }
+    else if (moment().isBefore(moment().set({'hour': 14, 'minute':0}))) {
+      periodDescription.text('Fourth period');
+      periodText.text(Periods[3].toUpperCase());
+    }
+    else {
+      periodDescription.text('School is...');
+      periodText.text('DONE!');
+    }
   }
 }
+
+
+//App Settings
+Pebble.addEventListener('showConfiguration', function() {
+  var configURL = "";
+  if (onea === null) {
+    configURL = 'http://cbschedulemana.ga/index.html';
+  }
+  else {
+    configURL = 'http://cbschedulemana.ga/index.html?' + 'onea=' + encodeURIComponent(onea) + '&oneb=' + encodeURIComponent(oneb) + '&onec=' + encodeURIComponent(onec)+ '&oned=' + encodeURIComponent(oned) + '&twoa=' + encodeURIComponent(twoa) + '&twob=' + encodeURIComponent(twob) + '&twoc=' + encodeURIComponent(twoc) + '&twod=' + encodeURIComponent(twod);
+  }
+  Pebble.openURL(configURL);
+  console.log(configURL);
+});
+
+// Decode the user's preferences
+Pebble.addEventListener('webviewclosed', function(e) {
+  var configData = JSON.parse(decodeURIComponent(e.response));
+  console.log(configData.onea);
+  onea = configData.onea;
+  oneb = configData.oneb;
+  onec = configData.onec;
+  oned = configData.oned;
+  twoa = configData.twoa;
+  twob = configData.twob;
+  twoc = configData.twoc;
+  twod = configData.twod;
+  localStorage.setItem('onea', onea);
+  localStorage.setItem('oneb', oneb);
+  localStorage.setItem('onec', onec);
+  localStorage.setItem('oned', oned);
+  localStorage.setItem('twoa', twoa);
+  localStorage.setItem('twob', twob);
+  localStorage.setItem('twoc', twoc);
+  localStorage.setItem('twod', twod);
+  request();
+});
