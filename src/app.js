@@ -102,11 +102,20 @@ var twoa = localStorage.getItem('twoa');
 var twob = localStorage.getItem('twob');
 var twoc = localStorage.getItem('twoc');
 var twod = localStorage.getItem('twod');
+var oneacode = localStorage.getItem('oneacode');
+var onebcode = localStorage.getItem('onebcode');
+var oneccode = localStorage.getItem('oneccode');
+var onedcode = localStorage.getItem('onedcode');
+var twoacode = localStorage.getItem('twoacode');
+var twobcode = localStorage.getItem('twobcode');
+var twoccode = localStorage.getItem('twoccode');
+var twodcode = localStorage.getItem('twodcode');
 var skipped = false;
 var online = true;
+var currentPeriod = 4;
 var Day = 'day';
 var dateFetched = 'date';
-var timesSkipped = '0';
+var timesSkipped = 0;
 
 // Construct URL
 var URL = 'https://www.googleapis.com/calendar/v3/calendars/ocdsb.ca_9dul7c0nu4poqkgbhsfu0qe2t0@group.calendar.google.com/events?key=AIzaSyB4JbJ8B3jPBr-uwqLkF6p-qD7lzBIadgw';
@@ -146,7 +155,8 @@ function request() {
       //Show to user if school day
       else {
         localStorage.setItem('Day', Day);
-        localStorage.setItem('dateFetched', moment().add(daySkipped, 'days').format('YYYY-MM-DD'));
+        localStorage.setItem('dateFetched', moment().
+                             add(daySkipped, 'days').format('YYYY-MM-DD'));
         console.log(moment().add(daySkipped, 'days').format('YYYY-MM-DD'));
         display(daySkipped);
         setPeriod(parseInt(Day.substring(4,5)));
@@ -184,7 +194,8 @@ function FindDay(data) {
       console.log('Day found');
       for (var i=0; i<data.length; i++) {
         console.log(i);
-        if (isNaN(parseInt(data.substring(data.indexOf('Day', i) + 4, data.indexOf('Day', i) + 5))) === false) {
+        if (isNaN(parseInt(data.substring(data.indexOf('Day', i) + 
+                                          4, data.indexOf('Day', i) + 5))) === false) {
           console.log(data.substring(data.indexOf('Day', i), data.indexOf('Day', i) + 5));
           return data.substring(data.indexOf('Day', i), data.indexOf('Day', i)+ 5);
         } else {
@@ -215,7 +226,8 @@ function display(day) {
       dayText.text(Day.toUpperCase());
       break;
     default:
-      dayDescription.text(moment().add(day, 'days').format("ddd ") + moment().add(day, 'days').format("Do") + ' will be a');
+      dayDescription.text(moment().add(day, 'days').format("ddd ") + 
+                          moment().add(day, 'days').format("Do") + ' will be a');
       dayText.text(Day.toUpperCase());
   }
 }
@@ -261,29 +273,107 @@ function setPeriod(day) {
     periodText.text('IN THE APP!');
   }
   else {
-    if (moment().isBefore(moment().set({'hour': 09, 'minute':15})) || moment().isBefore(moment(dateFetched, 'YYYY-MM-DD')), 'day') {
+    if (moment().isBefore(moment().set({'hour': 09, 'minute':15})) || 
+        moment().isBefore(moment(dateFetched, 'YYYY-MM-DD')), 'day') {
+      if (day == 1 || day == 2) {
+        currentPeriod = 0;
+      } else {
+        currentPeriod = 1;
+      }
       periodDescription.text('First period');
       periodText.text(Periods[0].toUpperCase());
     }
     else if (moment().isBefore(moment().set({'hour': 10, 'minute':35}))) {
+      if (day == 1 || day == 2) {
+        currentPeriod = 0;
+      } else {
+        currentPeriod = 1;
+      }
       periodDescription.text('Second period');
       periodText.text(Periods[1].toUpperCase());
     }
     else if (moment().isBefore(moment().set({'hour': 12, 'minute':40}))) {
+      if (day == 1 || day == 2) {
+        currentPeriod = 1;
+      } else {
+        currentPeriod = 0;
+      }
       periodDescription.text('Third period');
       periodText.text(Periods[2].toUpperCase());
     }
     else if (moment().isBefore(moment().set({'hour': 14, 'minute':0}))) {
+      if (day == 1 || day == 2) {
+        currentPeriod = 2;
+      } else {
+        currentPeriod = 3;
+      }
       periodDescription.text('Fourth period');
       periodText.text(Periods[3].toUpperCase());
     }
     else {
-      periodDescription.text('School is...');
+      if (day == 1 || day == 2) {
+        currentPeriod = 3;
+      } else {
+        currentPeriod = 2;
+      }
+      periodDescription.text('No next class!');
       periodText.text('DONE!');
     }
   }
 }
 
+//Shows schedule
+function showSchedule() {
+  console.log('clicked!');
+  var scheduleMenu = new UI.Menu({
+    highlightBackgroundColor: Feature.color('blue moon', 'black'),
+    sections: [{
+      title: Feature.color('DAY 1 AND 3', ' ------ DAY 1 AND 3 ------'),
+      backgroundColor: Feature.color('jaeger green', 'white'),
+      items: [{
+        title: '1A: ' + onea.toUpperCase(),
+        subtitle: oneacode.toUpperCase()
+      }, {
+        title: '1B: ' + oneb.toUpperCase(),
+        subtitle: onebcode.toUpperCase()
+      }, {
+        title: '1C: ' + onec.toUpperCase(),
+        subtitle: oneccode.toUpperCase()
+      }, {
+        title: '1D: ' + oned.toUpperCase(),
+        subtitle: onedcode.toUpperCase()
+      }]
+    }, {
+      title: Feature.color('DAY 2 AND 4', ' ------ DAY 2 AND 4 ------'),
+      backgroundColor: Feature.color('jaeger green', 'white'),
+      items: [{
+        title: '2A: ' + twoa.toUpperCase(),
+        subtitle: twoacode.toUpperCase()
+      }, {
+        title: '2B: ' + twob.toUpperCase(),
+        subtitle: twobcode.toUpperCase()
+      }, {
+        title: '2C: ' + twoc.toUpperCase(),
+        subtitle: twoccode.toUpperCase()
+      }, {
+        title: '2D: ' + twod.toUpperCase(),
+        subtitle: twodcode.toUpperCase()
+      }]
+    }]
+  });
+  scheduleMenu.status(false);
+  scheduleMenu.show();
+  switch (parseInt(Day.substring(4,5))) {
+    case 1:
+    case 3:
+      scheduleMenu.selection(0,currentPeriod);
+      break;
+    case 2:
+    case 4:
+      scheduleMenu.selection(1,currentPeriod);
+      break;
+  }
+}
 
 //App Settings
 Pebble.addEventListener('showConfiguration', function() {
@@ -292,7 +382,17 @@ Pebble.addEventListener('showConfiguration', function() {
     configURL = 'http://cbschedulemana.ga/index.html';
   }
   else {
-    configURL = 'http://cbschedulemana.ga/index.html?' + 'onea=' + encodeURIComponent(onea) + '&oneb=' + encodeURIComponent(oneb) + '&onec=' + encodeURIComponent(onec)+ '&oned=' + encodeURIComponent(oned) + '&twoa=' + encodeURIComponent(twoa) + '&twob=' + encodeURIComponent(twob) + '&twoc=' + encodeURIComponent(twoc) + '&twod=' + encodeURIComponent(twod);
+    configURL = 'http://cbschedulemana.ga/index.html?' + 
+      'onea=' + encodeURIComponent(onea) + '&oneb=' + encodeURIComponent(oneb) + '&onec=' + encodeURIComponent(onec)+ 
+      '&oned=' + encodeURIComponent(oned) + '&twoa=' + encodeURIComponent(twoa) + '&twob=' + encodeURIComponent(twob) + 
+      '&twoc=' + encodeURIComponent(twoc) + '&twod=' + encodeURIComponent(twod);
+    if (oneacode !== null) {
+    configURL += '&oneacode=' + encodeURIComponent(oneacode) +
+      '&onebcode=' + encodeURIComponent(onebcode) + '&oneccode=' + encodeURIComponent(oneccode) + 
+      '&onedcode=' + encodeURIComponent(onedcode) + '&twoacode=' + encodeURIComponent(twoacode) +
+      '&twobcode=' + encodeURIComponent(twobcode) + '&twoccode=' + encodeURIComponent(twoccode) +
+      '&twodcode=' + encodeURIComponent(twodcode);
+    }
   }
   Pebble.openURL(configURL);
   console.log(configURL);
@@ -310,6 +410,14 @@ Pebble.addEventListener('webviewclosed', function(e) {
   twob = configData.twob;
   twoc = configData.twoc;
   twod = configData.twod;
+  oneacode = configData.oneacode;
+  onebcode = configData.onebcode;
+  oneccode = configData.oneccode;
+  onedcode = configData.onedcode;
+  twoacode = configData.twoacode;
+  twobcode = configData.twobcode;
+  twoccode = configData.twoccode;
+  twodcode = configData.twodcode;
   localStorage.setItem('onea', onea);
   localStorage.setItem('oneb', oneb);
   localStorage.setItem('onec', onec);
@@ -318,47 +426,27 @@ Pebble.addEventListener('webviewclosed', function(e) {
   localStorage.setItem('twob', twob);
   localStorage.setItem('twoc', twoc);
   localStorage.setItem('twod', twod);
+  localStorage.setItem('oneacode', oneacode);
+  localStorage.setItem('onebcode', onebcode);
+  localStorage.setItem('oneccode', oneccode);
+  localStorage.setItem('onedcode', onedcode);
+  localStorage.setItem('twoacode', twoacode);
+  localStorage.setItem('twobcode', twobcode);
+  localStorage.setItem('twoccode', twoccode);
+  localStorage.setItem('twodcode', twodcode);
   request();
 });
 
-mainWind.on('click', 'select', function (showSchedule) {
-  console.log('clicked!');
-  var scheduleMenu = new UI.Menu({
-    highlightBackgroundColor: Feature.color('blue moon', 'black'),
-    sections: [{
-      title: 'DAY 1 AND 3',
-      backgroundColor: Feature.color('jaeger green', 'white'),
-      items: [{
-        title: '1A: ' + onea.toUpperCase(),
-        subtitle: 'FIF3UE-06' //Placeholder for now
-      }, {
-        title: '1B: ' + oneb.toUpperCase(),
-        subtitle: 'HSF4UE-02' //Placeholder for now
-      }, {
-        title: '1C: ' + onec.toUpperCase(),
-        subtitle: 'CGF4UE-01' //Placeholder for now
-      }, {
-        title: '1D: ' + oned.toUpperCase(),
-        subtitle: 'SPH3UE-04' //Placeholder for now
-      }]
-    }, {
-      title: 'DAY 2 AND 4',
-      backgroundColor: Feature.color('jaeger green', 'white'),
-      items: [{
-        title: '2A: ' + twoa.toUpperCase(),
-        subtitle: 'LWSCU-01' //Placeholder for now
-      }, {
-        title: '2B: ' + twob.toUpperCase(),
-        subtitle: 'SCU3UE-02' //Placeholder for now
-      }, {
-        title: '2C: ' + twoc.toUpperCase(),
-        subtitle: 'ENG3UE-07' //Placeholder for now
-      }, {
-        title: '2D: ' + twod.toUpperCase(),
-        subtitle: 'MCF3UE-04' //Placeholder for now
-      }]
-    }]
-  });
-  scheduleMenu.status(false);
-  scheduleMenu.show();
+
+//Show schedule viewer
+mainWind.on('click', 'select', showSchedule);
+
+mainWind.on('click', 'down', function (animateThingsDown) {
+  console.log('clicked down!');
+  periodText.animate('position', new Vector2(periodText.position().x, periodText.position().y += 60), 1000);
+});
+
+mainWind.on('click', 'up', function (animateThingsUp) {
+  console.log('clicked up!');
+  periodText.animate('position', new Vector2(periodText.position().x, periodText.position().y -= 60), 1000);
 });
