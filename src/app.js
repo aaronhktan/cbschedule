@@ -2,6 +2,7 @@ var UI = require('ui');
 var ajax = require('ajax');
 var moment = require('moment');
 var Vector2 = require('vector2');
+var Feature = require('platform/feature');
 
 // Create a Window to show main information
 var mainWind = new UI.Window({
@@ -23,41 +24,11 @@ var backBottom = new UI.Rect({
 
 //Colours in main area in white
 var backMain = new UI.Rect({
-  size: new Vector2(120, 146),
-  position: new Vector2(11, 12),
-  backgroundColor: 'white'
-});
-
-//Top of rectangle
-var borderTop = new UI.Line({
-  position: new Vector2(11,12),
-  position2: new Vector2(131, 12),
-  strokeColor: 'black',
-  strokeWidth: 5
-});
-
-//Left of rectangle
-var borderLeft = new UI.Line({
-  position: new Vector2(11,12),
-  position2: new Vector2(11, 156),
-  strokeColor: 'black',
-  strokeWidth: 5
-});
-
-//Right of rectangle
-var borderRight = new UI.Line({
-  position: new Vector2(131,12),
-  position2: new Vector2(131, 156),
-  strokeColor: 'black',
-  strokeWidth: 5
-});
-
-//Bottom of rectangle
-var borderBottom = new UI.Line({
-  position: new Vector2(11,156),
-  position2: new Vector2(131, 156),
-  strokeColor: 'black',
-  strokeWidth: 5
+  size: new Vector2(120, 144),
+  position: new Vector2(12, 12),
+  backgroundColor: 'white',
+  borderWidth: 5,
+  borderColor: 'black'
 });
 
 //Today is...
@@ -115,10 +86,6 @@ var separatorLines = new UI.Text({
 mainWind.add(backTop);
 mainWind.add(backBottom);
 mainWind.add(backMain);
-mainWind.add(borderTop);
-mainWind.add(borderLeft);
-mainWind.add(borderRight);
-mainWind.add(borderBottom);
 mainWind.add(dayDescription);
 mainWind.add(dayText);
 mainWind.add(periodDescription);
@@ -149,6 +116,7 @@ var end = moment().endOf('day').format();
 
 // Make the request
 request();
+
 function request() {
   ajax(
     {
@@ -190,7 +158,7 @@ function request() {
       online = false;
       Day = localStorage.getItem('Day');
       dateFetched = localStorage.getItem('dateFetched');
-      var timeShown = moment(dateFetched).format('ddd Do MMMM');
+      var timeShown = moment(dateFetched).format('ddd Do MMM');
       if (moment().isAfter(dateFetched, 'day')) {
         dayDescription.text(timeShown + ' was a');
         dayText.text(Day);
@@ -199,7 +167,7 @@ function request() {
       }
       else {
         dayDescription.text(timeShown + ' is a');
-        dayText.text(Day);
+        dayText.text(Day.toUpperCase());
         setPeriod(parseInt(Day.substring(4,5)));
       }
     }
@@ -293,7 +261,7 @@ function setPeriod(day) {
     periodText.text('IN THE APP!');
   }
   else {
-    if (moment().isBefore(moment().set({'hour': 09, 'minute':15})) || moment().isAfter(moment().set({'hour': 21, 'minute':0})) && online) {
+    if (moment().isBefore(moment().set({'hour': 09, 'minute':15})) || moment().isBefore(moment(dateFetched, 'YYYY-MM-DD')), 'day') {
       periodDescription.text('First period');
       periodText.text(Periods[0].toUpperCase());
     }
@@ -351,4 +319,46 @@ Pebble.addEventListener('webviewclosed', function(e) {
   localStorage.setItem('twoc', twoc);
   localStorage.setItem('twod', twod);
   request();
+});
+
+mainWind.on('click', 'select', function (showSchedule) {
+  console.log('clicked!');
+  var scheduleMenu = new UI.Menu({
+    highlightBackgroundColor: Feature.color('blue moon', 'black'),
+    sections: [{
+      title: 'DAY 1 AND 3',
+      backgroundColor: Feature.color('jaeger green', 'white'),
+      items: [{
+        title: '1A: ' + onea.toUpperCase(),
+        subtitle: 'FIF3UE-06' //Placeholder for now
+      }, {
+        title: '1B: ' + oneb.toUpperCase(),
+        subtitle: 'HSF4UE-02' //Placeholder for now
+      }, {
+        title: '1C: ' + onec.toUpperCase(),
+        subtitle: 'CGF4UE-01' //Placeholder for now
+      }, {
+        title: '1D: ' + oned.toUpperCase(),
+        subtitle: 'SPH3UE-04' //Placeholder for now
+      }]
+    }, {
+      title: 'DAY 2 AND 4',
+      backgroundColor: Feature.color('jaeger green', 'white'),
+      items: [{
+        title: '2A: ' + twoa.toUpperCase(),
+        subtitle: 'LWSCU-01' //Placeholder for now
+      }, {
+        title: '2B: ' + twob.toUpperCase(),
+        subtitle: 'SCU3UE-02' //Placeholder for now
+      }, {
+        title: '2C: ' + twoc.toUpperCase(),
+        subtitle: 'ENG3UE-07' //Placeholder for now
+      }, {
+        title: '2D: ' + twod.toUpperCase(),
+        subtitle: 'MCF3UE-04' //Placeholder for now
+      }]
+    }]
+  });
+  scheduleMenu.status(false);
+  scheduleMenu.show();
 });
