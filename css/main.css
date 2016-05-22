@@ -4,7 +4,7 @@ body {
 
 #title {
 	font-family: Roboto;
-	font-size: 26;
+	font-size: 150%;
 	font-weight: 700;
 	text-align: center;
 	vertical-align: text-top;
@@ -13,10 +13,12 @@ body {
 div.input-title {
 	display: block;
     font-family: Roboto;
-	font-weight: 300;
+	font-size: 26;
+	font-weight: 400;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
+	width: 50%;
 }
 
 #savebutton {

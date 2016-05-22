@@ -32,62 +32,111 @@
  			<p>CB Schedule Manager</p>
  		</div>
  		<div class="input-title">
- 			<strong>Period 1A: </strong>
-			<input id="period-1a-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
-			<script>
-			var oneainput = queryPeriods("onea");
-			document.getElementById('period-1a-input').value= oneainput;
-			</script>
-		<br>
-			<strong>Period 1B: </strong>
-			<input id="period-1b-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
-			<script>
-			var onebinput = queryPeriods("oneb");
-			document.getElementById('period-1b-input').value= onebinput;
-			</script>
-		<br>
-			<strong>Period 1C: </strong>
-			<input id="period-1c-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
-			<script>
-			var onecinput = queryPeriods("onec");
-			document.getElementById('period-1c-input').value= onecinput;
-			</script>
-		<br>
-			<strong>Period 1D: </strong>
-			<input id="period-1d-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
-			<script>
-			var onedinput = queryPeriods("oned");
-			document.getElementById('period-1d-input').value= onedinput;
-			</script>
-		<br>
-			<strong>Period 2A: </strong>
-			<input id="period-2a-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
-			<script>
-			var twoainput = queryPeriods("twoa");
-			document.getElementById('period-2a-input').value= twoainput;
-			</script>
-		<br>
-			<strong>Period 2B: </strong>
-			<input id="period-2b-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
-			<script>
-			var twobinput = queryPeriods("twob");
-			document.getElementById('period-2b-input').value= twobinput;
-			</script>
-		<br>
-			<strong>Period 2C: </strong>
-			<input id="period-2c-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
-			<script>
-			var twocinput = queryPeriods("twoc");
-			document.getElementById('period-2c-input').value= twocinput;
-			</script>
-		<br>
-			<strong>Period 2D: </strong>
-			<input id="period-2d-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
-			<script>
-			var twodinput = queryPeriods("twod");
-			document.getElementById('period-2d-input').value= twodinput;
-			</script>
-		<br>
+ 			<strong>Period 1A </strong>
+				<br>Course:<br>
+					<input id="period-1a-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+					<script>
+					var oneainput = queryPeriods("onea");
+					document.getElementById('period-1a-input').value= oneainput;
+					</script>
+				<br>Course Code:<br>
+					<input id="period-1a-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+					<script>
+					var oneacode = queryPeriods("oneacode");
+					document.getElementById('period-1a-code-input').value= oneacode;
+					</script>
+			<br><br> <strong>Period 1B </strong>
+				<br>Course:<br>
+					<input id="period-1b-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
+					<script>
+					var onebinput = queryPeriods("oneb");
+					document.getElementById('period-1b-input').value= onebinput;
+					</script>
+				<br>Course Code:<br>
+					<input id="period-1b-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+					<script>
+					var onebcode = queryPeriods("onebcode");
+					document.getElementById('period-1b-code-input').value= onebcode;
+					</script>
+			<br><br> <strong>Period 1C </strong>
+				<br>Course:<br>
+					<input id="period-1c-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
+					<script>
+					var onecinput = queryPeriods("onec");
+					document.getElementById('period-1c-input').value= onecinput;
+					</script>
+				<br>Course Code:<br>
+					<input id="period-1c-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+					<script>
+					var oneccode = queryPeriods("oneccode");
+					document.getElementById('period-1c-code-input').value= oneccode;
+					</script>
+			<br><br> <strong>Period 1D </strong>
+				<br>Course:<br>
+					<input id="period-1d-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
+					<script>
+					var onedinput = queryPeriods("oned");
+					document.getElementById('period-1d-input').value= onedinput;
+					</script>
+				<br>Course Code:<br>
+					<input id="period-1d-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+					<script>
+					var onedcode = queryPeriods("onedcode");
+					document.getElementById('period-1d-code-input').value= onedcode;
+					</script>
+			<br><br> <strong>Period 2A </strong>
+				<br>Course:<br>
+					<input id="period-2a-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
+					<script>
+					var twoainput = queryPeriods("twoa");
+					document.getElementById('period-2a-input').value= twoainput;
+					</script>
+				<br>Course Code:<br>
+					<input id="period-2a-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+					<script>
+					var twoacode = queryPeriods("twoacode");
+					document.getElementById('period-1c-code-input').value= oneccode;
+					</script>
+			<br><br> <strong>Period 2B: </strong>
+				<br>Course:<br>
+					<input id="period-2b-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
+					<script>
+					var twobinput = queryPeriods("twob");
+					document.getElementById('period-2b-input').value= twobinput;
+					</script>
+				<br>Course Code:<br>
+					<input id="period-2b-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+					<script>
+					var oneccode = queryPeriods("twobcode");
+					document.getElementById('period-2b-code-input').value= twobcode;
+					</script>
+			<br><br> <strong>Period 2C: </strong>
+				<br>Course:<br>
+					<input id="period-2c-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
+					<script>
+					var twocinput = queryPeriods("twoc");
+					document.getElementById('period-2c-input').value= twocinput;
+					</script>
+				<br>Course Code:<br>
+					<input id="period-2c-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+					<script>
+					var twoccode = queryPeriods("twoccode");
+					document.getElementById('period-2c-code-input').value= twoccode;
+					</script>
+			<br><br> <strong>Period 2D: </strong>
+				<br>Course: <br>
+					<input id="period-2d-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
+					<script>
+					var twodinput = queryPeriods("twod");
+					document.getElementById('period-2d-input').value= twodinput;
+					</script>
+				<br>Course Code:<br>
+					<input id="period-2d-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+					<script>
+					var oneccode = queryPeriods("twodcode");
+					document.getElementById('period-2d-code-input').value= twodcode;
+					</script>
+			<br><br>
 		</div>
  		<div id="savebutton">
 			<input id="submit_button" type="button" value="Save">
@@ -107,7 +156,16 @@
  		    var twob = document.getElementById('period-2b-input').value;
  		    var twoc = document.getElementById('period-2c-input').value;
  		    var twod = document.getElementById('period-2d-input').value;
- 		
+			var oneacode = document.getElementById('period-1a-code-input').value;
+			var onebcode = document.getElementById('period-1a-code-input').value;
+			var oneccode = document.getElementById('period-1a-code-input').value;
+			var onedcode = document.getElementById('period-1a-code-input').value;
+			var twoacode = document.getElementById('period-1a-code-input').value;
+			var twobcode = document.getElementById('period-1a-code-input').value;
+			var twoccode = document.getElementById('period-1a-code-input').value;
+			var twodcode = document.getElementById('period-1a-code-input').value;
+			
+			
  		    // Make a data object to be sent, coercing value types to integers
  		    var options = {
  		      'onea': onea,
@@ -117,7 +175,15 @@
  		      'twoa': twoa,
  		      'twob': twob,
  		      'twoc': twoc,
- 		      'twod': twod
+ 		      'twod': twod,
+			  'oneacode': oneacode,
+			  'onebcode': onebcode,
+			  'oneccode': oneccode,
+			  'onedcode': onedcode,
+			  'twoacode': twoacode,
+			  'twobcode': twobcode,
+			  'twoccode': twoccode,
+			  'twodcode': twodcode,
  		    };
  		
  		    // Determine the correct return URL (emulator vs real watch)
