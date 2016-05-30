@@ -1,5 +1,12 @@
 # CB Schedule Manager
 
+![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/mainWind.png)
+![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/scheduleMenu.png)
+![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/mainWindBnW.png)
+![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/scheduleMenuBnW.png)
+
+*Screenshots on the Pebble Time and Pebble Classic*
+
 ## What is this?
 
 It's a Pebble app for checking what day of the cycle is at Colonel By. You can set your own schedule via the Pebble app.
