@@ -19,6 +19,7 @@ When that's done, the main window shows what day it is (or the next day, if it's
 
 ## Future plans?
 
+- Show more details about class on selection
 - Perhaps be able to see one other friend's schedule, so they don't get lost
 - Make it work on Pebble Round and new Pebbles
 
