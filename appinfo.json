@@ -29,6 +29,11 @@
                 "type": "font"
             },
             {
+                "file": "images/beaker.bmp",
+                "name": "IMAGES_BEAKER_BMP",
+                "type": "bitmap"
+            },
+            {
                 "file": "images/icon.png",
                 "menuIcon": true,
                 "name": "IMAGES_ICON_PNG",
