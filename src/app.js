@@ -15,72 +15,83 @@ var mainWind = new UI.Window({
 
 //Colours in top half in blue
 var backTop = new UI.Rect({
-  size: new Vector2(144, 84),
+  size: new Vector2(Feature.resolution().x, Feature.resolution().y / 2),
   backgroundColor: 'blue moon'
 });
 
 //Colours in bottom half in green
 var backBottom = new UI.Rect({
-  size: new Vector2(144, 84),
-  position: new Vector2(0, 84),
+  size: new Vector2(Feature.resolution().x, Feature.resolution().y / 2),
+  position: new Vector2(0, Feature.resolution().y / 2),
   backgroundColor: 'jaeger green'
 });
 
 //Colours in main area in white
-var backMain = new UI.Rect({
-  size: new Vector2(120, 144),
-  position: new Vector2(12, 12),
+var backMain = Feature.rectangle(new UI.Rect({
+  size: new Vector2(Feature.resolution().x - 24, Feature.resolution().y - 24),
+  position: new Vector2(12 , 12),
   backgroundColor: 'white',
   borderWidth: 5,
   borderColor: 'black'
-});
+}), new UI.Circle({
+  radius: Feature.resolution().x / 2 - 12,
+  position: new Vector2(Feature.resolution().x / 2, Feature.resolution().y /2),
+  backgroundColor: 'white',
+  borderWidth: 5,
+  borderColor: 'black'
+}));
 
 //Today is...
 var dayDescription = new UI.Text({
-  size: new Vector2(144, 25),
+  size: new Vector2(Feature.resolution().x, 18),
   font: 'gothic-18',
-  position: new Vector2(0,22),
+  position: Feature.rectangle(new Vector2(0, Feature.resolution().y / 4 - 20),
+                              new Vector2(0, Feature.resolution().y / 4 - 10)),
   color: 'black',
   text: 'Fetching...',
-  textAlign: 'center'
+  textAlign: 'center',
 });
 
 //Day
 var dayText = new UI.Text({
-  size: new Vector2(144, 42),
+  size: new Vector2(Feature.resolution().x, 28),
   font: 'gothic-28-bold',
-  position: new Vector2(0, 40),
+  position: Feature.rectangle(new Vector2(0, Feature.resolution().y / 4),
+                              new Vector2(0, Feature.resolution().y / 4 + 5)),
   color: 'black',
   text: '...',
-  textAlign: 'center'
+  textAlign: 'center',
 });
 
 //Next period is...
 var periodDescription = new UI.Text({
-  size: new Vector2(144, 25),
+  size: new Vector2(Feature.resolution().x, 18),
   font: 'gothic-18',
-  position: new Vector2(0, 90),
+  position: Feature.rectangle(new Vector2(0, Feature.resolution().y * 0.75 - 35),
+                              new Vector2(0, Feature.resolution().y * 0.75 - 40)),
   color: 'black',
   text: 'Fetching...',
-  textAlign: 'center'
+  textAlign: 'center',
 });
 
 //French or English or whatever
 var periodText = new UI.Text({
-  size: new Vector2(100, 35),
+  size: Feature.rectangle(new Vector2(Feature.resolution().x, 28),
+                          new Vector2(Feature.resolution().x / 2, 28)),
   font: 'gothic-28-bold',
-  position: new Vector2(22, 110),
+  position: Feature.rectangle(new Vector2(0, Feature.resolution().y * 0.75 - 15),
+                              new Vector2(Feature.resolution().x / 4, Feature.resolution().y * 0.75 - 25)),
   color: 'black',
   text: '...',
   textAlign: 'center',
-  textOverflow: 'ellipsis'
+  textOverflow: 'ellipsis',
 });
 
 //Center separation lines
 var separatorLines = new UI.Text({
-  size: new Vector2(100, 35),
+  size: new Vector2(Feature.resolution().x - 44, 18),
   font: 'gothic-18',
-  position: new Vector2(22, 71),
+  position: new Vector2(22, Feature.resolution().y / 2 - 13),
   color: 'black',
   text: '- - - - - - - - - - -',
   textAlign: 'center',
@@ -206,7 +217,12 @@ function display(day) {
 function setPeriod(day) {
   if (periods[0] === null) {
     periodDescription.text('Set your periods');
-    periodText.text('IN THE APP!');
+    var setupText = 'IN THE APP!';
+    if (Feature.round()) {
+      setupText = 'IN-APP!';
+    }
+    console.log(setupText);
+    periodText.text(setupText);
   }
   else {
     if (moment().isBefore(moment().set({'hour': 09, 'minute':15})) || 
@@ -291,7 +307,7 @@ function showSchedule() {
   });
   scheduleMenu.status(false);
   scheduleMenu.show();
-  scheduleMenu.selection(0,currentPeriod);
+  scheduleMenu.selection(0, currentPeriod);
 }
 
 //App Settings
@@ -352,22 +368,116 @@ Pebble.addEventListener('webviewclosed', function(e) {
 //Show schedule viewer
 mainWind.on('click', 'select', showSchedule);
 
+//Scrolls to next element
+var cardIndex = 0;
+var created = false;
 mainWind.on('click', 'down', function (animateThingsDown) {
   console.log('clicked down!');
-  backMain.animate('position', new Vector2(backMain.position().x, backMain.position().y += 168), 200);
-  dayDescription.animate('position', new Vector2(dayDescription.position().x, dayDescription.position().y += 168), 200);
-  dayText.animate('position', new Vector2(dayText.position().x, dayText.position().y += 168), 200);
-  periodDescription.animate('position', new Vector2(periodDescription.position().x, periodDescription.position().y += 168), 200);
-  periodText.animate('position', new Vector2(periodText.position().x, periodText.position().y += 168), 200);
-  separatorLines.animate('position', new Vector2(separatorLines.position().x, separatorLines.position().y += 168), 200);
+  
+  //create other elements
+
+  if (created === false) {
+      
+    //Colours in main area in white
+    var backMain2 = Feature.rectangle(new UI.Rect({
+      size: new Vector2(Feature.resolution().x - 24, Feature.resolution().y - 24),
+      position: new Vector2(12 , Feature.resolution().y + 12),
+      backgroundColor: 'white',
+      borderWidth: 5,
+      borderColor: 'black'
+    }), new UI.Circle({
+      radius: Feature.resolution().x / 2 - 12,
+      position: new Vector2(Feature.resolution().x / 2, Feature.resolution().y + Feature.resolution().y /2),
+      backgroundColor: 'white',
+      borderWidth: 5,
+      borderColor: 'black'
+    }));
+    
+    //Today is...
+    var dayDescription2 = new UI.Text({
+      size: new Vector2(Feature.resolution().x, 18),
+      font: 'gothic-18',
+      position: Feature.rectangle(new Vector2(0, Feature.resolution().y + Feature.resolution().y / 4 - 20),
+                                  new Vector2(0, Feature.resolution().y + Feature.resolution().y / 4 - 10)),
+      color: 'black',
+      text: 'Fetching...',
+      textAlign: 'center',
+    });
+    
+    //Day
+    var dayText2 = new UI.Text({
+      size: new Vector2(Feature.resolution().x, 28),
+      font: 'gothic-28-bold',
+      position: Feature.rectangle(new Vector2(0, Feature.resolution().y + Feature.resolution().y / 4),
+                                  new Vector2(0, Feature.resolution().y + Feature.resolution().y / 4 + 5)),
+      color: 'black',
+      text: '...',
+      textAlign: 'center',
+    });
+    
+    //Next period is...
+    var periodDescription2 = new UI.Text({
+      size: new Vector2(Feature.resolution().x, 18),
+      font: 'gothic-18',
+      position: Feature.rectangle(new Vector2(0, Feature.resolution().y + Feature.resolution().y * 0.75 - 35),
+                                  new Vector2(0, Feature.resolution().y + Feature.resolution().y * 0.75 - 40)),
+      color: 'black',
+      text: 'Fetching...',
+      textAlign: 'center',
+    });
+    
+    //French or English or whatever
+    var periodText2 = new UI.Text({
+      size: Feature.rectangle(new Vector2(Feature.resolution().x, 28),
+                              new Vector2(Feature.resolution().x / 2, 28)),
+      font: 'gothic-28-bold',
+      position: Feature.rectangle(new Vector2(0, Feature.resolution().y + Feature.resolution().y * 0.75 - 15),
+                                  new Vector2(Feature.resolution().x / 4, Feature.resolution().y + Feature.resolution().y * 0.75 - 25)),
+      color: 'black',
+      text: '...',
+      textAlign: 'center',
+      textOverflow: 'ellipsis',
+    });
+    
+    //Center separation lines
+    var separatorLines2 = new UI.Text({
+      size: new Vector2(Feature.resolution().x - 44, 18),
+      font: 'gothic-18',
+      position: new Vector2(22, Feature.resolution().y + Feature.resolution().y / 2 - 13),
+      color: 'black',
+      text: '- - - - - - - - - - -',
+      textAlign: 'center',
+    });
+    
+    // Display the Card
+    mainWind.add(backMain2);
+    mainWind.add(dayDescription2);
+    mainWind.add(dayText2);
+    mainWind.add(periodDescription2);
+    mainWind.add(periodText2);
+    mainWind.add(separatorLines2);
+    created = true;
+  }
+
+  
+//Animate the elements down
+  if (cardIndex === 0) {
+    mainWind.each(function (element) {
+    if (element.backgroundColor() != 'jaeger green' && element.backgroundColor() != 'blue moon') {
+                element.animate('position', new Vector2(element.position().x, element.position().y -= Feature.resolution().y), 150);
+    }});
+    cardIndex = 1;
+  }
 });
 
+//Animate the elements up
 mainWind.on('click', 'up', function (animateThingsUp) {
+  if (cardIndex == 1) {
+    mainWind.each(function (element) {
+    if (element.backgroundColor() != 'jaeger green' && element.backgroundColor() != 'blue moon') {
+                element.animate('position', new Vector2(element.position().x, element.position().y += Feature.resolution().y), 150);
+    }});
+    cardIndex = 0;
+  }
   console.log('clicked up!');
-  backMain.animate('position', new Vector2(backMain.position().x, backMain.position().y -= 168), 200);
-  dayDescription.animate('position', new Vector2(dayDescription.position().x, dayDescription.position().y -= 168), 200);
-  dayText.animate('position', new Vector2(dayText.position().x, dayText.position().y -= 168), 200);
-  periodDescription.animate('position', new Vector2(periodDescription.position().x, periodDescription.position().y -= 168), 200);
-  periodText.animate('position', new Vector2(periodText.position().x, periodText.position().y -= 168), 200);
-  separatorLines.animate('position', new Vector2(separatorLines.position().x, separatorLines.position().y -= 168), 200);
 });
