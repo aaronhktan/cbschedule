@@ -3,16 +3,16 @@ body {
 }
 
 #title {
-	font-family: Roboto;
+	font-family: Arial;
 	font-size: 150%;
 	font-weight: 700;
 	text-align: center;
 	vertical-align: text-top;
 }
 
-div.input-title {
+.input-title {
 	display: block;
-    font-family: Roboto;
+    font-family: Arial;
 	font-size: 26;
 	font-weight: 400;
 	margin-left: auto;
@@ -21,10 +21,18 @@ div.input-title {
 	width: 50%;
 }
 
-#savebutton {
-	border: none;
-	font-family: Roboto;
+.button {
+	display: block;
+	font-family: Arial;
 	font-weight: 300;
-	padding-top: 10px;
 	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.title{
+	display:block;
+	font-family: Arial;
+	font-weight: 700;
+	font-size: 120%;
 }
