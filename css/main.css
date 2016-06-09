@@ -10,7 +10,14 @@ body {
 	vertical-align: text-top;
 }
 
-.input-title {
+.title{
+	display:block;
+	font-family: Arial;
+	font-weight: 700;
+	font-size: 120%;
+}
+
+.form {
 	display: block;
     font-family: Arial;
 	font-size: 26;
@@ -28,11 +35,4 @@ body {
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
-}
-
-.title{
-	display:block;
-	font-family: Arial;
-	font-weight: 700;
-	font-size: 120%;
 }
