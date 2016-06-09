@@ -74,14 +74,10 @@
  		    	
  		    	// Get the config data from the UI elements
 	 		    var input = document.getElementsByTagName('input');
-	 		    var periods = [];
-	 		    var options = {}
+	 		    var options = [];
 	 		    for (i = 0; i < input.length; i++) {
-	 		    	periods[i] = input[i].value;
-	 		    	options[i] = periods[i];
+	 		    	options[i] = input[i].value;
 	 		    }
-
-	 		    alert(JSON.stringify(options));
  		
 	 		    // Determine the correct return URL (emulator vs real watch)
 	 		    function getQueryParam(variable, defaultValue) {
