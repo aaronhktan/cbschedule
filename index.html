@@ -13,48 +13,50 @@
  		<div id="title">
  			<p>CB Schedule Manager</p>
  		</div>
- 		<div class="form" id="inputs0">
- 			<strong>Period 1A</strong>
-				<br>Course:<br>
-					<input id="period-1a-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
-				<br>Course Code:<br>
-					<input id="period-1a-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
-			<br><br> <strong>Period 1B</strong>
-				<br>Course:<br>
-					<input id="period-1b-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
-				<br>Course Code:<br>
-					<input id="period-1b-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
-			<br><br> <strong>Period 1C</strong>
-				<br>Course:<br>
-					<input id="period-1c-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
-				<br>Course Code:<br>
-					<input id="period-1c-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
-			<br><br> <strong>Period 1D</strong>
-				<br>Course:<br>
-					<input id="period-1d-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
-				<br>Course Code:<br>
-					<input id="period-1d-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
-			<br><br> <strong>Period 2A</strong>
-				<br>Course:<br>
-					<input id="period-2a-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
-				<br>Course Code:<br>
-					<input id="period-2a-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
-			<br><br> <strong>Period 2B</strong>
-				<br>Course:<br>
-					<input id="period-2b-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
-				<br>Course Code:<br>
-					<input id="period-2b-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
-			<br><br> <strong>Period 2C</strong>
-				<br>Course:<br>
-					<input id="period-2c-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
-				<br>Course Code:<br>
-					<input id="period-2c-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
-			<br><br> <strong>Period 2D</strong>
-				<br>Course:<br>
-					<input id="period-2d-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
-				<br>Course Code:<br>
-					<input id="period-2d-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
-			<br><br>
+ 		<div id="inputs0">
+ 			<div class="form">
+	 			<strong>Period 1A</strong>
+					<br>Course:<br>
+						<input id="period-1a-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+					<br>Course Code:<br>
+						<input id="period-1a-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+				<br><br> <strong>Period 1B</strong>
+					<br>Course:<br>
+						<input id="period-1b-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
+					<br>Course Code:<br>
+						<input id="period-1b-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+				<br><br> <strong>Period 1C</strong>
+					<br>Course:<br>
+						<input id="period-1c-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
+					<br>Course Code:<br>
+						<input id="period-1c-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+				<br><br> <strong>Period 1D</strong>
+					<br>Course:<br>
+						<input id="period-1d-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
+					<br>Course Code:<br>
+						<input id="period-1d-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+				<br><br> <strong>Period 2A</strong>
+					<br>Course:<br>
+						<input id="period-2a-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
+					<br>Course Code:<br>
+						<input id="period-2a-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+				<br><br> <strong>Period 2B</strong>
+					<br>Course:<br>
+						<input id="period-2b-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
+					<br>Course Code:<br>
+						<input id="period-2b-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+				<br><br> <strong>Period 2C</strong>
+					<br>Course:<br>
+						<input id="period-2c-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
+					<br>Course Code:<br>
+						<input id="period-2c-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+				<br><br> <strong>Period 2D</strong>
+					<br>Course:<br>
+						<input id="period-2d-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
+					<br>Course Code:<br>
+						<input id="period-2d-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+				<br><br>
+			</div>
 		</div>
 		<div id="addbutton">
 			<button id="add_button" class="button" onClick=addInput("inputs0")>Add another schedule</button>
@@ -159,7 +161,7 @@
 				formDiv[counter] = document.createElement('div');
 				formDiv[counter].setAttribute('class', 'form');
 				formDiv[counter].setAttribute('id', 'form' + counter);
-				formDiv[counter].innerHTML = '<strong>Period 1A</strong><br>Course:<br><input id="period-1a-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br>Course Code:<br><input id="period-1a-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br> <strong>Period 1B</strong><br>Course:<br><input id="period-1b-input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input id="period-1b-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br> <strong>Period 1C</strong><br>Course:<br><input id="period-1c-input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input id="period-1c-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br> <strong>Period 1D</strong><br>Course:<br><input id="period-1d-input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input id="period-1d-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br> <strong>Period 2A</strong><br>Course:<br><input id="period-2a-input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input id="period-2a-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br> <strong>Period 2B</strong><br>Course:<br><input id="period-2b-input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input id="period-2b-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br> <strong>Period 2C</strong><br>Course:<br><input id="period-2c-input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input id="period-2c-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br> <strong>Period 2D</strong><br>Course:<br><input id="period-2d-input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input id="period-2d-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br>';
+				formDiv[counter].innerHTML = '<strong>Period 1A</strong><br>Course:<br><input id="period-1a-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br>Course Code:<br><input id="period-1a-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br><strong>Period 1B</strong><br>Course:<br><input id="period-1b-input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input id="period-1b-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br><strong>Period 1C</strong><br>Course:<br><input id="period-1c-input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input id="period-1c-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br><strong>Period 1D</strong><br>Course:<br><input id="period-1d-input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input id="period-1d-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br><strong>Period 2A</strong><br>Course:<br><input id="period-2a-input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input id="period-2a-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br><strong>Period 2B</strong><br>Course:<br><input id="period-2b-input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input id="period-2b-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br><strong>Period 2C</strong><br>Course:<br><input id="period-2c-input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input id="period-2c-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br><strong>Period 2D</strong><br>Course:<br><input id="period-2d-input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input id="period-2d-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br>';
 
 				
 				document.getElementById(divName).appendChild(titleDiv[counter]);
