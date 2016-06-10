@@ -23,10 +23,11 @@ When that's done, the main window shows what day it is (or the next day, if it's
 ## Future plans?
 
 - Show more details about class on selection
-- Perhaps be able to see one other friend's schedule, so they don't get lost
+- See more useful information like friend's name and/or classroom
 
 ## Completed List
 
 - Show your own schedule (DONE as of 2016-04-21)
 - Be able to view your entire schedule with a menu object (DONE as of 2016-05-22)
 - Make it work on Pebble Round and new Pebbles (DONE as of 2016-06-01)
+- Perhaps be able to see one other friend's schedule, so they don't get lost (DONE as of 2016-06-09)
