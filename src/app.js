@@ -8,11 +8,6 @@ var periodSetter = require('periodSetter.js');
 var itemSetter = require('itemSetter.js');
 var titleSetter = require('titleSetter.js');
 
-// Create a Window to show main information
-var mainWind = new UI.Window({
-  backgroundColor: 'black'
-});
-
 //Colours in top half in blue
 var backTop = new UI.Rect({
   size: new Vector2(Feature.resolution().x, Feature.resolution().y / 2),
@@ -26,99 +21,118 @@ var backBottom = new UI.Rect({
   backgroundColor: 'jaeger green'
 });
 
-//Colours in main area in white
-var backMain = Feature.rectangle(new UI.Rect({
-  size: new Vector2(Feature.resolution().x - 24, Feature.resolution().y - 24),
-  position: new Vector2(12 , 12),
-  backgroundColor: 'white',
-  borderWidth: 5,
-  borderColor: 'black'
-}), new UI.Circle({
-  radius: Feature.resolution().x / 2 - 12,
-  position: new Vector2(Feature.resolution().x / 2, Feature.resolution().y /2),
-  backgroundColor: 'white',
-  borderWidth: 5,
-  borderColor: 'black'
-}));
 
-//Today is...
-var dayDescription = new UI.Text({
-  size: new Vector2(Feature.resolution().x, 18),
-  font: 'gothic-18',
-  position: Feature.rectangle(new Vector2(0, Feature.resolution().y / 4 - 20),
-                              new Vector2(0, Feature.resolution().y / 4 - 10)),
-  color: 'black',
-  text: 'Fetching...',
-  textAlign: 'center',
+// Create a Window to show main information
+var mainWind = new UI.Window({
+  backgroundColor: 'black'
 });
 
-//Day
-var dayText = new UI.Text({
-  size: new Vector2(Feature.resolution().x, 28),
-  font: 'gothic-28-bold',
-  position: Feature.rectangle(new Vector2(0, Feature.resolution().y / 4),
-                              new Vector2(0, Feature.resolution().y / 4 + 5)),
-  color: 'black',
-  text: '...',
-  textAlign: 'center',
-});
-
-//Next period is...
-var periodDescription = new UI.Text({
-  size: new Vector2(Feature.resolution().x, 18),
-  font: 'gothic-18',
-  position: Feature.rectangle(new Vector2(0, Feature.resolution().y * 0.75 - 35),
-                              new Vector2(0, Feature.resolution().y * 0.75 - 40)),
-  color: 'black',
-  text: 'Fetching...',
-  textAlign: 'center',
-});
-
-//French or English or whatever
-var periodText = new UI.Text({
-  size: Feature.rectangle(new Vector2(Feature.resolution().x, 28),
-                          new Vector2(Feature.resolution().x / 2, 28)),
-  font: 'gothic-28-bold',
-  position: Feature.rectangle(new Vector2(0, Feature.resolution().y * 0.75 - 15),
-                              new Vector2(Feature.resolution().x / 4, Feature.resolution().y * 0.75 - 25)),
-  color: 'black',
-  text: '...',
-  textAlign: 'center',
-  textOverflow: 'ellipsis',
-});
-
-//Center separation lines
-var separatorLines = new UI.Text({
-  size: new Vector2(Feature.resolution().x - 44, 18),
-  font: 'gothic-18',
-  position: new Vector2(22, Feature.resolution().y / 2 - 13),
-  color: 'black',
-  text: '- - - - - - - - - - -',
-  textAlign: 'center',
-});
-
-// Display the Card
 mainWind.add(backTop);
 mainWind.add(backBottom);
-mainWind.add(backMain);
-mainWind.add(dayDescription);
-mainWind.add(dayText);
-mainWind.add(periodDescription);
-mainWind.add(periodText);
-mainWind.add(separatorLines);
+
+//Create arrays to hold elements
+var backMain = [];
+var dayDescription = [];
+var dayText = [];
+var periodDescription = [];
+var periodText = [];
+var separatorLines = [];
+
+//Creates elements that display the day to the user
+function createElements(user, cardIndex) {
+  
+  //Colours in main area in white
+  backMain[cardIndex] = Feature.rectangle(new UI.Rect({
+    size: new Vector2(Feature.resolution().x - 24, Feature.resolution().y - 24),
+    position: new Vector2(12 , Feature.resolution().y * user + 12),
+    backgroundColor: 'white',
+    borderWidth: 5,
+    borderColor: 'black'
+  }), new UI.Circle({
+    radius: Feature.resolution().x / 2 - 12,
+    position: new Vector2(Feature.resolution().x / 2, Feature.resolution().y * user + Feature.resolution().y /2),
+    backgroundColor: 'white',
+    borderWidth: 5,
+    borderColor: 'black'
+  }));
+
+  //Today is...
+  dayDescription[cardIndex] = new UI.Text({
+    size: new Vector2(Feature.resolution().x, 18),
+    font: 'gothic-18',
+    position: Feature.rectangle(new Vector2(0, Feature.resolution().y * user + Feature.resolution().y / 4 - 20),
+                                new Vector2(0, Feature.resolution().y * user + Feature.resolution().y / 4 - 10)),
+    color: 'black',
+    text: 'Fetching...',
+    textAlign: 'center',
+  });
+
+  //Day
+  dayText[cardIndex] = new UI.Text({
+    size: new Vector2(Feature.resolution().x, 28),
+    font: 'gothic-28-bold',
+    position: Feature.rectangle(new Vector2(0, Feature.resolution().y * user + Feature.resolution().y / 4),
+                                new Vector2(0, Feature.resolution().y * user + Feature.resolution().y / 4 + 5)),
+    color: 'black',
+    text: '...',
+    textAlign: 'center',
+  });
+
+  //Next period is...
+  periodDescription[cardIndex] = new UI.Text({
+    size: new Vector2(Feature.resolution().x, 18),
+    font: 'gothic-18',
+    position: Feature.rectangle(new Vector2(0, Feature.resolution().y * user + Feature.resolution().y * 0.75 - 35),
+                                new Vector2(0, Feature.resolution().y * user + Feature.resolution().y * 0.75 - 40)),
+    color: 'black',
+    text: 'Fetching...',
+    textAlign: 'center',
+  });
+
+  //French or English or whatever
+  periodText[cardIndex] = new UI.Text({
+    size: Feature.rectangle(new Vector2(Feature.resolution().x, 28),
+                            new Vector2(Feature.resolution().x / 2, 28)),
+    font: 'gothic-28-bold',
+    position: Feature.rectangle(new Vector2(0, Feature.resolution().y * user + Feature.resolution().y * 0.75 - 15),
+                                new Vector2(Feature.resolution().x / 4, Feature.resolution().y * user + Feature.resolution().y * 0.75 - 25)),
+    color: 'black',
+    text: '...',
+    textAlign: 'center',
+    textOverflow: 'ellipsis',
+  });
+
+//Center separation lines
+  separatorLines[cardIndex] = new UI.Text({
+    size: new Vector2(Feature.resolution().x - 44, 18),
+    font: 'gothic-18',
+    position: new Vector2(22, Feature.resolution().y * user + Feature.resolution().y / 2 - 13),
+    color: 'black',
+    text: '- - - - - - - - - - -',
+    textAlign: 'center',
+  });
+
+  // Add elements to the window
+  mainWind.add(backMain[cardIndex]);
+  mainWind.add(dayDescription[cardIndex]);
+  mainWind.add(dayText[cardIndex]);
+  mainWind.add(periodDescription[cardIndex]);
+  mainWind.add(periodText[cardIndex]);
+  mainWind.add(separatorLines[cardIndex]);
+}
+
+//Show the card
+var cardIndex = 0;
+createElements(0, cardIndex);
 mainWind.show();
 
 // Construct periods
-var periods = [
-  localStorage.getItem('onea'),
-  localStorage.getItem('oneb'),
-  localStorage.getItem('onec'),
-  localStorage.getItem('oned'),
-  localStorage.getItem('twoa'),
-  localStorage.getItem('twob'),
-  localStorage.getItem('twoc'),
-  localStorage.getItem('twod'),
-];
+var periods = [];
+var users = localStorage.getItem('users');
+for (var i = 0; i<= users*16+15; i++) {
+  periods[i] = localStorage.getItem(i.toString());
+  console.log(periods[i]);
+}
 var online = true;
 var currentPeriod = 4;
 var Day = 'day';
@@ -178,17 +192,17 @@ function request() {
       dateFetched = localStorage.getItem('dateFetched');
       var timeShown = moment(dateFetched).format('ddd Do');
       if (moment().isAfter(dateFetched, 'day')) {
-        dayDescription.text(timeShown + ' was a');
-        dayText.text(Day);
-        periodDescription.text('You\'re offline!');
-        periodText.text(':(');
+        dayDescription[cardIndex].text(timeShown + ' was a');
+        dayText[cardIndex].text(Day);
+        periodDescription[cardIndex].text('You\'re offline!');
+        periodText[cardIndex].text(':(');
       } else if (moment().isSame(dateFetched, 'day')) {
-        dayDescription.text(timeShown + ' is a');
-        dayText.text(Day.toUpperCase());
+        dayDescription[cardIndex].text(timeShown + ' is a');
+        dayText[cardIndex].text(Day.toUpperCase());
         setPeriod(parseInt(Day.substring(4,5)));
       } else {
-        dayDescription.text(timeShown + ' will be a');
-        dayText.text(Day.toUpperCase());
+        dayDescription[cardIndex].text(timeShown + ' will be a');
+        dayText[cardIndex].text(Day.toUpperCase());
         setPeriod(parseInt(Day.substring(4,5)));
       }
     }
@@ -199,30 +213,30 @@ function request() {
 function display(day) {
   switch(day) {
     case 0:
-      dayDescription.text('It\'s a');
-      dayText.text(Day.toUpperCase());
+      dayDescription[cardIndex].text('It\'s a');
+      dayText[cardIndex].text(Day.toUpperCase());
       break;
     case 1:
-      dayDescription.text('Tomorrow\'s a');
-      dayText.text(Day.toUpperCase());
+      dayDescription[cardIndex].text('Tomorrow\'s a');
+      dayText[cardIndex].text(Day.toUpperCase());
       break;
     default:
-      dayDescription.text(moment().add(day, 'days').format("ddd ") + 
+      dayDescription[cardIndex].text(moment().add(day, 'days').format("ddd ") + 
                           moment().add(day, 'days').format("Do") + ' will be a');
-      dayText.text(Day.toUpperCase());
+      dayText[cardIndex].text(Day.toUpperCase());
   }
 }
 
 //Displays periods by setting according to day
 function setPeriod(day) {
   if (periods[0] === null) {
-    periodDescription.text('Set your periods');
+    periodDescription[cardIndex].text('Set your periods');
     var setupText = 'IN THE APP!';
     if (Feature.round()) {
       setupText = 'IN-APP!';
     }
     console.log(setupText);
-    periodText.text(setupText);
+    periodText[cardIndex].text(setupText);
   }
   else {
     if (moment().isBefore(moment().set({'hour': 09, 'minute':15})) || 
@@ -233,8 +247,8 @@ function setPeriod(day) {
         currentPeriod = 1;
       }
       console.log('Period 1');
-      periodDescription.text('First period');
-      periodText.text(periods[periodSetter.setPeriod(day)[0]].toUpperCase());
+      periodDescription[cardIndex].text('First period');
+      periodText[cardIndex].text(periods[periodSetter.setPeriod(day, cardIndex)[0]].toUpperCase());
     }
     else if (moment().isBefore(moment().set({'hour': 10, 'minute':35}))) {
       if (day == 1 || day == 2) {
@@ -243,8 +257,8 @@ function setPeriod(day) {
         currentPeriod = 1;
       }
       console.log('Period 2');
-      periodDescription.text('Second period');
-      periodText.text(periods[periodSetter.setPeriod(day)[1]].toUpperCase());
+      periodDescription[cardIndex].text('Second period');
+      periodText[cardIndex].text(periods[periodSetter.setPeriod(day, cardIndex)[1]].toUpperCase());
     }
     else if (moment().isBefore(moment().set({'hour': 12, 'minute':40}))) {
       if (day == 1 || day == 2) {
@@ -253,8 +267,8 @@ function setPeriod(day) {
         currentPeriod = 0;
       }
       console.log('Period 3');
-      periodDescription.text('Third period');
-      periodText.text(periods[periodSetter.setPeriod(day)[2]].toUpperCase());
+      periodDescription[cardIndex].text('Third period');
+      periodText[cardIndex].text(periods[periodSetter.setPeriod(day, cardIndex)[2]].toUpperCase());
     }
     else if (moment().isBefore(moment().set({'hour': 14, 'minute':0}))) {
       if (day == 1 || day == 2) {
@@ -263,8 +277,8 @@ function setPeriod(day) {
         currentPeriod = 3;
       }
       console.log('Period 3');
-      periodDescription.text('Fourth period');
-      periodText.text(periods[periodSetter.setPeriod(day)[3]].toUpperCase());
+      periodDescription[cardIndex].text('Fourth period');
+      periodText[cardIndex].text(periods[periodSetter.setPeriod(day, cardIndex)[3]].toUpperCase());
     }
     else {
       if (day == 1 || day == 2) {
@@ -273,23 +287,13 @@ function setPeriod(day) {
         currentPeriod = 2;
       }
       console.log('Period 4');
-      periodDescription.text('No next class!');
-      periodText.text('DONE!');
+      periodDescription[cardIndex].text('No next class!');
+      periodText[cardIndex].text('DONE!');
     }
   }
 }
 
 //Shows schedule
-var periodCodes = [
-    localStorage.getItem('oneacode'),
-    localStorage.getItem('onebcode'),
-    localStorage.getItem('oneccode'),
-    localStorage.getItem('onedcode'),
-    localStorage.getItem('twoacode'),
-    localStorage.getItem('twobcode'),
-    localStorage.getItem('twoccode'),
-    localStorage.getItem('twodcode'),
-];
 function showSchedule() {
   console.log('clicked!');
   console.log(Number(Day.substring(4,5)) + 1);
@@ -298,11 +302,11 @@ function showSchedule() {
     sections: [{
       title: titleSetter.setTitle(parseInt(Day.substring(4,5))),
       backgroundColor: Feature.color('jaeger green', 'white'),
-      items: itemSetter.setItems(parseInt(Day.substring(4,5)))
+      items: itemSetter.setItems(parseInt(Day.substring(4,5)), cardIndex)
     }, {
       title: titleSetter.setTitle(parseInt(Day.substring(4,5)) + 1),
       backgroundColor: Feature.color('jaeger green', 'white'),
-      items: itemSetter.setItems(parseInt(Day.substring(4,5)) + 1)
+      items: itemSetter.setItems(parseInt(Day.substring(4,5)) + 1, cardIndex)
     }]
   });
   scheduleMenu.status(false);
@@ -312,21 +316,11 @@ function showSchedule() {
 
 //App Settings
 Pebble.addEventListener('showConfiguration', function() {
-  var configURL = "";
-  if (periods[0] === null) {
-    configURL = 'http://cbschedulemana.ga/index.html';
-  }
-  else {
-    configURL = 'http://cbschedulemana.ga/index.html?' + 
-      'onea=' + encodeURIComponent(periods[0]) + '&oneb=' + encodeURIComponent(periods[1]) + '&onec=' + encodeURIComponent(periods[2])+ 
-      '&oned=' + encodeURIComponent(periods[3]) + '&twoa=' + encodeURIComponent(periods[4]) + '&twob=' + encodeURIComponent(periods[5]) + 
-      '&twoc=' + encodeURIComponent(periods[6]) + '&twod=' + encodeURIComponent(periods[7]);
-    if (periodCodes[0] !== null) {
-    configURL += '&oneacode=' + encodeURIComponent(periodCodes[0]) +
-      '&onebcode=' + encodeURIComponent(periodCodes[1]) + '&oneccode=' + encodeURIComponent(periodCodes[2]) + 
-      '&onedcode=' + encodeURIComponent(periodCodes[3]) + '&twoacode=' + encodeURIComponent(periodCodes[4]) +
-      '&twobcode=' + encodeURIComponent(periodCodes[5]) + '&twoccode=' + encodeURIComponent(periodCodes[6]) +
-      '&twodcode=' + encodeURIComponent(periodCodes[7]);
+  var configURL = 'http://cbschedulemana.ga/index.html';
+  if (users !== null && periods[0] !== null) {
+    configURL += "?users=" + users;
+    for (var i = 0; i <= periods.length; i++) {
+      configURL += "&" + i + "=" + encodeURIComponent(periods[i]);
     }
   }
   Pebble.openURL(configURL);
@@ -336,31 +330,15 @@ Pebble.addEventListener('showConfiguration', function() {
 // Decode the user's preferences
 Pebble.addEventListener('webviewclosed', function(e) {
   var configData = JSON.parse(decodeURIComponent(e.response));
-  console.log(configData.onea);
-  periods[0] = configData.onea;
-  periods[1] = configData.oneb;
-  periods[2] = configData.onec;
-  periods[3] = configData.oned;
-  periods[4] = configData.twoa;
-  periods[5] = configData.twob;
-  periods[6] = configData.twoc;
-  periods[7] = configData.twod;
-  localStorage.setItem('onea', periods[0]);
-  localStorage.setItem('oneb', periods[1]);
-  localStorage.setItem('onec', periods[2]);
-  localStorage.setItem('oned', periods[3]);
-  localStorage.setItem('twoa', periods[4]);
-  localStorage.setItem('twob', periods[5]);
-  localStorage.setItem('twoc', periods[6]);
-  localStorage.setItem('twod', periods[7]);
-  localStorage.setItem('oneacode', configData.oneacode);
-  localStorage.setItem('onebcode', configData.onebcode);
-  localStorage.setItem('oneccode', configData.oneccode);
-  localStorage.setItem('onedcode', configData.onedcode);
-  localStorage.setItem('twoacode', configData.twoacode);
-  localStorage.setItem('twobcode', configData.twobcode);
-  localStorage.setItem('twoccode', configData.twoccode);
-  localStorage.setItem('twodcode', configData.twodcode);
+  console.log(configData[0]);
+  users = configData[configData.length - 1];
+  localStorage.setItem('users', users);
+  console.log(users);
+  for (var i = 0; i <= configData.length; i++) {
+    periods[i] = configData[i];
+    console.log(configData[i]);
+    localStorage.setItem(i.toString(), periods[i]);
+  }
   request();
 });
 
@@ -369,115 +347,39 @@ Pebble.addEventListener('webviewclosed', function(e) {
 mainWind.on('click', 'select', showSchedule);
 
 //Scrolls to next element
-var cardIndex = 0;
-var created = false;
+var created = [];
 mainWind.on('click', 'down', function (animateThingsDown) {
-  console.log('clicked down!');
-  
+  cardIndex += 1;
   //create other elements
-
-  if (created === false) {
-      
-    //Colours in main area in white
-    var backMain2 = Feature.rectangle(new UI.Rect({
-      size: new Vector2(Feature.resolution().x - 24, Feature.resolution().y - 24),
-      position: new Vector2(12 , Feature.resolution().y + 12),
-      backgroundColor: 'white',
-      borderWidth: 5,
-      borderColor: 'black'
-    }), new UI.Circle({
-      radius: Feature.resolution().x / 2 - 12,
-      position: new Vector2(Feature.resolution().x / 2, Feature.resolution().y + Feature.resolution().y /2),
-      backgroundColor: 'white',
-      borderWidth: 5,
-      borderColor: 'black'
-    }));
-    
-    //Today is...
-    var dayDescription2 = new UI.Text({
-      size: new Vector2(Feature.resolution().x, 18),
-      font: 'gothic-18',
-      position: Feature.rectangle(new Vector2(0, Feature.resolution().y + Feature.resolution().y / 4 - 20),
-                                  new Vector2(0, Feature.resolution().y + Feature.resolution().y / 4 - 10)),
-      color: 'black',
-      text: 'Fetching...',
-      textAlign: 'center',
-    });
-    
-    //Day
-    var dayText2 = new UI.Text({
-      size: new Vector2(Feature.resolution().x, 28),
-      font: 'gothic-28-bold',
-      position: Feature.rectangle(new Vector2(0, Feature.resolution().y + Feature.resolution().y / 4),
-                                  new Vector2(0, Feature.resolution().y + Feature.resolution().y / 4 + 5)),
-      color: 'black',
-      text: '...',
-      textAlign: 'center',
-    });
-    
-    //Next period is...
-    var periodDescription2 = new UI.Text({
-      size: new Vector2(Feature.resolution().x, 18),
-      font: 'gothic-18',
-      position: Feature.rectangle(new Vector2(0, Feature.resolution().y + Feature.resolution().y * 0.75 - 35),
-                                  new Vector2(0, Feature.resolution().y + Feature.resolution().y * 0.75 - 40)),
-      color: 'black',
-      text: 'Fetching...',
-      textAlign: 'center',
-    });
-    
-    //French or English or whatever
-    var periodText2 = new UI.Text({
-      size: Feature.rectangle(new Vector2(Feature.resolution().x, 28),
-                              new Vector2(Feature.resolution().x / 2, 28)),
-      font: 'gothic-28-bold',
-      position: Feature.rectangle(new Vector2(0, Feature.resolution().y + Feature.resolution().y * 0.75 - 15),
-                                  new Vector2(Feature.resolution().x / 4, Feature.resolution().y + Feature.resolution().y * 0.75 - 25)),
-      color: 'black',
-      text: '...',
-      textAlign: 'center',
-      textOverflow: 'ellipsis',
-    });
-    
-    //Center separation lines
-    var separatorLines2 = new UI.Text({
-      size: new Vector2(Feature.resolution().x - 44, 18),
-      font: 'gothic-18',
-      position: new Vector2(22, Feature.resolution().y + Feature.resolution().y / 2 - 13),
-      color: 'black',
-      text: '- - - - - - - - - - -',
-      textAlign: 'center',
-    });
-    
-    // Display the Card
-    mainWind.add(backMain2);
-    mainWind.add(dayDescription2);
-    mainWind.add(dayText2);
-    mainWind.add(periodDescription2);
-    mainWind.add(periodText2);
-    mainWind.add(separatorLines2);
-    created = true;
+  if (created[cardIndex] !== true && cardIndex <= users) {
+    createElements(1, cardIndex);
+    created[cardIndex] = true;
+    display(daySkipped);
+    setPeriod(parseInt(Day.substring(4,5)));
   }
-
   
-//Animate the elements down
-  if (cardIndex === 0) {
+  //Animate the elements down
+  if (cardIndex <= users) {
     mainWind.each(function (element) {
-    if (element.backgroundColor() != 'jaeger green' && element.backgroundColor() != 'blue moon') {
-                element.animate('position', new Vector2(element.position().x, element.position().y -= Feature.resolution().y), 150);
-    }});
-    cardIndex = 1;
+      if (element.backgroundColor() != 'jaeger green' && element.backgroundColor() != 'blue moon') {
+        element.animate('position', new Vector2(element.position().x, element.position().y -= Feature.resolution().y), 500);
+      }});
+    
+  } else {
+    cardIndex -= 1;
   }
+
+  console.log('clicked down! to card #' + cardIndex);
 });
 
-//Animate the elements up
+//Scrolls to previous element
 mainWind.on('click', 'up', function (animateThingsUp) {
-  if (cardIndex == 1) {
+  if (cardIndex >= 1) {
     mainWind.each(function (element) {
     if (element.backgroundColor() != 'jaeger green' && element.backgroundColor() != 'blue moon') {
-                element.animate('position', new Vector2(element.position().x, element.position().y += Feature.resolution().y), 150);
+                element.animate('position', new Vector2(element.position().x, element.position().y += Feature.resolution().y), 500);
     }});
-    cardIndex = 0;
+    cardIndex -= 1;
   }
-  console.log('clicked up!');
+  console.log('clicked up! to card #' + cardIndex);
 });
