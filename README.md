@@ -1,7 +1,7 @@
 # CB Schedule Manager
 
-![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/mainWind.png)
-![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/scheduleMenu.png)
+![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/Main%20Menu%20v2.gif)
+![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/Friend%20Menu%20v2.gif)
 ![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/mainWindBnW.png)
 ![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/scheduleMenuBnW.png)
 
