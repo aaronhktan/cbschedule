@@ -17,44 +17,44 @@
  			<div class="form">
 	 			<strong>Period 1A</strong>
 					<br>Course:<br>
-						<input id="period-1a-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+						<input class="input" type="text" onblur="this.value=removeSpaces(this.value)"/>
 					<br>Course Code:<br>
-						<input id="period-1a-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+						<input class="input" type="text" onblur="this.value=removeSpaces(this.value)"/>
 				<br><br> <strong>Period 1B</strong>
 					<br>Course:<br>
-						<input id="period-1b-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
+						<input class="input" type="text" onblur="this.value=removeSpaces(this.value);"/>
 					<br>Course Code:<br>
-						<input id="period-1b-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+						<input class="input" type="text" onblur="this.value=removeSpaces(this.value)"/>
 				<br><br> <strong>Period 1C</strong>
 					<br>Course:<br>
-						<input id="period-1c-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
+						<input class="input" type="text" onblur="this.value=removeSpaces(this.value);"/>
 					<br>Course Code:<br>
-						<input id="period-1c-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+						<input class="input" type="text" onblur="this.value=removeSpaces(this.value)"/>
 				<br><br> <strong>Period 1D</strong>
 					<br>Course:<br>
-						<input id="period-1d-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
+						<input class="input" type="text" onblur="this.value=removeSpaces(this.value);"/>
 					<br>Course Code:<br>
-						<input id="period-1d-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+						<input class="input" type="text" onblur="this.value=removeSpaces(this.value)"/>
 				<br><br> <strong>Period 2A</strong>
 					<br>Course:<br>
-						<input id="period-2a-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
+						<input class="input" type="text" onblur="this.value=removeSpaces(this.value);"/>
 					<br>Course Code:<br>
-						<input id="period-2a-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+						<input class="input" type="text" onblur="this.value=removeSpaces(this.value)"/>
 				<br><br> <strong>Period 2B</strong>
 					<br>Course:<br>
-						<input id="period-2b-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
+						<input class="input" type="text" onblur="this.value=removeSpaces(this.value);"/>
 					<br>Course Code:<br>
-						<input id="period-2b-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+						<input class="input" type="text" onblur="this.value=removeSpaces(this.value)"/>
 				<br><br> <strong>Period 2C</strong>
 					<br>Course:<br>
-						<input id="period-2c-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
+						<input class="input" type="text" onblur="this.value=removeSpaces(this.value);"/>
 					<br>Course Code:<br>
-						<input id="period-2c-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+						<input class="input" type="text" onblur="this.value=removeSpaces(this.value)"/>
 				<br><br> <strong>Period 2D</strong>
 					<br>Course:<br>
-						<input id="period-2d-input" type="text" onblur="this.value=removeSpaces(this.value);"/>
+						<input class="input" type="text" onblur="this.value=removeSpaces(this.value);"/>
 					<br>Course Code:<br>
-						<input id="period-2d-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/>
+						<input class="input" type="text" onblur="this.value=removeSpaces(this.value)"/>
 				<br><br>
 			</div>
 		</div>
@@ -75,12 +75,16 @@
  		  	submitButton.addEventListener('click', function() {
  		    	
  		    	// Get the config data from the UI elements
-	 		    var input = document.getElementsByTagName('input');
+	 		    var input = document.getElementsByClassName('input');
+	 		    var names = document.getElementsByClassName('name');
 	 		    var options = [];
 	 		    for (i = 0; i < input.length; i++) {
 	 		    	options[i] = input[i].value;
 	 		    }
-	 		    options[counter * 16 + 16] = counter;
+	 		    for (i = 1; i <= users; i++) {
+	 		    	options[counter * 16 + i] = names[i].value;
+	 		    }
+	 		    options[counter * 16 + counter + 16] = counter;
  		
 	 		    // Determine the correct return URL (emulator vs real watch)
 	 		    function getQueryParam(variable, defaultValue) {
@@ -98,6 +102,7 @@
 	 		
 	 		    // Encode and send the data when the page closes
 	 		    document.location = return_to + encodeURIComponent(JSON.stringify(options));
+	 		    alert(JSON.stringify(options));
  		  })
 
 			function removeSpaces(string) {
@@ -155,13 +160,13 @@
 				titleDiv[counter] = document.createElement('div');
 				titleDiv[counter].setAttribute('class', 'title');
 				titleDiv[counter].setAttribute('id', 'title' + counter);
-				titleDiv[counter].innerHTML = "<br><br><strong>Friend #</strong>" + counter + "<br><br>";
+				titleDiv[counter].innerHTML = "<br><br><strong>Friend #</strong>" + counter + '<br><input class="name" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br>';
 
 				//Create div for text input
 				formDiv[counter] = document.createElement('div');
 				formDiv[counter].setAttribute('class', 'form');
 				formDiv[counter].setAttribute('id', 'form' + counter);
-				formDiv[counter].innerHTML = '<strong>Period 1A</strong><br>Course:<br><input id="period-1a-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br>Course Code:<br><input id="period-1a-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br><strong>Period 1B</strong><br>Course:<br><input id="period-1b-input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input id="period-1b-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br><strong>Period 1C</strong><br>Course:<br><input id="period-1c-input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input id="period-1c-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br><strong>Period 1D</strong><br>Course:<br><input id="period-1d-input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input id="period-1d-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br><strong>Period 2A</strong><br>Course:<br><input id="period-2a-input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input id="period-2a-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br><strong>Period 2B</strong><br>Course:<br><input id="period-2b-input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input id="period-2b-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br><strong>Period 2C</strong><br>Course:<br><input id="period-2c-input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input id="period-2c-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br><strong>Period 2D</strong><br>Course:<br><input id="period-2d-input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input id="period-2d-code-input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br>';
+				formDiv[counter].innerHTML = '<strong>Period 1A</strong><br>Course:<br><input class="input" type="text" onblur="this.value=removeSpaces(this.value)"/><br>Course Code:<br><input class="input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br><strong>Period 1B</strong><br>Course:<br><input class="input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input class="input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br><strong>Period 1C</strong><br>Course:<br><input class="input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input class="input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br><strong>Period 1D</strong><br>Course:<br><input class="input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input class="input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br><strong>Period 2A</strong><br>Course:<br><input class="input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input class="input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br><strong>Period 2B</strong><br>Course:<br><input class="input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input class="input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br><strong>Period 2C</strong><br>Course:<br><input class="input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input class="input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br><strong>Period 2D</strong><br>Course:<br><input class="input" type="text" onblur="this.value=removeSpaces(this.value);"/><br>Course Code:<br><input class="input" type="text" onblur="this.value=removeSpaces(this.value)"/><br><br>';
 
 				
 				document.getElementById(divName).appendChild(titleDiv[counter]);
