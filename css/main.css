@@ -10,7 +10,14 @@ body {
 	vertical-align: text-top;
 }
 
-.title{
+#description {
+	font-family: Arial;
+	font-weight: 300;
+	text-align: center;
+	vertical-align: text-top;
+}
+
+.title {
 	display:block;
 	font-family: Arial;
 	font-weight: 700;
