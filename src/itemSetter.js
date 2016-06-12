@@ -3,9 +3,9 @@ var items = [];
 
 exports.setItems = function (day, user) {
   var periods = [];
-  var numberOfPeriods = (user + 1) * 16;
+  var numberOfPeriods = (user + 1) * 8;
   for (var i = 0; i < numberOfPeriods; i++) {
-    periods[i] = localStorage.getItem(i.toString());
+    periods[i] = JSON.parse(localStorage.getItem(i.toString()));
   }
 
   switch (day) {
@@ -13,33 +13,33 @@ exports.setItems = function (day, user) {
     case 3:
     case 5:
       items = [{
-        title: '1A: ' + periods[user * 16].toUpperCase(),
-        subtitle: periods[user * 16 + 1].toUpperCase()
+        title: '1A: ' + String(periods[user * 8].name).toUpperCase(),
+        subtitle: String(periods[user * 8].code).toUpperCase()
       }, {
-        title: '1B: ' + periods[user * 16 + 2].toUpperCase(),
-        subtitle: periods[user * 16 + 3].toUpperCase()
+        title: '1B: ' + String(periods[user * 8 + 1].name).toUpperCase(),
+        subtitle: String(periods[user * 8 + 1].code).toUpperCase()
       }, {
-        title: '1C: ' + periods[user * 16 + 4].toUpperCase(),
-        subtitle: periods[user * 16 + 5].toUpperCase()
+        title: '1C: ' + String(periods[user * 8 + 2].name).toUpperCase(),
+        subtitle: String(periods[user * 8 + 2].code).toUpperCase()
       }, {
-        title: '1D: ' + periods[user * 16 + 6].toUpperCase(),
-        subtitle: periods[user * 16 + 7].toUpperCase()
+        title: '1D: ' + String(periods[user * 8 + 3].name).toUpperCase(),
+        subtitle: String(periods[user * 8 + 3].code).toUpperCase()
       }];
     break;
     case 2:
     case 4:
       items = [{
-        title: '2A: ' + periods[user * 16 + 8].toUpperCase(),
-        subtitle: periods[user * 16 + 9].toUpperCase()
+        title: '2A: ' + String(periods[user * 8 + 4].name).toUpperCase(),
+        subtitle: String(periods[user * 8 + 4].code).toUpperCase()
       }, {
-        title: '2B: ' + periods[user * 16 + 10].toUpperCase(),
-        subtitle: periods[user * 16 + 11].toUpperCase()
+        title: '2B: ' + String(periods[user * 8 + 5].name).toUpperCase(),
+        subtitle: String(periods[user * 8 + 5].code).toUpperCase()
       }, {
-        title: '2C: ' + periods[user * 16 + 12].toUpperCase(),
-        subtitle: periods[user * 16 + 13].toUpperCase()
+        title: '2C: ' + String(periods[user * 8 + 6].name).toUpperCase(),
+        subtitle: String(periods[user * 8 + 6].code).toUpperCase()
       }, {
-        title: '2D: ' + periods[user * 16 + 14].toUpperCase(),
-        subtitle: periods[user * 16 + 15].toUpperCase()
+        title: '2D: ' + String(periods[user * 8 + 7].name).toUpperCase(),
+        subtitle: String(periods[user * 8 + 7].code).toUpperCase()
       }];
     break;
   }

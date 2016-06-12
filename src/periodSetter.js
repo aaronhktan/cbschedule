@@ -4,16 +4,16 @@ var periodNumbers = [];
 exports.setPeriod = function (day, user) {
   switch (day){
     case 1:
-      periodNumbers = [16 * user, 16 * user + 2, 16 * user + 4, 16 * user + 6];
+      periodNumbers = [8 * user, 8 * user + 1, 8 * user + 2, 8 * user + 3];
     break;
     case 2:
-      periodNumbers = [16 * user + 8, 16 * user + 10, 16 * user + 12, 16 * user + 14];
+      periodNumbers = [8 * user + 4, 8 * user + 5, 8 * user + 6, 8 * user + 7];
     break;
     case 3:
-      periodNumbers = [16 * user + 2, 16 * user, 16 * user + 6, 16 * user + 4];
+      periodNumbers = [8 * user + 1, 8 * user, 8 * user + 3, 8 * user + 2];
     break;
     case 4:
-      periodNumbers = [16 * user + 10, 16 * user + 8, 16 * user + 14, 16 * user + 12];
+      periodNumbers = [8 * user + 5, 8 * user + 2, 8 * user + 7, 8 * user + 6];
     break;
   }
   return periodNumbers;
