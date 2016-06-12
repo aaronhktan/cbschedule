@@ -172,6 +172,24 @@
 				for (i=1; i<=users; i++) {
 					addInput("inputs0");
 				}
+				
+				var names = document.getElementsByClassName('username');
+				for (i = 0; i <= names.length; i++) { 													//Cycles through elements in that array
+					url = window.location.search.substring(1); 											//Searches the URL for the element number
+					if (url.search('user' + i.toString()) != -1) { 															//If the URL has a number
+						params = url.split("&"); 														//Creates an array with each element being separated by "&"
+						for (x = 0; x < params.length; x++) { 											//Checks each element
+							param = params[x].split("="); 												//Splits up each parameter in URL by "="
+						        if (param[0] == ('user' + i.toString())) { 											//If the first part of the paramater is equal to the element number
+						        	names[i].value = decodeURIComponent(param[1]);						//The element's value is set to the second part of the parameter.
+						        }
+						}
+					}
+					else {
+						names[i].value = "";
+					}
+				}
+
 				var inputs = document.getElementsByTagName('input');
 				var classes = document.getElementsByClassName('class');
 	 		    var codes = document.getElementsByClassName('code');
