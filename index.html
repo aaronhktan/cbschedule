@@ -174,7 +174,7 @@
 				}
 				
 				var names = document.getElementsByClassName('username');
-				for (i = 0; i <= names.length; i++) { 													//Cycles through elements in that array
+				for (i = 0; i < names.length; i++) { 													//Cycles through elements in that array
 					url = window.location.search.substring(1); 											//Searches the URL for the element number
 					if (url.search('user' + i.toString()) != -1) { 															//If the URL has a number
 						params = url.split("&"); 														//Creates an array with each element being separated by "&"
