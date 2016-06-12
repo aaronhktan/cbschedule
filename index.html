@@ -117,7 +117,6 @@
 	 		    var rooms = document.getElementsByClassName('room');
 	 		    var usernames = document.getElementsByClassName('username');
 	 		    var options = [];
-	 		    alert(classes.length);
 	 		    for (i = 0; i < classes.length; i++) {
 	 		    	var period = new createPeriod(classes[i].value, codes[i].value, teachers[i].value, rooms[i].value);
 	 		    	options[i] = period;
@@ -143,7 +142,6 @@
 	 		
 	 		    // Encode and send the data when the page closes
 	 		    document.location = return_to + encodeURIComponent(JSON.stringify(options));
-	 		    alert(options);
  		  })
 
 			function removeSpaces(string) {
