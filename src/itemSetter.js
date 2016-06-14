@@ -1,6 +1,7 @@
 var exports = this.exports = {};
 var items = [];
 
+//This module returns the items for a menu object.
 exports.setItems = function (day, user) {
   var periods = [];
   var numberOfPeriods = (user + 1) * 8;

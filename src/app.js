@@ -39,7 +39,7 @@ var periodDescription = [];
 var periodText = [];
 var separatorLines = [];
 
-//Creates elements that display the day and/or periods to the user
+//Creates elements that display the day and/or periods to the user. Mostly self-explanatory.
 function createElements(user, cardIndex) {
   
   //Colours in main area in white
@@ -127,29 +127,31 @@ var cardIndex = 0;
 createElements(0, cardIndex);
 mainWind.show();
 
-// Construct periods
+// Construct periods and users' names
 var users = localStorage.getItem('users');
+// Gets user' names from storage
 var usernames = [];
 for (var i = 0; i < parseInt(users); i++) {
   usernames[i] = (localStorage.getItem(String(8 * (parseInt(users) + 1) + i)));
   console.log(localStorage.getItem(String(8 * (parseInt(users) + 1) + i)));
 }
+// Gets periods from storage
 var periods = [];
 for (i = 0; i <= (users * 8 + 7); i++) {
   periods[i] = JSON.parse(localStorage.getItem(i.toString()));
 }
-var online = true;
-var working = true;
-var currentPeriod = 4;
-var Day = 'day';
-var dateFetched = localStorage.getItem('dateFetched');
-var timesSkipped = 0;
+var online = true; //determines whether the user is online or not
+var working = true; //determines whether the calendar is on or not
+var currentPeriod = 4; //determines what period of the schedule will be shown
+var Day = 'day'; //a string that holds what day it is
+var dateFetched = localStorage.getItem('dateFetched'); //gets the date the last time the Day was fethed
+var timesSkipped = 0; //used to keep track of how many times 'no day' there have been
 
 // Construct URL
 var URL = 'https://www.googleapis.com/calendar/v3/calendars/ocdsb.ca_9dul7c0nu4poqkgbhsfu0qe2t0@group.calendar.google.com/events?key=AIzaSyB4JbJ8B3jPBr-uwqLkF6p-qD7lzBIadgw';
-var daySkipped = 0;
-var start = moment().startOf('day').format();
-var end = moment().endOf('day').format();
+var daySkipped = 0; //used to keep track of how many times days have been skipped
+var start = moment().startOf('day').format(); //used for construction of URL (start time)
+var end = moment().endOf('day').format(); //used for construction of URL (end time)
 
 // Make the request
 request();
@@ -167,49 +169,49 @@ function request() {
   
       // Interpret data; try next day if not school day
       if (Day == 'no school') {
-        timesSkipped++;
+        timesSkipped++; //adds one to the counter of how many times there has been 'no school'
         if (timesSkipped < 9) {
-        daySkipped ++;
-        start = moment().startOf('day').add(daySkipped, 'days').format();
-        end = moment().endOf('day').add(daySkipped, 'days').format();
-        request();
+        daySkipped ++; //ads one to the counter of how many times days have been skipped
+        start = moment().startOf('day').add(daySkipped, 'days').format(); //changes the start time to one day forward
+        end = moment().endOf('day').add(daySkipped, 'days').format(); //change the end time to one day forward
+        request(); //requests again
         } else {
-          working = false;
-          dayDescription[cardIndex].text('Sum ting wong.');
-          dayText[cardIndex].text('Uh oh.');
-          periodDescription[cardIndex].text('Not good.');
+          working = false; //it has been 9 or more days since the calendar has a day, therefore it's likely that it is now a vacation day or break
+          dayDescription[cardIndex].text('It\'s vacation!'); //sets the text assuming it's a vacation or a break
+          dayText[cardIndex].text(':)');
+          periodDescription[cardIndex].text('Or sum ting wong.');
           periodText[cardIndex].text(':(');
-          Day = 'Day 1';
-          currentPeriod = 0;
+          Day = 'Day 1'; //sets to Day 1 if nothing is working
+          currentPeriod = 0; //sets current period to the first period if nothing is working
         }
       } 
       //Show to user if school day
       else {
-        localStorage.setItem('Day', Day);
+        localStorage.setItem('Day', Day); //stores the day in persistent storage
         localStorage.setItem('dateFetched', moment().
-                             add(daySkipped, 'days').format('YYYY-MM-DD'));
+                             add(daySkipped, 'days').format('YYYY-MM-DD')); //stores the date that the day is describing
         console.log(moment().add(daySkipped, 'days').format('YYYY-MM-DD'));
-        display(daySkipped);
-        setPeriod(parseInt(Day.substring(4,5)));
+        display(daySkipped); //shows the day in the top half
+        setPeriod(parseInt(Day.substring(4,5))); //shows the period in the bottom half
       }
     },
     function(error) {
       // Failure!
       console.log('Failed fetching schedule data: ' + error);
-      online = false;
-      Day = localStorage.getItem('Day');
-      dateFetched = localStorage.getItem('dateFetched');
-      var timeShown = moment(dateFetched).format('ddd Do');
-      if (moment().isAfter(dateFetched, 'day')) {
-        dayDescription[cardIndex].text(timeShown + ' was a');
-        dayText[cardIndex].text(Day);
-        periodDescription[cardIndex].text('You\'re offline!');
-        periodText[cardIndex].text(':(');
-      } else if (moment().isSame(dateFetched, 'day')) {
+      online = false; //the user is offline!
+      Day = localStorage.getItem('Day'); //gets the last day from persistent storage
+      dateFetched = localStorage.getItem('dateFetched'); //get the date that is attached to the day
+      var timeShown = moment(dateFetched).format('ddd Do'); //formats the date like 'Mon 13th'
+      if (moment().isAfter(dateFetched, 'day')) { //depending on what the date is compared to today, will display something different.
+        dayDescription[cardIndex].text(timeShown + ' was a'); //shows something like 'Mon 13th was a'
+        dayText[cardIndex].text(Day); //shows the day
+        periodDescription[cardIndex].text('You\'re offline!'); //tells user that they are offline in the bottom half of the window
+        periodText[cardIndex].text(':('); //sad face!
+      } else if (moment().isSame(dateFetched, 'day')) { //if the date is the same, use the data.
         dayDescription[cardIndex].text(timeShown + ' is a');
         dayText[cardIndex].text(Day.toUpperCase());
         setPeriod(parseInt(Day.substring(4,5)));
-      } else {
+      } else { //if the date is in the future, use the date.
         dayDescription[cardIndex].text(timeShown + ' will be a');
         dayText[cardIndex].text(Day.toUpperCase());
         setPeriod(parseInt(Day.substring(4,5)));
@@ -219,7 +221,7 @@ function request() {
 }
 
 //Displays day to user
-function display(day) {
+function display(day) { //looks at how many days have been skipped and creates text accordingly
   switch(day) {
     case 0:
       dayDescription[cardIndex].text('It\'s a');
@@ -238,7 +240,7 @@ function display(day) {
 
 //Displays periods by setting according to day
 function setPeriod(day, current) {
-  //No periods are set
+  //No periods are not set, user is told to set up in app
   if (periods[0] === null) {
     periodDescription[cardIndex].text('Set your periods');
     var setupText = 'IN-APP!';
@@ -329,37 +331,37 @@ function setPeriod(day, current) {
   }
 }
 
-//Shows schedule
+//Shows menu that shows the schedule
 function showSchedule() {
   console.log('clicked!');
   console.log(Number(Day.substring(4,5)) + 1);
   var scheduleMenu = new UI.Menu({
     highlightBackgroundColor: Feature.color('blue moon', 'black'),
     sections: [{
-      title: titleSetter.setTitle(parseInt(Day.substring(4,5))),
+      title: titleSetter.setTitle(parseInt(Day.substring(4,5))), //sets the title of the section with module
       backgroundColor: Feature.color('jaeger green', 'white'),
-      items: itemSetter.setItems(parseInt(Day.substring(4,5)), cardIndex)
+      items: itemSetter.setItems(parseInt(Day.substring(4,5)), cardIndex) //sets the items of the section with module
     }, {
       title: titleSetter.setTitle(parseInt(Day.substring(4,5)) + 1),
       backgroundColor: Feature.color('jaeger green', 'white'),
       items: itemSetter.setItems(parseInt(Day.substring(4,5)) + 1, cardIndex)
     }]
   });
-  scheduleMenu.status(false);
+  scheduleMenu.status(false); //hides the status bar
   scheduleMenu.show();
-  var selection = (working) ? currentPeriod:0;
+  var selection = (working) ? currentPeriod:0; //if not a break, selection is currentPeriod; otherwise, default to first period
   scheduleMenu.selection(0, selection);
   scheduleMenu.on('select', function showScheduleDetails(e) {
     //Shows additional details about classes when selected
     console.log('The period is ' + e.item.title.substring(4));
     var backExtraDetail = new UI.Window({
-    backgroundColor: 'jaeger green',
+    backgroundColor: Feature.color('bright green', 'white'),
     status: false
   });
-    createExtraDetailWindow(e, backExtraDetail);
+    createExtraDetailWindow(e, backExtraDetail); //if the user selects a period, then a window pops up with more details
     backExtraDetail.show();
                   });
-  scheduleMenu.on('back', function showScheduleDetails(e) {
+  scheduleMenu.on('back', function showScheduleDetails(e) { //kills the window when user presses back
     mainWind.show();
     scheduleMenu.hide();
   });
@@ -368,7 +370,7 @@ function showSchedule() {
 //App Settings
 Pebble.addEventListener('showConfiguration', function() {
   var configURL = 'http://cbschedulemana.ga/index.html';
-  if (users !== null && periods[0] !== null) {
+  if (users !== null && periods[0] !== null) { //if the user has opened the settings page before, add parameters to URL in order to prefill it
     configURL += "?users=" + users;
     if (users !== 0) {
       for (i = 0; i < users; i++) {
@@ -389,15 +391,15 @@ Pebble.addEventListener('showConfiguration', function() {
 // Decode the user's preferences
 Pebble.addEventListener('webviewclosed', function(e) {
   var configData = JSON.parse(decodeURIComponent(e.response));
-  users = configData[configData.length - 1];
+  users = configData[configData.length - 1]; //sets number of users based on the last element of the array
   for (var i = 0; i < users; i++) {
-    localStorage.setItem(String(8 * (users + 1) + i), configData[8 * (users + 1) + i]);
+    localStorage.setItem(String(8 * (users + 1) + i), configData[8 * (users + 1) + i]); //sets names of users based on number of users
     usernames[i] = localStorage.getItem(String(8 * (users + 1) + i));
     console.log(usernames[i]);
   }
   localStorage.setItem('users', users);
   console.log(users);
-  for (i = 0; i < configData.length - (users + 1); i++) {
+  for (i = 0; i < configData.length - (users + 1); i++) { //sets periods based on number of users
     localStorage.setItem(i.toString(), JSON.stringify(configData[i]));
     periods[i] = JSON.parse(localStorage.getItem(i.toString()));
   }
@@ -405,11 +407,11 @@ Pebble.addEventListener('webviewclosed', function(e) {
 });
 
 
-//Show schedule viewer
+//Show schedule viewer when user clicks 'select' on the main window
 mainWind.on('click', 'select', showSchedule);
 
 //Scrolls to next element
-var created = [];
+var created = []; //keeps track of whether the elements have been created for this user
 mainWind.on('click', 'down', function (animateThingsDown) {
   cardIndex += 1;
   //Create other elements
@@ -445,9 +447,11 @@ mainWind.on('click', 'up', function (animateThingsUp) {
   console.log('clicked up! to card #' + cardIndex);
 });
 
+
+//Creates a window with nice details
 function createExtraDetailWindow(e, window) {
   
-  var classCodeText = new UI.Text({
+  var classCodeText = new UI.Text({ //textbox for the class code
     size: Feature.rectangle(new Vector2(Feature.resolution().x - 24, 27),
                            new Vector2(Feature.resolution().x / 2, 27)),
     font: 'gothic-18',
@@ -459,7 +463,7 @@ function createExtraDetailWindow(e, window) {
     color: 'black'
   });
   
-  var classText = new UI.Text({
+  var classText = new UI.Text({ //textbox for the name of the class
     size: Feature.rectangle(new Vector2(Feature.resolution().x - 24, 42),
                            new Vector2(Feature.resolution().x / 2, 42)),
     font: 'gothic-28-bold',
@@ -471,39 +475,44 @@ function createExtraDetailWindow(e, window) {
     color: 'black'
   });
   
+  //textbox for the name of the teacher
+  var dayNumber = Feature.color(e.section.title.substring(4, 5), e.section.title.substring(12, 13)); //sets what day it is depending on the string in the title
+  console.log(dayNumber);
   var classTeacherText = new UI.Text({
     size: Feature.rectangle(new Vector2(Feature.resolution().x - 24, 27),
                            new Vector2(Feature.resolution().x / 2, 27)),
     font: 'gothic-18',
     position: Feature.rectangle(new Vector2(12, Feature.resolution().y / 2 - 80),
                                 new Vector2(Feature.resolution().x / 4, Feature.resolution().y / 2 - 80)),
-    text: (String(periods[periodSetter.setPeriod(parseInt(e.section.title.substring(4, 5)), cardIndex)[e.itemIndex]].teacher).toUpperCase()),
+    text: (String(periods[periodSetter.setPeriod(parseInt(dayNumber), cardIndex)[e.itemIndex]].teacher).toUpperCase()),
     textAlign: 'center',
     textOverflow: 'ellipsis',
     color: 'black'
   });
-  
+   
+  //textbox for the name of the classroom
   var classRoomsText = new UI.Text({
     size: Feature.rectangle(new Vector2(Feature.resolution().x - 24, 27),
                            new Vector2(Feature.resolution().x / 2, 27)),
     font: 'gothic-18',
     position: Feature.rectangle(new Vector2(12, Feature.resolution().y / 2 + 55),
                                 new Vector2(Feature.resolution().x / 4, Feature.resolution().y / 2 + 55)),
-    text: (String(periods[periodSetter.setPeriod(parseInt(e.section.title.substring(4, 5)), cardIndex)[e.itemIndex]].room).toUpperCase()),
+    text: (String(periods[periodSetter.setPeriod(parseInt(dayNumber), cardIndex)[e.itemIndex]].room).toUpperCase()),
     textAlign: 'center',
     textOverflow: 'ellipsis',
     color: 'black'
   });
   
-
+  //image icon in the middle of the card
   var centerImage = new UI.Image({
     size: new Vector2(64, 64),
     position: new Vector2(Feature.resolution().x / 2 - 32, Feature.resolution().y / 2 - 32),
-    image: imageSetter.setImage(String(e.item.title.substring(4))),
+    image: imageSetter.setImage(String(e.item.title.substring(4))), //gets path for the image from the module
     compositing: 'set'
   });
   
-  if (e.item.title.substring(4).length < 8 && (String(periods[periodSetter.setPeriod(parseInt(e.section.title.substring(4, 5)), cardIndex)[e.itemIndex]].teacher)).length < 11) {
+  //Shows a back chevron if the textbox is small enough to not look bad
+  if (e.item.title.substring(4).length < 8 && (String(periods[periodSetter.setPeriod(parseInt(dayNumber), cardIndex)[e.itemIndex]].teacher)).length < 11) {
     var backTriangle = new UI.Text({
     size: new Vector2(42, 42),
     position: new Vector2(12, 0),

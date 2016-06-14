@@ -1,12 +1,15 @@
 var exports = this.exports = {};
 
+//This module chooses an image based on the string that is entered.
 exports.setImage = function(periodName) {
-  if (periodName.indexOf('CHEM') >= 0) {
+  if (periodName.indexOf('CHEM') >= 0 || periodName.indexOf('SCIENCE') >= 0) {
     return 'images/beaker';
   } else if (periodName.indexOf('HISTORY') >= 0) {
     return 'images/book';
   } else if (periodName.indexOf('LAW') >= 0) {
     return 'images/briefcase';
+  } else if (periodName.indexOf('SPACE') >= 0 || periodName.indexOf('EARTH') >= 0) {
+    return 'images/star';
   } else if (periodName.indexOf('ART') >= 0) {
     return 'images/brush';
   } else if (periodName.indexOf('BIO') >= 0) {
@@ -21,7 +24,7 @@ exports.setImage = function(periodName) {
     return 'images/globe';
   } else if (periodName.indexOf('GYM') >= 0 || periodName.indexOf('OOR ED') >= 0 || periodName.indexOf('DANCE') >= 0) {
     return 'images/heart';
-  } else if (periodName.indexOf('TECH') >= 0 || periodName.indexOf('COMPUTER') >= 0) {
+  } else if (periodName.indexOf('TECH') >= 0 || periodName.indexOf('COMPUTER') >= 0  || periodName.indexOf('ICS') >= 0) {
     return 'images/monitor';
   } else if (periodName.indexOf('MUSIC') >= 0) {
     return 'images/note';
@@ -35,8 +38,6 @@ exports.setImage = function(periodName) {
     return 'images/puzzle';
   } else if (periodName.indexOf('SPANISH') >= 0) {
     return 'images/sombrero';
-  } else if (periodName.indexOf('SPACE') >= 0) {
-    return 'images/star';
   } else if (periodName.indexOf('PHYSICS') >= 0) {
     return 'images/undo';
   } else {
