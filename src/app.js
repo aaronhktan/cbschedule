@@ -548,7 +548,7 @@ mainWind.on('accelTap', function(e) {
                              new Vector2(Feature.resolution().x / 2, 27)),
       font: 'gothic-18',
       position: Feature.rectangle(new Vector2(12, Feature.resolution().y / 2 - 80),
-                                  new Vector2(Feature.resolution().x / 4, Feature.resolution().y / 2 - 70)),
+                                  new Vector2(Feature.resolution().x / 4, Feature.resolution().y / 2 - 80)),
       text: 'MADE BY:',
       textAlign: 'center',
       textOverflow: 'ellipsis',
@@ -559,7 +559,7 @@ mainWind.on('accelTap', function(e) {
                            new Vector2(Feature.resolution().x * 0.75, 42)),
     font: 'gothic-28-bold',
     position: Feature.rectangle(new Vector2(12, Feature.resolution().y / 2 - 66),
-                                new Vector2(Feature.resolution().x * 0.125, Feature.resolution().y / 2 - 56)),
+                                new Vector2(Feature.resolution().x * 0.125, Feature.resolution().y / 2 - 66)),
     text: 'AARON TAN',
     textAlign: 'center',
     textOverflow: 'ellipsis',
@@ -582,26 +582,23 @@ mainWind.on('accelTap', function(e) {
       textOverflow: 'ellipsis',
       color: 'black'
   });
-  if (Feature.rectangle()) {
     var creditsText = new UI.Text({
       size: Feature.rectangle(new Vector2(Feature.resolution().x - 24, 42),
                               new Vector2(Feature.resolution().x * 0.75, 42)),
       font: 'gothic-18',
       position: Feature.rectangle(new Vector2(12, Feature.resolution().y / 2 + 18),
-                                  new Vector2(Feature.resolution().x * 0.125, Feature.resolution().y / 2 + 28)),
+                                  new Vector2(Feature.resolution().x * 0.125, Feature.resolution().y / 2 + 13)),
       text: 'Icons from Open Iconic, IconArchive',
       textAlign: 'center',
       textOverflow: 'ellipsis',
       color: 'black'
     });
-    easterEgg.add(creditsText);
-  }
     var copyrightText = new UI.Text({
       size: Feature.rectangle(new Vector2(Feature.resolution().x - 24, 42),
                              new Vector2(Feature.resolution().x * 0.75, 42)),
       font: 'gothic-18',
       position: Feature.rectangle(new Vector2(12, Feature.resolution().y / 2 + 55),
-                                  new Vector2(Feature.resolution().x * 0.125, Feature.resolution().y / 2 + 45)),
+                                  new Vector2(Feature.resolution().x * 0.125, Feature.resolution().y / 2 + 50)),
       text: '© 2016, v0.31',
       textAlign: 'center',
       textOverflow: 'ellipsis',
@@ -609,8 +606,9 @@ mainWind.on('accelTap', function(e) {
   });
     easterEgg.add(devText);
     easterEgg.add(devName);
-    easterEgg.add(centerImage);
     easterEgg.add(captionText);
+    easterEgg.add(centerImage);
+    easterEgg.add(creditsText);
     easterEgg.add(copyrightText);
     easterEgg.show();
   }
