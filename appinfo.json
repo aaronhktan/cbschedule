@@ -29,15 +29,110 @@
                 "type": "font"
             },
             {
-                "file": "images/beaker.bmp",
-                "name": "IMAGES_BEAKER_BMP",
+                "file": "images/beaker",
+                "name": "IMAGES_BEAKER",
                 "type": "bitmap"
             },
             {
-                "file": "images/icon.png",
+                "file": "images/calendar",
+                "name": "IMAGES_CALENDAR",
+                "type": "bitmap"
+            },
+            {
+                "file": "images/puzzle",
+                "name": "IMAGES_PUZZLE",
+                "type": "bitmap"
+            },
+            {
+                "file": "images/person",
+                "name": "IMAGES_PERSON",
+                "type": "bitmap"
+            },
+            {
+                "file": "images/star",
+                "name": "IMAGES_STAR",
+                "type": "bitmap"
+            },
+            {
+                "file": "images/bug",
+                "name": "IMAGES_BUG",
+                "type": "bitmap"
+            },
+            {
+                "file": "images/undo",
+                "name": "IMAGES_UNDO",
+                "type": "bitmap"
+            },
+            {
+                "file": "images/plus",
+                "name": "IMAGES_PLUS",
+                "type": "bitmap"
+            },
+            {
+                "file": "images/heart",
+                "name": "IMAGES_HEART",
+                "type": "bitmap"
+            },
+            {
+                "file": "images/pencil",
+                "name": "IMAGES_PENCIL",
+                "type": "bitmap"
+            },
+            {
+                "file": "images/monitor",
+                "name": "IMAGES_MONITOR",
+                "type": "bitmap"
+            },
+            {
+                "file": "images/sombrero",
+                "name": "IMAGES_SOMBRERO",
+                "type": "bitmap"
+            },
+            {
+                "file": "images/eiffel",
+                "name": "IMAGES_EIFFEL",
+                "type": "bitmap"
+            },
+            {
+                "file": "images/briefcase",
+                "name": "IMAGES_BRIEFCASE",
+                "type": "bitmap"
+            },
+            {
+                "file": "images/book",
+                "name": "IMAGES_BOOK",
+                "type": "bitmap"
+            },
+            {
+                "file": "images/globe",
+                "name": "IMAGES_GLOBE",
+                "type": "bitmap"
+            },
+            {
+                "file": "images/dollar",
+                "name": "IMAGES_DOLLAR",
+                "type": "bitmap"
+            },
+            {
+                "file": "images/brush",
+                "name": "IMAGES_BRUSH",
+                "type": "bitmap"
+            },
+            {
+                "file": "images/note",
+                "name": "IMAGES_NOTE",
+                "type": "bitmap"
+            },
+            {
+                "file": "images/icon",
                 "menuIcon": true,
-                "name": "IMAGES_ICON_PNG",
+                "name": "IMAGES_ICON",
                 "type": "png"
+            },
+            {
+                "file": "images/camera",
+                "name": "IMAGES_CAMERA",
+                "type": "bitmap"
             }
         ]
     },

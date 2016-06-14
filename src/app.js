@@ -7,6 +7,7 @@ var dayFinder = require('dayFinder.js');
 var periodSetter = require('periodSetter.js');
 var itemSetter = require('itemSetter.js');
 var titleSetter = require('titleSetter.js');
+var imageSetter = require('imageSetter.js');
 
 //Colours in top half in blue
 var backTop = new UI.Rect({
@@ -129,15 +130,16 @@ mainWind.show();
 // Construct periods
 var users = localStorage.getItem('users');
 var usernames = [];
-for (var i = 0; i <= users; i++) {
-  usernames[i] = localStorage.getItem(String(8 * (users + 1) + i));
+for (var i = 0; i < parseInt(users); i++) {
+  usernames[i] = (localStorage.getItem(String(8 * (parseInt(users) + 1) + i)));
+  console.log(localStorage.getItem(String(8 * (parseInt(users) + 1) + i)));
 }
 var periods = [];
 for (i = 0; i <= (users * 8 + 7); i++) {
   periods[i] = JSON.parse(localStorage.getItem(i.toString()));
-  console.log(periods[i].name);
 }
 var online = true;
+var working = true;
 var currentPeriod = 4;
 var Day = 'day';
 var dateFetched = localStorage.getItem('dateFetched');
@@ -166,16 +168,19 @@ function request() {
       // Interpret data; try next day if not school day
       if (Day == 'no school') {
         timesSkipped++;
-        if (timesSkipped <30) {
+        if (timesSkipped < 9) {
         daySkipped ++;
         start = moment().startOf('day').add(daySkipped, 'days').format();
         end = moment().endOf('day').add(daySkipped, 'days').format();
         request();
         } else {
-          dayDescription.text('Sum ting wong.');
-          dayText.text('Uh oh.');
-          periodDescription.text('Not good.');
-          periodText.text(':(');
+          working = false;
+          dayDescription[cardIndex].text('Sum ting wong.');
+          dayText[cardIndex].text('Uh oh.');
+          periodDescription[cardIndex].text('Not good.');
+          periodText[cardIndex].text(':(');
+          Day = 'Day 1';
+          currentPeriod = 0;
         }
       } 
       //Show to user if school day
@@ -312,7 +317,7 @@ function setPeriod(day, current) {
       console.log('Period 4');
       if (current) {
         dayDescription[cardIndex].text('Current period');
-        if (moment().isAfter(moment().set({'hour': 15, 'minute':0}))) {
+        if (moment().isAfter(moment().set({'hour': 15, 'minute':15}))) {
           dayText[cardIndex].text('NONE!');
         } else {
           dayText[cardIndex].text(String(periods[periodSetter.setPeriod(day, cardIndex)[3]].name).toUpperCase());
@@ -342,19 +347,22 @@ function showSchedule() {
   });
   scheduleMenu.status(false);
   scheduleMenu.show();
-  scheduleMenu.selection(0, currentPeriod);
+  var selection = (working) ? currentPeriod:0;
+  scheduleMenu.selection(0, selection);
   scheduleMenu.on('select', function showScheduleDetails(e) {
     //Shows additional details about classes when selected
-    console.log('Extra details shown about card #' + cardIndex + ' and selection index # ' + e.sectionIndex + ', ' + e.itemIndex);
-    var extraDetails = new UI.Card({
-      title: " ",
-      body: e.item.title.substring(4) + '\n' + e.item.subtitle,
-      icon: 'images/beaker.bmp',
-      status: false,
-      backgroundColor: 'blue moon',
-    });
-    extraDetails.show();
+    console.log('The period is ' + e.item.title.substring(4));
+    var backExtraDetail = new UI.Window({
+    backgroundColor: 'jaeger green',
+    status: false
+  });
+    createExtraDetailWindow(e, backExtraDetail);
+    backExtraDetail.show();
                   });
+  scheduleMenu.on('back', function showScheduleDetails(e) {
+    mainWind.show();
+    scheduleMenu.hide();
+  });
 }
   
 //App Settings
@@ -362,8 +370,10 @@ Pebble.addEventListener('showConfiguration', function() {
   var configURL = 'http://cbschedulemana.ga/index.html';
   if (users !== null && periods[0] !== null) {
     configURL += "?users=" + users;
-    for (var i = 0; i <= users; i++) {
-      configURL += "&user" + i + "=" + usernames[i];
+    if (users !== 0) {
+      for (i = 0; i < users; i++) {
+        configURL += "&user" + i + "=" + usernames[i];
+      }
     }
     for (i = 0; i < (periods.length * 4 - 1); i += 4) {
       configURL += "&" + i + "=" + encodeURIComponent(String(periods[i / 4].name)) +
@@ -383,10 +393,11 @@ Pebble.addEventListener('webviewclosed', function(e) {
   for (var i = 0; i < users; i++) {
     localStorage.setItem(String(8 * (users + 1) + i), configData[8 * (users + 1) + i]);
     usernames[i] = localStorage.getItem(String(8 * (users + 1) + i));
+    console.log(usernames[i]);
   }
   localStorage.setItem('users', users);
   console.log(users);
-  for (i = 0; i <= configData.length; i++) {
+  for (i = 0; i < configData.length - (users + 1); i++) {
     localStorage.setItem(i.toString(), JSON.stringify(configData[i]));
     periods[i] = JSON.parse(localStorage.getItem(i.toString()));
   }
@@ -433,3 +444,79 @@ mainWind.on('click', 'up', function (animateThingsUp) {
   }
   console.log('clicked up! to card #' + cardIndex);
 });
+
+function createExtraDetailWindow(e, window) {
+  
+  var classCodeText = new UI.Text({
+    size: Feature.rectangle(new Vector2(Feature.resolution().x - 24, 27),
+                           new Vector2(Feature.resolution().x / 2, 27)),
+    font: 'gothic-18',
+    position: Feature.rectangle(new Vector2(12, Feature.resolution().y / 2 + 38),
+                                new Vector2(Feature.resolution().x / 4, Feature.resolution().y / 2 + 38)),
+    text: e.item.subtitle,
+    textAlign: 'center',
+    textOverflow: 'ellipsis',
+    color: 'black'
+  });
+  
+  var classText = new UI.Text({
+    size: Feature.rectangle(new Vector2(Feature.resolution().x - 24, 42),
+                           new Vector2(Feature.resolution().x / 2, 42)),
+    font: 'gothic-28-bold',
+    position: Feature.rectangle(new Vector2(12, Feature.resolution().y / 2 - 66),
+                                new Vector2(Feature.resolution().x / 4, Feature.resolution().y / 2 - 66)),
+    text: e.item.title.substring(4),
+    textAlign: 'center',
+    textOverflow: 'ellipsis',
+    color: 'black'
+  });
+  
+  var classTeacherText = new UI.Text({
+    size: Feature.rectangle(new Vector2(Feature.resolution().x - 24, 27),
+                           new Vector2(Feature.resolution().x / 2, 27)),
+    font: 'gothic-18',
+    position: Feature.rectangle(new Vector2(12, Feature.resolution().y / 2 - 80),
+                                new Vector2(Feature.resolution().x / 4, Feature.resolution().y / 2 - 80)),
+    text: (String(periods[periodSetter.setPeriod(parseInt(e.section.title.substring(4, 5)), cardIndex)[e.itemIndex]].teacher).toUpperCase()),
+    textAlign: 'center',
+    textOverflow: 'ellipsis',
+    color: 'black'
+  });
+  
+  var classRoomsText = new UI.Text({
+    size: Feature.rectangle(new Vector2(Feature.resolution().x - 24, 27),
+                           new Vector2(Feature.resolution().x / 2, 27)),
+    font: 'gothic-18',
+    position: Feature.rectangle(new Vector2(12, Feature.resolution().y / 2 + 55),
+                                new Vector2(Feature.resolution().x / 4, Feature.resolution().y / 2 + 55)),
+    text: (String(periods[periodSetter.setPeriod(parseInt(e.section.title.substring(4, 5)), cardIndex)[e.itemIndex]].room).toUpperCase()),
+    textAlign: 'center',
+    textOverflow: 'ellipsis',
+    color: 'black'
+  });
+  
+
+  var centerImage = new UI.Image({
+    size: new Vector2(64, 64),
+    position: new Vector2(Feature.resolution().x / 2 - 32, Feature.resolution().y / 2 - 32),
+    image: imageSetter.setImage(String(e.item.title.substring(4))),
+    compositing: 'set'
+  });
+  
+  if (e.item.title.substring(4).length < 8 && (String(periods[periodSetter.setPeriod(parseInt(e.section.title.substring(4, 5)), cardIndex)[e.itemIndex]].teacher)).length < 11) {
+    var backTriangle = new UI.Text({
+    size: new Vector2(42, 42),
+    position: new Vector2(12, 0),
+    text: '<',
+    color: 'black',
+    textAlign: 'left'
+    });
+    window.add(backTriangle);
+  }
+
+  window.add(classCodeText);
+  window.add(classText);
+  window.add(classTeacherText);
+  window.add(classRoomsText);
+  window.add(centerImage);
+}
