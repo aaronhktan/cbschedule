@@ -355,7 +355,7 @@ function showSchedule() {
     //Shows additional details about classes when selected
     console.log('The period is ' + e.item.title.substring(4));
     var backExtraDetail = new UI.Window({
-    backgroundColor: Feature.color('bright green', 'white'),
+    backgroundColor: Feature.color('jaeger green', 'white'),
     status: false
   });
     createExtraDetailWindow(e, backExtraDetail); //if the user selects a period, then a window pops up with more details
@@ -456,7 +456,7 @@ function createExtraDetailWindow(e, window) {
                            new Vector2(Feature.resolution().x / 2, 27)),
     font: 'gothic-18',
     position: Feature.rectangle(new Vector2(12, Feature.resolution().y / 2 + 38),
-                                new Vector2(Feature.resolution().x / 4, Feature.resolution().y / 2 + 38)),
+                                new Vector2(Feature.resolution().x / 4, Feature.resolution().y / 2 + 28)),
     text: e.item.subtitle,
     textAlign: 'center',
     textOverflow: 'ellipsis',
@@ -465,10 +465,10 @@ function createExtraDetailWindow(e, window) {
   
   var classText = new UI.Text({ //textbox for the name of the class
     size: Feature.rectangle(new Vector2(Feature.resolution().x - 24, 42),
-                           new Vector2(Feature.resolution().x / 2, 42)),
+                           new Vector2(Feature.resolution().x * 0.75, 42)),
     font: 'gothic-28-bold',
     position: Feature.rectangle(new Vector2(12, Feature.resolution().y / 2 - 66),
-                                new Vector2(Feature.resolution().x / 4, Feature.resolution().y / 2 - 66)),
+                                new Vector2(Feature.resolution().x * 0.125, Feature.resolution().y / 2 - 56)),
     text: e.item.title.substring(4),
     textAlign: 'center',
     textOverflow: 'ellipsis',
@@ -483,7 +483,7 @@ function createExtraDetailWindow(e, window) {
                            new Vector2(Feature.resolution().x / 2, 27)),
     font: 'gothic-18',
     position: Feature.rectangle(new Vector2(12, Feature.resolution().y / 2 - 80),
-                                new Vector2(Feature.resolution().x / 4, Feature.resolution().y / 2 - 80)),
+                                new Vector2(Feature.resolution().x / 4, Feature.resolution().y / 2 - 70)),
     text: (String(periods[periodSetter.setPeriod(parseInt(dayNumber), cardIndex)[e.itemIndex]].teacher).toUpperCase()),
     textAlign: 'center',
     textOverflow: 'ellipsis',
@@ -496,7 +496,7 @@ function createExtraDetailWindow(e, window) {
                            new Vector2(Feature.resolution().x / 2, 27)),
     font: 'gothic-18',
     position: Feature.rectangle(new Vector2(12, Feature.resolution().y / 2 + 55),
-                                new Vector2(Feature.resolution().x / 4, Feature.resolution().y / 2 + 55)),
+                                new Vector2(Feature.resolution().x / 4, Feature.resolution().y / 2 + 45)),
     text: (String(periods[periodSetter.setPeriod(parseInt(dayNumber), cardIndex)[e.itemIndex]].room).toUpperCase()),
     textAlign: 'center',
     textOverflow: 'ellipsis',
@@ -515,7 +515,7 @@ function createExtraDetailWindow(e, window) {
   if (e.item.title.substring(4).length < 8 && (String(periods[periodSetter.setPeriod(parseInt(dayNumber), cardIndex)[e.itemIndex]].teacher)).length < 11) {
     var backTriangle = new UI.Text({
     size: new Vector2(42, 42),
-    position: new Vector2(12, 0),
+    position: Feature.rectangle(new Vector2(12, 0), new Vector2(12, Feature.resolution().x / 2 - 21)),
     text: '<',
     color: 'black',
     textAlign: 'left'
