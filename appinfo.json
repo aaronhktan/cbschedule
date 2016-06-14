@@ -29,6 +29,11 @@
                 "type": "font"
             },
             {
+                "file": "images/cow",
+                "name": "IMAGES_COW",
+                "type": "bitmap"
+            },
+            {
                 "file": "images/beaker",
                 "name": "IMAGES_BEAKER",
                 "type": "bitmap"
@@ -145,7 +150,7 @@
     ],
     "uuid": "1cf5ee6c-1dc1-4be1-ac6a-02470b44a922",
     "versionCode": 1,
-    "versionLabel": "0.3",
+    "versionLabel": "0.31",
     "watchapp": {
         "hiddenApp": false,
         "watchface": false
