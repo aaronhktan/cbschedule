@@ -22,8 +22,7 @@ When that's done, the main window shows what day it is (or the next day, if it's
 
 ## Future plans?
 
-- Show more details about class on selection
-- See more useful information like friend's name and/or classroom
+- Maintenance; additional features as they pop into my head.
 
 ## Completed List
 
@@ -31,3 +30,5 @@ When that's done, the main window shows what day it is (or the next day, if it's
 - Be able to view your entire schedule with a menu object (DONE as of 2016-05-22)
 - Make it work on Pebble Round and new Pebbles (DONE as of 2016-06-01)
 - Perhaps be able to see one other friend's schedule, so they don't get lost (DONE as of 2016-06-09)
+- Show more details about class on selection (DONE as of 2016-06-14)
+- See more useful information like friend's name and/or classroom (DONE as of 2016-06-14)
