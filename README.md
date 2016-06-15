@@ -1,4 +1,4 @@
-# CB Schedule Manager
+# CB Schedule
 
 ![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/Main%20Menu%20v2.gif)
 ![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/Friend%20Menu%20v2.gif)
