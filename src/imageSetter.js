@@ -24,6 +24,8 @@ exports.setImage = function(periodName) {
     return 'images/globe';
   } else if (periodName.indexOf('GYM') >= 0 || periodName.indexOf('OOR ED') >= 0 || periodName.indexOf('DANCE') >= 0) {
     return 'images/heart';
+  } else if (periodName.indexOf('PHYSICS') >= 0) {
+    return 'images/undo';
   } else if (periodName.indexOf('TECH') >= 0 || periodName.indexOf('COMPUTER') >= 0  || periodName.indexOf('ICS') >= 0) {
     return 'images/monitor';
   } else if (periodName.indexOf('MUSIC') >= 0) {
@@ -38,8 +40,6 @@ exports.setImage = function(periodName) {
     return 'images/puzzle';
   } else if (periodName.indexOf('SPANISH') >= 0) {
     return 'images/sombrero';
-  } else if (periodName.indexOf('PHYSICS') >= 0) {
-    return 'images/undo';
   } else {
     return 'images/calendar';
   } 
