@@ -3,6 +3,7 @@
 ![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/Main%20Menu%20v2.gif)
 ![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/Friend%20Menu%20v2.gif)
 ![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/extraDetailWindow_Basalt.png)
+
 ![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/mainWindBnW.png)
 ![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/scheduleMenuBnW.png)
 ![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/extraDetailsAplite_2.png)
