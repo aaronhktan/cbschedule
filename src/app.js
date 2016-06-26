@@ -143,7 +143,7 @@ for (i = 0; i <= (users * 8 + 7); i++) {
 }
 var online = true; //determines whether the user is online or not
 var working = true; //determines whether the calendar is on or not
-var currentPeriod = 4; //determines what period of the schedule will be shown
+var currentPeriod = 0; //determines what period of the schedule will be shown
 var Day = 'day'; //a string that holds what day it is
 var dateFetched = localStorage.getItem('dateFetched'); //gets the date the last time the Day was fethed
 var timesSkipped = 0; //used to keep track of how many times 'no day' there have been
@@ -198,24 +198,32 @@ function request() {
     },
     function(error) {
       // Failure!
-      console.log('Failed fetching schedule data: ' + error);
-      online = false; //the user is offline!
-      Day = localStorage.getItem('Day'); //gets the last day from persistent storage
-      dateFetched = localStorage.getItem('dateFetched'); //get the date that is attached to the day
-      var timeShown = moment(dateFetched).format('ddd Do'); //formats the date like 'Mon 13th'
-      if (moment().isAfter(dateFetched, 'day')) { //depending on what the date is compared to today, will display something different.
-        dayDescription[cardIndex].text(timeShown + ' was a'); //shows something like 'Mon 13th was a'
-        dayText[cardIndex].text(Day); //shows the day
-        periodDescription[cardIndex].text('You\'re offline!'); //tells user that they are offline in the bottom half of the window
-        periodText[cardIndex].text(':('); //sad face!
-      } else if (moment().isSame(dateFetched, 'day')) { //if the date is the same, use the data.
-        dayDescription[cardIndex].text(timeShown + ' is a');
-        dayText[cardIndex].text(Day.toUpperCase());
-        setPeriod(parseInt(Day.substring(4,5)));
-      } else { //if the date is in the future, use the date.
-        dayDescription[cardIndex].text(timeShown + ' will be a');
-        dayText[cardIndex].text(Day.toUpperCase());
-        setPeriod(parseInt(Day.substring(4,5)));
+      console.log('The day is ' + localStorage.getItem('Day'));
+      if (localStorage.getItem('Day') === null) {
+        dayDescription[cardIndex].text('You\'re offline!');
+        dayText[cardIndex].text(':(');
+        periodDescription[cardIndex].text('Check again later!');
+        periodText[cardIndex].text(':(');
+        console.log('There is no date stored!');
+      } else {console.log('Failed fetching schedule data: ' + error);
+        online = false; //the user is offline!
+        Day = localStorage.getItem('Day'); //gets the last day from persistent storage
+        dateFetched = localStorage.getItem('dateFetched'); //get the date that is attached to the day
+        var timeShown = moment(dateFetched).format('ddd Do'); //formats the date like 'Mon 13th'
+        if (moment().isAfter(dateFetched, 'day')) { //depending on what the date is compared to today, will display something different.
+          dayDescription[cardIndex].text(timeShown + ' was a'); //shows something like 'Mon 13th was a'
+          dayText[cardIndex].text(Day); //shows the day
+          periodDescription[cardIndex].text('You\'re offline!'); //tells user that they are offline in the bottom half of the window
+          periodText[cardIndex].text(':('); //sad face!
+        } else if (moment().isSame(dateFetched, 'day')) { //if the date is the same, use the data.
+          dayDescription[cardIndex].text(timeShown + ' is a');
+          dayText[cardIndex].text(Day.toUpperCase());
+          setPeriod(parseInt(Day.substring(4,5)));
+        } else { //if the date is in the future, use the date.
+          dayDescription[cardIndex].text(timeShown + ' will be a');
+          dayText[cardIndex].text(Day.toUpperCase());
+          setPeriod(parseInt(Day.substring(4,5)));
+        }
       }
     }
   );
@@ -599,7 +607,7 @@ mainWind.on('accelTap', function(e) {
       font: 'gothic-18',
       position: Feature.rectangle(new Vector2(12, Feature.resolution().y / 2 + 55),
                                   new Vector2(Feature.resolution().x * 0.125, Feature.resolution().y / 2 + 50)),
-      text: '© 2016, v0.32',
+      text: '© 2016, v0.33',
       textAlign: 'center',
       textOverflow: 'ellipsis',
       color: 'black'
