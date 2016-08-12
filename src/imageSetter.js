@@ -3,7 +3,7 @@ var exports = this.exports = {};
 //This module chooses an image based on the string that is entered.
 exports.setImage = function(periodName) {
   if (periodName.indexOf('SPACE') >= 0 || periodName.indexOf('EARTH') >= 0) {
-    return 'images/star';
+    return 'images/rocket';
   } else if (periodName.indexOf('CHEM') >= 0 || periodName.indexOf('SCIENCE') >= 0) {
     return 'images/beaker';
   } else if (periodName.indexOf('HISTORY') >= 0) {

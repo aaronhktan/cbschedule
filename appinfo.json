@@ -29,6 +29,11 @@
                 "type": "font"
             },
             {
+                "file": "images/rocket",
+                "name": "IMAGES_ROCKET",
+                "type": "bitmap"
+            },
+            {
                 "file": "images/cow",
                 "name": "IMAGES_COW",
                 "type": "bitmap"
@@ -150,7 +155,7 @@
     ],
     "uuid": "1cf5ee6c-1dc1-4be1-ac6a-02470b44a922",
     "versionCode": 1,
-    "versionLabel": "0.34",
+    "versionLabel": "0.35",
     "watchapp": {
         "hiddenApp": false,
         "watchface": false
