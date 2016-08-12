@@ -2,14 +2,14 @@ var exports = this.exports = {};
 
 //This module chooses an image based on the string that is entered.
 exports.setImage = function(periodName) {
-  if (periodName.indexOf('CHEM') >= 0 || periodName.indexOf('SCIENCE') >= 0) {
+  if (periodName.indexOf('SPACE') >= 0 || periodName.indexOf('EARTH') >= 0) {
+    return 'images/star';
+  } else if (periodName.indexOf('CHEM') >= 0 || periodName.indexOf('SCIENCE') >= 0) {
     return 'images/beaker';
   } else if (periodName.indexOf('HISTORY') >= 0) {
     return 'images/book';
   } else if (periodName.indexOf('LAW') >= 0) {
     return 'images/briefcase';
-  } else if (periodName.indexOf('SPACE') >= 0 || periodName.indexOf('EARTH') >= 0) {
-    return 'images/star';
   } else if (periodName.indexOf('ART') >= 0) {
     return 'images/brush';
   } else if (periodName.indexOf('BIO') >= 0) {
