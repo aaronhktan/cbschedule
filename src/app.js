@@ -607,7 +607,7 @@ mainWind.on('accelTap', function(e) {
       font: 'gothic-18',
       position: Feature.rectangle(new Vector2(12, Feature.resolution().y / 2 + 55),
                                   new Vector2(Feature.resolution().x * 0.125, Feature.resolution().y / 2 + 50)),
-      text: '© 2016, v0.34',
+      text: '© 2016, v0.35',
       textAlign: 'center',
       textOverflow: 'ellipsis',
       color: 'black'
