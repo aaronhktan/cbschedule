@@ -1,6 +1,6 @@
 var exports = this.exports = {};
 
-//This module chooses an image based on the string that is entered.
+// This module chooses an image based on the string that is entered. For the subjects, mostly.
 exports.setImage = function(periodName) {
   if (periodName.indexOf('SPACE') >= 0 || periodName.indexOf('EARTH') >= 0) {
     return 'images/rocket';

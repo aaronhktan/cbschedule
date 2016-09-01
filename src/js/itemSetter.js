@@ -1,10 +1,10 @@
 var exports = this.exports = {};
 var items = [];
 
-//This module returns the items for a menu object.
+// This module returns the items for a menu object.
 exports.setItems = function (day, user) {
   var periods = [];
-  var numberOfPeriods = (user + 1) * 8;
+  var numberOfPeriods = (user + 1) * 8; // sets the number of periods as number of 8 times the number of users
   for (var i = 0; i < numberOfPeriods; i++) {
     periods[i] = JSON.parse(localStorage.getItem(i.toString()));
   }
@@ -14,7 +14,7 @@ exports.setItems = function (day, user) {
     case 3:
     case 5:
       items = [{
-        title: '1A: ' + String(periods[user * 8].name).toUpperCase(),
+        title: '1A: ' + String(periods[user * 8].name).toUpperCase(), // the first user's period will be at index 0, the second's at index 8, the third at 16.
         subtitle: String(periods[user * 8].code).toUpperCase()
       }, {
         title: '1B: ' + String(periods[user * 8 + 1].name).toUpperCase(),
