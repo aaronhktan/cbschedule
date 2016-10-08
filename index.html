@@ -93,6 +93,9 @@
 				<br><br>
 			</div>
 		</div>
+		<div id = "timelinebox" class = "button">
+			<input type = "checkbox" id="timelineCheck">Enable Timeline Pins<br><br>
+		</div>
 		 <div id="savebutton">
 			<br><button id="submit_button" class="button">Save</button>
  		</div>
@@ -131,6 +134,7 @@
 	 		    var teachers = document.getElementsByClassName('teacher');
 	 		    var rooms = document.getElementsByClassName('room');
 	 		    var usernames = document.getElementsByClassName('username');
+	 		    var timeline = document.getElementById("timelineCheck").checked;
 	 		    var options = [];
 	 		    for (i = 0; i < classes.length; i++) {
 	 		    	var period = new createPeriod(classes[i].value, codes[i].value, teachers[i].value, rooms[i].value);
@@ -140,6 +144,7 @@
 	 		    	options[(counter + 1) * 8 + i] = usernames[i].value;
 	 		    }
 	 		    options[(counter + 1) * 8 + counter] = counter;
+	 		    options[(counter + 1) * 8 + counter + 1] = timeline;
  		
 	 		    // Determine the correct return URL (emulator vs real watch)
 	 		    function getQueryParam(variable, defaultValue) {
@@ -188,14 +193,32 @@
 					addInput("inputs0");
 				}
 				
+				if (url.search("timeline") != -1) { 				//If the URL has the string "numbers"
+					params = url.split("&"); 						//Creates an array with each element being separated by "&"
+					for (x = 0; x < params.length; x++) { 			//Checks each element
+						param = params[x].split("="); 				//Splits up each parameter in URL by "="
+					        if (param[0] == "timeline") { 			//If the first part of the paramater is equal to "timeline"
+					        	timeline = (param[1] == "true");	//Whether timeline is enabled shows up here
+					        }
+					}
+				}
+				else {
+					timeline = true;
+				}
+
+				if (timeline == true) {
+					document.getElementById('timelineCheck').checked = true;
+				}
+
+
 				var names = document.getElementsByClassName('username');
 				for (i = 0; i < names.length; i++) { 													//Cycles through elements in that array
 					url = window.location.search.substring(1); 											//Searches the URL for the element number
-					if (url.search('user' + i.toString()) != -1) { 															//If the URL has a number
+					if (url.search('user' + i.toString()) != -1) { 										//If the URL has a number
 						params = url.split("&"); 														//Creates an array with each element being separated by "&"
 						for (x = 0; x < params.length; x++) { 											//Checks each element
 							param = params[x].split("="); 												//Splits up each parameter in URL by "="
-						        if (param[0] == ('user' + i.toString())) { 											//If the first part of the paramater is equal to the element number
+						        if (param[0] == ('user' + i.toString())) { 								//If the first part of the paramater is equal to the element number
 						        	names[i].value = decodeURIComponent(param[1]);						//The element's value is set to the second part of the parameter.
 						        }
 						}
@@ -291,6 +314,7 @@
 	 		    var teachers = document.getElementsByClassName('teacher');
 	 		    var rooms = document.getElementsByClassName('room');
 	 		    var usernames = document.getElementsByClassName('username');
+	 		    var timeline = document.getElementById('timelineCheck').checked;
 	 		    var options = [];
 	 		    var users = false;
 	 		    var URL = "";
@@ -304,6 +328,7 @@
 	 		    for (i = 0; i < (classes.length * 4 - 1); i += 4) {
 	 		    	URL += "&" + i + "=" + encodeURIComponent(classes[i / 4].value) + "&" + (i + 1) + "=" + encodeURIComponent(codes[i / 4].value) + "&" + (i + 2) + "=" + encodeURIComponent(teachers[i / 4].value) + "&" + (i + 3) + "=" + encodeURIComponent(rooms[i / 4].value);
 				}
+				URL += '&timeline=' + timeline; 
 			document.getElementsByClassName('saveCode')[0].value = URL;
 			}
 
