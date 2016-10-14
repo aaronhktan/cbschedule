@@ -9,6 +9,7 @@ var periodSetter = require('periodSetter.js');
 var itemSetter = require('itemSetter.js');
 var titleSetter = require('titleSetter.js');
 var imageSetter = require('imageSetter.js');
+var timelineJS = require('timelineJS.js');
 
 // Colours in top half in blue
 var backTop = new UI.Rect({
@@ -194,8 +195,12 @@ function request() {
                              add(daySkipped, 'days').format('YYYY-MM-DD')); // stores the date that the day is describing
         console.log(moment().add(daySkipped, 'days').format('YYYY-MM-DD'));
         display(daySkipped); // shows the day in the top half
-        setPeriod(parseInt(Day.substring(4,5))); // shows the period in the bottom half
-      }
+        setPeriod(parseInt(Day.substring(4,5))); // shows the period in the bottom half\
+				dateFetched = localStorage.getItem('dateFetched');
+				if (localStorage.getItem('timelinePinIsCreated') != dateFetched + 'true') {
+					putTimelinePin(); // creates and puts Timeline Pins
+				}
+			}
     },
     function(error) {
       // Failure!
@@ -392,7 +397,7 @@ Pebble.addEventListener('showConfiguration', function() {
         "&" + (i + 2) + "=" + encodeURIComponent(String(periods[i / 4].teacher)) +
         "&" + (i + 3) + "=" + encodeURIComponent(String(periods[i / 4].room));
     }
-}
+	}
   Pebble.openURL(configURL);
   console.log(configURL);
 });
@@ -416,7 +421,7 @@ Pebble.addEventListener('webviewclosed', function(e) {
   * index 27 (total number of users * 8 + total number of users): 2 (number of users, starting from index 0)
   */
   var configData = JSON.parse(decodeURIComponent(e.response));
-  users = configData[configData.length - 1]; // sets number of users based on the last element of the array
+  users = configData[configData.length - 1]; // sets number of users based on the second last element of the array
   for (var i = 0; i < users; i++) {
     localStorage.setItem(String(8 * (users + 1) + i), configData[8 * (users + 1) + i]); // sets names of users based on number of users
     usernames[i] = localStorage.getItem(String(8 * (users + 1) + i));
@@ -429,6 +434,7 @@ Pebble.addEventListener('webviewclosed', function(e) {
     periods[i] = JSON.parse(localStorage.getItem(i.toString()));
   }
   request();
+	putTimelinePin();
 });
 
 
@@ -623,7 +629,7 @@ mainWind.on('accelTap', function(e) {
       font: 'gothic-18',
       position: Feature.rectangle(new Vector2(12, Feature.resolution().y / 2 + 55),
                                   new Vector2(Feature.resolution().x * 0.125, Feature.resolution().y / 2 + 50)),
-      text: '© 2016, v0.36',
+      text: '© 2016, v0.40',
       textAlign: 'center',
       textOverflow: 'ellipsis',
       color: 'black'
@@ -637,3 +643,63 @@ mainWind.on('accelTap', function(e) {
     easterEgg.show();
   }
 });
+
+// timeline pin creation stuff
+function createTimelinePin(periodName, periodTime, periodLocation, id) {
+	 var pin = {
+    'id': id,
+    'time': periodTime,
+		'duration': 75,
+    'layout': {
+      'type': "calendarPin",
+      'backgroundColor': "#00AA55", //jaeger green
+      'title': periodName,
+			'locationName': periodLocation,
+			'body': '-\n\nPushed by CB Schedule on ' + moment().format("dddd, MMMM Do YYYY, h:mm:ss a") + '. Have a nice day!',
+      // Notification icon
+      'tinyIcon': "system://images/SCHEDULED_EVENT"
+		},
+		'actions': [{
+      'title': 'View Full Schedule',
+      'type': "openWatchApp"
+    }]
+	 };
+	
+	timelineJS.insertUserPin(pin, function(responseText) {
+  console.log('Result: ' + responseText);
+	});
+}
+
+function putTimelinePin() {
+	for (i = 0; i <= 4; i++) {
+		dateFetched = localStorage.getItem('dateFetched');
+		switch(i) {
+			case 0:
+				createTimelinePin((String(periods[periodSetter.setPeriod(parseInt(Day.substring(4,5)), 0)[0]].name).toUpperCase()), moment().add(daySkipped, 'days').set({'hour': 09, 'minute': 15}).format(), 
+													(String(periods[periodSetter.setPeriod(parseInt(Day.substring(4,5)), 0)[0]].room).toUpperCase()), 
+													'cb-schedule-itm' + dateFetched + '0915');
+				console.log('created pin #1: ' + 'cb-schedule-itm' + dateFetched + '0915');
+				break;
+			case 1:
+				createTimelinePin((String(periods[periodSetter.setPeriod(parseInt(Day.substring(4,5)), 0)[1]].name).toUpperCase()), moment().add(daySkipped, 'days').set({'hour': 10, 'minute': 35}).format(), 
+													(String(periods[periodSetter.setPeriod(parseInt(Day.substring(4,5)), 0)[1]].room).toUpperCase()), 
+													'cb-schedule-itm' + dateFetched + '1035');
+				console.log('created pin #2');
+				break;
+			case 2:
+				createTimelinePin((String(periods[periodSetter.setPeriod(parseInt(Day.substring(4,5)), 0)[2]].name).toUpperCase()), moment().add(daySkipped, 'days').set({'hour': 12, 'minute': 40}).format(), 
+													(String(periods[periodSetter.setPeriod(parseInt(Day.substring(4,5)), 0)[2]].room).toUpperCase()), 
+													'cb-schedule-itm' + dateFetched + '1240');
+				console.log('created pin #3');
+				break;
+			case 3:
+				createTimelinePin((String(periods[periodSetter.setPeriod(parseInt(Day.substring(4,5)), 0)[3]].name).toUpperCase()), moment().add(daySkipped, 'days').set({'hour': 14, 'minute': 0}).format(), 
+													(String(periods[periodSetter.setPeriod(parseInt(Day.substring(4,5)), 0)[3]].room).toUpperCase()), 
+													'cb-schedule-itm' + dateFetched + '1400');
+				console.log('created pin #4');
+				break;
+		}
+	}
+	console.log(dateFetched + 'true');
+	localStorage.setItem('timelinePinIsCreated', dateFetched + 'true'); // tells app not to set timeline pin again today
+}

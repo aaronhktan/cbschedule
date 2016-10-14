@@ -14,7 +14,7 @@ exports.setPeriod = function (day, user) {
       periodNumbers = [8 * user + 1, 8 * user, 8 * user + 3, 8 * user + 2];
     break;
     case 4:
-      periodNumbers = [8 * user + 5, 8 * user + 2, 8 * user + 7, 8 * user + 6];
+      periodNumbers = [8 * user + 5, 8 * user + 4, 8 * user + 7, 8 * user + 6];
     break;
   }
   return periodNumbers;
