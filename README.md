@@ -36,3 +36,4 @@ When that's done, the main window shows what day it is (or the next day, if it's
 - Perhaps be able to see one other friend's schedule, so they don't get lost (DONE as of 2016-06-09)
 - Show more details about class on selection (DONE as of 2016-06-14)
 - See more useful information like friend's name and/or classroom (DONE as of 2016-06-14)
+- Timeline support! (DONE as of 2016-10-11)
