@@ -1,6 +1,7 @@
 # CB Schedule
 
 ![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/mainWind.png)
+![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/appSchedule.png)
 ![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/extraDetailWindow_Basalt.png)
 ![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/timeline_basalt.png)
 ![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/timeline_basalt_1.png)
