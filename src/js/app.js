@@ -11,6 +11,7 @@ var titleSetter = require('titleSetter.js');
 var imageSetter = require('imageSetter.js');
 var timelineJS = require('timelineJS.js');
 
+// ******************************************************************************************* UI Elements
 // Colours in top half in blue
 var backTop = new UI.Rect({
   size: new Vector2(Feature.resolution().x, Feature.resolution().y / 2),
@@ -30,10 +31,7 @@ var mainWind = new UI.Window({
   backgroundColor: 'black'
 });
 
-mainWind.add(backTop);
-mainWind.add(backBottom);
-
-// Create arrays to hold elements (for different users)
+// Create arrays to hold elements of UI (specifically cards) for different users
 var backMain = [];
 var dayDescription = [];
 var dayText = [];
@@ -124,11 +122,10 @@ function createElements(user, cardIndex) {
   mainWind.add(separatorLines[cardIndex]);
 }
 
-// Show the card to user
+// Set the app to start at the first user (0-index)
 var cardIndex = 0;
-createElements(0, cardIndex);
-mainWind.show();
 
+// ******************************************************************************************* Get the day
 // Get periods and users' names from local storage on phone
 var users = localStorage.getItem('users');
 // Gets user' names from storage
@@ -155,9 +152,6 @@ var URL = 'https://www.googleapis.com/calendar/v3/calendars/ocdsb.ca_783e3p4smqg
 var daySkipped = 0; // used to keep track of how many times days have been skipped
 var start = moment().startOf('day').format(); // used for construction of URL (start time)
 var end = moment().endOf('day').format(); // used for construction of URL (end time)
-
-// Make the request to see what day it is
-request();
 
 function request() {
   ajax(
@@ -235,6 +229,7 @@ function request() {
   );
 }
 
+// ******************************************************************************************* Display the Day on the card
 // Displays day to user
 function display(day) { // looks at how many days have been skipped and creates text accordingly
   switch(day) {
@@ -253,6 +248,7 @@ function display(day) { // looks at how many days have been skipped and creates 
   }
 }
 
+// ******************************************************************************************* Display the period on the card
 // Displays periods by setting according to day
 function setPeriod(day, current) {
   if (periods[0] === null) { // No periods are set; user is told to set up in app
@@ -345,6 +341,7 @@ function setPeriod(day, current) {
   }
 }
 
+// ******************************************************************************************* Show schedule MenuList
 // Shows menu that shows the entire schedule
 function showSchedule() {
   console.log('clicked to show schedule!');
@@ -380,7 +377,8 @@ function showSchedule() {
     scheduleMenu.hide();
   });
 }
-  
+ 
+// ******************************************************************************************* Settings Handlers
 // App Settings
 Pebble.addEventListener('showConfiguration', function() {
   var configURL = 'http://cbschedulemana.ga/index.html';
@@ -437,10 +435,7 @@ Pebble.addEventListener('webviewclosed', function(e) {
 	putTimelinePin();
 });
 
-
-// Show schedule viewer when user clicks 'select' on the main window
-mainWind.on('click', 'select', showSchedule);
-
+// ******************************************************************************************* Other user UI Elements
 // Scrolls to next element
 var created = []; // keeps track of whether the elements have been created for this user
 mainWind.on('click', 'down', function (animateThingsDown) {
@@ -476,7 +471,7 @@ mainWind.on('click', 'up', function (animateThingsUp) {
   console.log('clicked up! to card #' + cardIndex);
 });
 
-
+// ******************************************************************************************* Window with more detail after clicking select on MenuList
 // Creates a window with nice details
 function createExtraDetailWindow(e, window) {
   
@@ -560,8 +555,7 @@ function createExtraDetailWindow(e, window) {
   window.add(centerImage);
 }
 
-Accel.config(); // apparently this is necessary before using the accelerometer
-
+// ******************************************************************************************* The Easter Egg Window
 // A little easter egg for those that decide to see it
 var tapped = 0;
 mainWind.on('accelTap', function(e) {
@@ -644,6 +638,7 @@ mainWind.on('accelTap', function(e) {
   }
 });
 
+// ******************************************************************************************* Timeline
 // timeline pin creation stuff
 function createTimelinePin(periodName, periodTime, periodLocation, id) {
 	 var pin = {
@@ -703,3 +698,20 @@ function putTimelinePin() {
 	console.log(dateFetched + 'true');
 	localStorage.setItem('timelinePinIsCreated', dateFetched + 'true'); // tells app not to set timeline pin again today
 }
+
+// ******************************************************************************************* Main App Logic
+Accel.config(); // apparently this is necessary before using the accelerometer
+
+// Adds the background rectangles
+mainWind.add(backTop);
+mainWind.add(backBottom);
+
+// Adds the first card and pushes window
+createElements(0, cardIndex);
+mainWind.show();
+
+// Sets the button handlers for the main window, to show the schedule when select is clicked
+mainWind.on('click', 'select', showSchedule);
+
+// Make the request to see what day it is
+request();
