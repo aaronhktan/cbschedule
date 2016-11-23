@@ -5,7 +5,7 @@ var Vector2 = require('vector2');
 var Feature = require('platform/feature');
 var dayFinder = require('dayFinder.js');
 var periodSetter = require('periodSetter.js');
-var timeline = require('timeline.js');
+var timelineModule = require('timelineModule.js');
 var scheduleMenu = require('scheduleMenu.js');
 var easterEggWindow = require('easterEggWindow.js');
 
@@ -190,8 +190,8 @@ function request() {
         setPeriod(parseInt(Day.substring(4,5))); // shows the period in the bottom half\
 				dateFetched = localStorage.getItem('dateFetched');
 				if (localStorage.getItem('timelinePinIsCreated') != dateFetched + 'true') {
-					console.log("Timeline pins are being created.");
-					timeline.putTimelinePin(Day, periods, daySkipped); // creates and puts Timeline Pins
+					console.log("timeline pins are being created.");
+					timelineModule.puttimelineModulePin(Day, periods, daySkipped); // creates and puts timelineModule Pins
 				}
 			}
     },
@@ -437,7 +437,7 @@ Pebble.addEventListener('webviewclosed', function(e) {
     periods[i] = JSON.parse(localStorage.getItem(i.toString()));
   }
   request();
-	timeline.putTimelinePin(Day, periods, daySkipped);
+	timelineModule.puttimelineModulePin(Day, periods, daySkipped);
 });
 
 // ******************************************************************************************* Accessible to other apps
@@ -454,4 +454,8 @@ exports.showMainWindow = function () {
 	
 	// Make the request to see what day it is
 	request();
+};
+
+exports.hideMainWindow = function() {
+	mainWind.hide();
 };

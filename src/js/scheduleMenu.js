@@ -38,7 +38,7 @@ exports.showSchedule = function(Day, cardIndex, working, currentPeriod) {
     backExtraDetail.show();
                   });
   scheduleMenu.on('back', function showScheduleDetails(e) { // kills the window when user presses back
-    mainWindow.showMainWindow();
     scheduleMenu.hide();
+		mainWindow.showMainWindow();
   });
 };
