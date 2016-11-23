@@ -210,6 +210,7 @@
 					}
 				}
 
+				var wakeup;
 				if (url.search("wakeup") != -1) { 				//If the URL has the string "wakeup"
 					params = url.split("&"); 						//Creates an array with each element being separated by "&"
 					for (x = 0; x < params.length; x++) { 			//Checks each element
@@ -222,7 +223,7 @@
 					wakeup = true;
 				}
 
-				if (wakeup) {
+				if (wakeup == true) {
 					document.getElementById('wakeupCheck').checked = true;
 				}
 
