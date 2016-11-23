@@ -93,6 +93,9 @@
 				<br><br>
 			</div>
 		</div>
+		<div id = "wakeupCheckBox" class = "button">
+			<input type = "checkbox" id="wakeupCheck">Enable wakeup at 12AM? (Experimental Feature)<br><br>
+		</div>
 		 <div id="savebutton">
 			<br><button id="submit_button" class="button">Save</button>
  		</div>
@@ -131,6 +134,7 @@
 	 		    var teachers = document.getElementsByClassName('teacher');
 	 		    var rooms = document.getElementsByClassName('room');
 	 		    var usernames = document.getElementsByClassName('username');
+	 		    var wakeup = document.getElementById("wakeupCheck").checked;
 	 		    var options = [];
 	 		    for (i = 0; i < classes.length; i++) {
 	 		    	var period = new createPeriod(classes[i].value, codes[i].value, teachers[i].value, rooms[i].value);
@@ -140,6 +144,7 @@
 	 		    	options[(counter + 1) * 8 + i] = usernames[i].value;
 	 		    }
 	 		    options[(counter + 1) * 8 + counter] = counter;
+	 		    options[(counter + 1) * 8 + counter + 1] = wakeup;
  		
 	 		    // Determine the correct return URL (emulator vs real watch)
 	 		    function getQueryParam(variable, defaultValue) {
@@ -188,6 +193,23 @@
 					addInput("inputs0");
 				}
 				
+				if (url.search("wakeup") != -1) { 				//If the URL has the string "numbers"
+					params = url.split("&"); 						//Creates an array with each element being separated by "&"
+					for (x = 0; x < params.length; x++) { 			//Checks each element
+						param = params[x].split("="); 				//Splits up each parameter in URL by "="
+					        if (param[0] == "wakeup") { 			//If the first part of the paramater is equal to "wakeup"
+					        	wakeup = (param[1] == "true");	//Whether wakeup is enabled shows up here
+					        }
+					}
+				}
+				else {
+					wakeup = true;
+				}
+
+				if (wakeup == true) {
+					document.getElementById('wakeupCheck').checked = true;
+				}
+
 				var names = document.getElementsByClassName('username');
 				for (i = 0; i < names.length; i++) { 													//Cycles through elements in that array
 					url = window.location.search.substring(1); 											//Searches the URL for the element number
@@ -291,6 +313,7 @@
 	 		    var teachers = document.getElementsByClassName('teacher');
 	 		    var rooms = document.getElementsByClassName('room');
 	 		    var usernames = document.getElementsByClassName('username');
+	 		    var wakeup = document.getElementById('wakeupCheck').checked;
 	 		    var options = [];
 	 		    var users = false;
 	 		    var URL = "";
@@ -305,6 +328,7 @@
 	 		    	URL += "&" + i + "=" + encodeURIComponent(classes[i / 4].value) + "&" + (i + 1) + "=" + encodeURIComponent(codes[i / 4].value) + "&" + (i + 2) + "=" + encodeURIComponent(teachers[i / 4].value) + "&" + (i + 3) + "=" + encodeURIComponent(rooms[i / 4].value);
 				}
 			document.getElementsByClassName('saveCode')[0].value = URL;
+			URL += '&wakeup=' + wakeup; 
 			}
 
 			function loadURL() {
