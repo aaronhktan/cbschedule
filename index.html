@@ -327,8 +327,8 @@
 	 		    for (i = 0; i < (classes.length * 4 - 1); i += 4) {
 	 		    	URL += "&" + i + "=" + encodeURIComponent(classes[i / 4].value) + "&" + (i + 1) + "=" + encodeURIComponent(codes[i / 4].value) + "&" + (i + 2) + "=" + encodeURIComponent(teachers[i / 4].value) + "&" + (i + 3) + "=" + encodeURIComponent(rooms[i / 4].value);
 				}
-			document.getElementsByClassName('saveCode')[0].value = URL;
 			URL += '&wakeup=' + wakeup; 
+			document.getElementsByClassName('saveCode')[0].value = URL;
 			}
 
 			function loadURL() {
