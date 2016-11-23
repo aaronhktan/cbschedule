@@ -193,23 +193,6 @@
 					addInput("inputs0");
 				}
 				
-				if (url.search("wakeup") != -1) { 				//If the URL has the string "numbers"
-					params = url.split("&"); 						//Creates an array with each element being separated by "&"
-					for (x = 0; x < params.length; x++) { 			//Checks each element
-						param = params[x].split("="); 				//Splits up each parameter in URL by "="
-					        if (param[0] == "wakeup") { 			//If the first part of the paramater is equal to "wakeup"
-					        	wakeup = (param[1] == "true");	//Whether wakeup is enabled shows up here
-					        }
-					}
-				}
-				else {
-					wakeup = true;
-				}
-
-				if (wakeup == true) {
-					document.getElementById('wakeupCheck').checked = true;
-				}
-
 				var names = document.getElementsByClassName('username');
 				for (i = 0; i < names.length; i++) { 													//Cycles through elements in that array
 					url = window.location.search.substring(1); 											//Searches the URL for the element number
@@ -227,19 +210,35 @@
 					}
 				}
 
-				var inputs = document.getElementsByTagName('input');
-				var classes = document.getElementsByClassName('class');
+				if (url.search("wakeup") != -1) { 				//If the URL has the string "wakeup"
+					params = url.split("&"); 						//Creates an array with each element being separated by "&"
+					for (x = 0; x < params.length; x++) { 			//Checks each element
+						param = params[x].split("="); 				//Splits up each parameter in URL by "="
+					        if (param[0] == "wakeup") { 			//If the first part of the paramater is equal to "wakeup"
+					        	wakeup = (param[1] == "true");	//Whether wakeup is enabled shows up here
+					        }
+					}
+				} else {
+					wakeup = true;
+				}
+
+				if (wakeup) {
+					document.getElementById('wakeupCheck').checked = true;
+				}
+
+				var inputs = document.getElementsByTagName('input'); // Gets all elements on page with tag name input
+				var classes = document.getElementsByClassName('class'); // Get all elements named class, code, teacher and room
 	 		    var codes = document.getElementsByClassName('code');
 	 		    var teachers = document.getElementsByClassName('teacher');
 	 		    var rooms = document.getElementsByClassName('room');
-				var notUserNames = []
-				for (i = 0; i < inputs.length - 5; i += 4) {
+				var notUserNames = []; // An empty array that will be filled with the elements on the webpage that are not username fields
+				for (i = 0; i < inputs.length - 4; i += 4) { // Adds elements of the webpage to the notUserNames array, and assigns each element a number (-4 because there are two username fields, 1 checkbox, and 1 generate/load field)
 					notUserNames[i] = classes[i / 4];
 					notUserNames[i + 1] = codes[i / 4];
 					notUserNames[i + 2] = teachers[i / 4];
 					notUserNames[i + 3] = rooms[i / 4];
 				}
-				for (i = 0; i < notUserNames.length; i++) { 													//Cycles through elements in that array
+				for (i = 0; i < notUserNames.length; i++) { 													//Cycles through the textbox elements on the webpage
 					url = window.location.search.substring(1); 											//Searches the URL for the element number
 					if (url.search(i) != -1) { 															//If the URL has a number
 						params = url.split("&"); 														//Creates an array with each element being separated by "&"
