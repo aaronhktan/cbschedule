@@ -3,9 +3,11 @@ var ajax = require('ajax');
 var moment = require('moment');
 var Vector2 = require('vector2');
 var Feature = require('platform/feature');
+var Wakeup = require('wakeup');
 var dayFinder = require('dayFinder.js');
 var periodSetter = require('periodSetter.js');
 var timelineModule = require('timelineModule.js');
+var wakeupModule = require('wakeupModule.js');
 var scheduleMenu = require('scheduleMenu.js');
 var easterEggWindow = require('easterEggWindow.js');
 
@@ -191,7 +193,7 @@ function request() {
 				dateFetched = localStorage.getItem('dateFetched');
 				if (localStorage.getItem('timelinePinIsCreated') != dateFetched + 'true') {
 					console.log("timeline pins are being created.");
-					timelineModule.puttimelineModulePin(Day, periods, daySkipped); // creates and puts timelineModule Pins
+					timelineModule.putTimelineModulePin(Day, periods, daySkipped); // creates and puts timelineModule Pins
 				}
 			}
     },
@@ -401,6 +403,7 @@ Pebble.addEventListener('showConfiguration', function() {
         "&" + (i + 3) + "=" + encodeURIComponent(String(periods[i / 4].room));
     }
 	}
+	configURL += "&wakeup=" + localStorage.getItem('wakeup_enabled');
   Pebble.openURL(configURL);
   console.log(configURL);
 });
@@ -422,22 +425,32 @@ Pebble.addEventListener('webviewclosed', function(e) {
   * index 25 (total number of users * 8 + 1): user name #2
   * index 26 (total number of users * 8 + 2): user name #3
   * index 27 (total number of users * 8 + total number of users): 2 (number of users, starting from index 0)
+	* index 27 (enable waking up at 12AM?)
   */
   var configData = JSON.parse(decodeURIComponent(e.response));
-  users = configData[configData.length - 1]; // sets number of users based on the second last element of the array
+  users = configData[configData.length - 2]; // sets number of users based on the second last element of the array
+	var wakeup_enabled = configData[configData.length - 1]; // sets whether to enable the wakeup module based on the last element of the array
+	localStorage.setItem('wakeup_enabled', wakeup_enabled);
+	console.log('The wakeup is set to ' + wakeup_enabled);
+	if (wakeup_enabled) {
+		wakeupModule.scheduleWakeup();
+		wakeupModule.wakeupEvent();
+	} else {
+		Wakeup.cancel('all');
+	}
   for (var i = 0; i < users; i++) {
     localStorage.setItem(String(8 * (users + 1) + i), configData[8 * (users + 1) + i]); // sets names of users based on number of users
     usernames[i] = localStorage.getItem(String(8 * (users + 1) + i));
-    console.log(usernames[i]);
+		console.log('username: ' + usernames[i]);
   }
   localStorage.setItem('users', users);
-  console.log(users);
+	console.log('users: ' + users);
   for (i = 0; i < configData.length - (users + 1); i++) { // sets periods based on number of users
     localStorage.setItem(i.toString(), JSON.stringify(configData[i]));
     periods[i] = JSON.parse(localStorage.getItem(i.toString()));
   }
   request();
-	timelineModule.puttimelineModulePin(Day, periods, daySkipped);
+	timelineModule.putTimelinePin(Day, periods, daySkipped);
 });
 
 // ******************************************************************************************* Accessible to other apps
