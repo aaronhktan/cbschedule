@@ -129,10 +129,10 @@ var cardIndex = 0;
 // Get periods and users' names from local storage on phone
 var users = localStorage.getItem('users');
 // Gets user' names from storage
-var usernames = [];
+var usernames = ["Somebody", "Somebody else"];
 // Assigns users to the username array
 for (var i = 0; i < parseInt(users); i++) {
-  usernames[i] = (localStorage.getItem(String(8 * (parseInt(users) + 1) + i)));
+  usernames[i] = localStorage.getItem(String(8 * (parseInt(users) + 1) + i));
   console.log(localStorage.getItem(String(8 * (parseInt(users) + 1) + i)));
 }
 // Gets periods from storage
@@ -404,6 +404,7 @@ Pebble.addEventListener('showConfiguration', function() {
     }
 	}
 	configURL += "&wakeup=" + localStorage.getItem('wakeup_enabled');
+	configURL = configURL.split('"').join('');
   Pebble.openURL(configURL);
   console.log(configURL);
 });
@@ -438,9 +439,10 @@ Pebble.addEventListener('webviewclosed', function(e) {
 	} else {
 		Wakeup.cancel('all');
 	}
-  for (var i = 0; i < users; i++) {
-    localStorage.setItem(String(8 * (users + 1) + i), configData[8 * (users + 1) + i]); // sets names of users based on number of users
-    usernames[i] = localStorage.getItem(String(8 * (users + 1) + i));
+  for (var i = 0; i < parseInt(users); i++) {
+    localStorage.setItem(String(8 * (parseInt(users) + 1) + i), configData[8 * (parseInt(users) + 1) + i]); // sets names of users based on number of users
+    usernames = ["Somebody", "Somebody else"];
+		usernames[i] = localStorage.getItem(String(8 * (parseInt(users) + 1) + i));
 		console.log('username: ' + usernames[i]);
   }
   localStorage.setItem('users', users);

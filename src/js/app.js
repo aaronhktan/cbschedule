@@ -4,13 +4,15 @@ var wakeupModule = require('wakeupModule.js');
 
 // ******************************************************************************************* Main App Logic
 Accel.config(); // apparently this is necessary before using the accelerometer
-console.log("The main window hasn't been created yet.");
+console.log("You are running version 0.5.3.");
 mainWindow.showMainWindow(); // Shows the main window to the user
 
 // For wakeup
-if (localStorage.getItem('wakeup_enabled') !== null && localStorage.getItem('wakeup_enabled')) {
+if (localStorage.getItem('wakeup_enabled') !== null && localStorage.getItem('wakeup_enabled') == "true") {
+	console.log("Wakeup is enabled");
 	wakeupModule.scheduleWakeup();
 	wakeupModule.wakeupEvent();
 } else {
 	localStorage.setItem('wakeup_enabled', false);
+	console.log("Wakeup is not enabled: " + localStorage.getItem('wakeup_enabled'));
 }
