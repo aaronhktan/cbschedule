@@ -233,7 +233,7 @@
 	 		    var teachers = document.getElementsByClassName('teacher');
 	 		    var rooms = document.getElementsByClassName('room');
 				var notUserNames = []
-				for (i = 0; i < inputs.length; i += 4) {
+				for (i = 0; i < inputs.length - 1; i += 4) {
 					notUserNames[i] = classes[i / 4];
 					notUserNames[i + 1] = codes[i / 4];
 					notUserNames[i + 2] = teachers[i / 4];
