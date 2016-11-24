@@ -34,6 +34,7 @@ When that's done, the main window shows what day it is (or the next day, if it's
 - Show more details about class on selection (DONE as of 2016-06-14)
 - See more useful information like friend's name and/or classroom (DONE as of 2016-06-14)
 - Timeline support! (DONE as of 2016-10-11)
+- Automatic wakeup and fetching at the beginning of the day (DONE as of 2016-11-23)
 
 ## Screenshots
 
