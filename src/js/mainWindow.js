@@ -250,6 +250,27 @@ function display(day) { // looks at how many days have been skipped and creates 
 }
 
 // ******************************************************************************************* Display the period on the card
+
+function displayPeriod(day, periodNumber, periodNumberString, periodString, current, currentPeriodString) {
+	var ogPeriods = [0, 1, 2, 3];
+	var notogPeriods = [1, 0, 3, 2];
+	if (day == 1 || day == 2) { // depending on which day it is, the schedule will show a different block
+		currentPeriod = ogPeriods[periodNumber];
+	} else {
+		currentPeriod = notogPeriods[periodNumber];
+	}
+	if (current) {
+			dayDescription[cardIndex].text('Current period');
+		if (moment().isAfter(moment().set({'hour': 15, 'minute':15}))) {
+			dayText[cardIndex].text('NONE!');
+		} else {
+			dayText[cardIndex].text(currentPeriodString);
+		}
+	}
+	periodDescription[cardIndex].text(periodNumberString); // shows the next period; in this case, it's the first period
+  periodText[cardIndex].text(periodString);
+}
+
 // Displays periods by setting according to day
 function setPeriod(day, current) {
   if (periods[0] === null) { // No periods are set; user is told to set up in app
@@ -262,82 +283,28 @@ function setPeriod(day, current) {
     // If before 9:15, or is before the next school day, shows first period
     if (moment().isBefore(moment().set({'hour': 09, 'minute':15})) || 
         moment().isBefore(moment(dateFetched, 'YYYY-MM-DD'))) {
-      if (day == 1 || day == 2) { // depending on which day it is, the schedule will show a different block
-        currentPeriod = 0;
-      } else {
-        currentPeriod = 1;
-      }
       console.log('Period 1');
-      if (current) { // shows that the current period is nothing if the user is on a friend's card
-        dayDescription[cardIndex].text('Current period');
-        dayText[cardIndex].text('NONE!');
-      }
-      periodDescription[cardIndex].text('First period'); // shows the next period; in this case, it's the first period
-      periodText[cardIndex].text(String(periods[periodSetter.setPeriod(day, cardIndex)[0]].name).toUpperCase());
+      displayPeriod(day, 0, 'First period', String(periods[periodSetter.setPeriod(day, cardIndex)[0]].name).toUpperCase(), current, 'NONE!');
     }
     // If before start of second period, shows second period (which is the next period)
     else if (moment().isBefore(moment().set({'hour': 10, 'minute':35}))) {
-      if (day == 1 || day == 2) {
-        currentPeriod = 0;
-      } else {
-        currentPeriod = 1;
-      }
       console.log('Period 2');
-      if (current) {
-        dayDescription[cardIndex].text('Current period');
-        dayText[cardIndex].text(String(periods[periodSetter.setPeriod(day, cardIndex)[0]].name).toUpperCase());
-      }
-      periodDescription[cardIndex].text('Second period');
-      periodText[cardIndex].text(String(periods[periodSetter.setPeriod(day, cardIndex)[1]].name).toUpperCase());
+			displayPeriod(day, 0, 'Second period', String(periods[periodSetter.setPeriod(day, cardIndex)[1]].name).toUpperCase(), current, String(periods[periodSetter.setPeriod(day, cardIndex)[0]].name).toUpperCase());
     }
     // If before start of third period, shows third period
     else if (moment().isBefore(moment().set({'hour': 12, 'minute':40}))) {
-      if (day == 1 || day == 2) {
-        currentPeriod = 1;
-      } else {
-        currentPeriod = 0;
-      }
       console.log('Period 3');
-      if (current) {
-        dayDescription[cardIndex].text('Current period');
-        dayText[cardIndex].text(String(periods[periodSetter.setPeriod(day, cardIndex)[1]].name).toUpperCase());
-      }
-      periodDescription[cardIndex].text('Third period');
-      periodText[cardIndex].text(String(periods[periodSetter.setPeriod(day, cardIndex)[2]].name).toUpperCase());
+			displayPeriod(day, 1, 'Third period', String(periods[periodSetter.setPeriod(day, cardIndex)[2]].name).toUpperCase(), current, String(periods[periodSetter.setPeriod(day, cardIndex)[1]].name).toUpperCase());
     }
     // If before start of fourth period, shows fourth period
     else if (moment().isBefore(moment().set({'hour': 14, 'minute':0}))) {
-      if (day == 1 || day == 2) {
-        currentPeriod = 2;
-      } else {
-        currentPeriod = 3;
-      }
       console.log('Period 3');
-      if (current) {
-        dayDescription[cardIndex].text('Current period');
-        dayText[cardIndex].text(String(periods[periodSetter.setPeriod(day, cardIndex)[2]].name).toUpperCase());
-      }
-      periodDescription[cardIndex].text('Fourth period');
-      periodText[cardIndex].text(String(periods[periodSetter.setPeriod(day, cardIndex)[3]].name).toUpperCase());
+			displayPeriod(day, 2, 'Fourth period', String(periods[periodSetter.setPeriod(day, cardIndex)[3]].name).toUpperCase(), current, String(periods[periodSetter.setPeriod(day, cardIndex)[2]].name).toUpperCase());
     }
     // Otherwise, assume it's outside of school hours and show that there is no class left.
     else {
-      if (day == 1 || day == 2) {
-        currentPeriod = 3;
-      } else {
-        currentPeriod = 2;
-      }
       console.log('Period 4');
-      if (current) {
-        dayDescription[cardIndex].text('Current period');
-        if (moment().isAfter(moment().set({'hour': 15, 'minute':15}))) {
-          dayText[cardIndex].text('NONE!');
-        } else {
-          dayText[cardIndex].text(String(periods[periodSetter.setPeriod(day, cardIndex)[3]].name).toUpperCase());
-        }
-      }
-      periodDescription[cardIndex].text('No next class!');
-      periodText[cardIndex].text('DONE!');
+			displayPeriod(day, 3, 'No next class!', 'DONE!', current, 'NONE!');
     }
   }
 }
