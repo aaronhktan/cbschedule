@@ -7,7 +7,7 @@ Accel.config(); // apparently this is necessary before using the accelerometer
 console.log("You are running version 0.5.3.");
 mainWindow.showMainWindow(); // Shows the main window to the user
 
-// For wakeup
+// For wakeup (checks whether there's a localStorage item with the wakeup key, and whether it's enabled)
 if (localStorage.getItem('wakeup_enabled') !== null && localStorage.getItem('wakeup_enabled') == "true") {
 	console.log("Wakeup is enabled");
 	wakeupModule.scheduleWakeup();

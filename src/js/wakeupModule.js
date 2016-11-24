@@ -4,15 +4,14 @@ var mainWindow = require('mainWindow.js');
 var exports = this.exports = {};
 
 exports.scheduleWakeup = function() {
-	Wakeup.cancel('all');
-// 	var scheduleTime = moment().add(1, 'days').hour(0).minute(0).second(0);
+	Wakeup.cancel('all'); // Cancels all previous ones and sets a new one just in case
+	// Adds one day and sets the time to 12:01 AM, then divides by 1000 because Wakeup requires seconds, not milliseconds
 	var scheduleTime = moment().add(1, 'day').hours(0).minute(1).seconds(0) / 1000;
 	Wakeup.schedule(
 		{
-			// Set the wakeup event for tomorrow at 12:00 AM
+			// Set the wakeup event for tomorrow at 12:01 AM
 			time: scheduleTime,
-			data: { hello: 'world' }
-		},
+		}, // Did it succeed?
 		function(e) {
 			if (e.failed) {
 				// Log the error reason
@@ -23,11 +22,11 @@ exports.scheduleWakeup = function() {
 			}
 		}
 	);
-	console.log('The scheduled time is ' + scheduleTime);
+	console.log('The scheduled time is ' + scheduleTime); // For debug purposes
 };
 
 exports.wakeupEvent = function () {
-	// Single wakeup event handler example:
+	// When woken up at 12:01 AM, starts a timer for 15 seconds and then closes the app.
 	Wakeup.on('wakeup', function(e) {
 		console.log('Wakeup event! ' + JSON.stringify(e));
 		setInterval(function(){ mainWindow.hideMainWindow(); }, 15000);
