@@ -193,7 +193,7 @@ function request() {
 				dateFetched = localStorage.getItem('dateFetched');
 				if (localStorage.getItem('timelinePinIsCreated') != dateFetched + 'true') {
 					console.log("timeline pins are being created.");
-					timelineModule.putTimelineModulePin(Day, periods, daySkipped); // creates and puts timelineModule Pins
+					timelineModule.putTimelinePin(Day, periods, daySkipped); // creates and puts timelineModule Pins
 				}
 			}
     },
