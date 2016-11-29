@@ -6,7 +6,7 @@
 ![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/timeline_basalt.png)
 ![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/timeline_basalt_1.png)
 
-[![Available on the Pebble App Store](http://pblweb.com/badge/57604008837089081e0000e7/orange/small)][appstore]
+[![Available on the Pebble App Store](http://pblweb.com/badge/57604008837089081e0000e7/black/small)][appstore]
 
 ## What is this?
 
