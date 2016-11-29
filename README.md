@@ -6,6 +6,7 @@
 ![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/timeline_basalt.png)
 ![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/timeline_basalt_1.png)
 
+[![Available on the Pebble App Store](http://pblweb.com/badge/57604008837089081e0000e7/orange/small)][appstore]
 
 ## What is this?
 
@@ -55,3 +56,5 @@ When that's done, the main window shows what day it is (or the next day, if it's
 ![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/extraDetails_chalk.png)
 ![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/timeline_chalk.png)
 ![alt tag](https://github.com/cheeseisdisgusting/cbschedule/blob/master/screenshots/timeline_chalk_v2.png)
+
+[appstore]: https://apps.getpebble.com/en_US/application/57604008837089081e0000e7
