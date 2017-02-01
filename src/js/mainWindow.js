@@ -369,8 +369,10 @@ Pebble.addEventListener('showConfiguration', function() {
         "&" + (i + 2) + "=" + encodeURIComponent(String(periods[i / 4].teacher)) +
         "&" + (i + 3) + "=" + encodeURIComponent(String(periods[i / 4].room));
     }
+		configURL += "&wakeup=" + localStorage.getItem('wakeup_enabled');
+	} else {
+		configURL += "?wakeup=" + localStorage.getItem('wakeup_enabled');
 	}
-	configURL += "&wakeup=" + localStorage.getItem('wakeup_enabled');
 	configURL = configURL.split('"').join('');
   Pebble.openURL(configURL);
   console.log(configURL);
