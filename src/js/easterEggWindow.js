@@ -40,7 +40,7 @@ exports.createEasterEggWindow = function(e) {
     var centerImage = new UI.Image({
       size: new Vector2(64, 64),
       position: new Vector2(Feature.resolution().x / 2 - 32, Feature.resolution().y / 2 - 32),
-      image: 'images/cow',
+      image: 'images/cow.png',
       compositing: 'set'
   });
     var captionText = new UI.Text({
@@ -71,7 +71,7 @@ exports.createEasterEggWindow = function(e) {
       font: 'gothic-18',
       position: Feature.rectangle(new Vector2(12, Feature.resolution().y / 2 + 55),
                                   new Vector2(Feature.resolution().x * 0.125, Feature.resolution().y / 2 + 50)),
-      text: '© 2016, v0.50',
+      text: '© 2017, v0.57',
       textAlign: 'center',
       textOverflow: 'ellipsis',
       color: 'black'
