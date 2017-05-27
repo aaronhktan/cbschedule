@@ -4,7 +4,7 @@ var wakeupModule = require('wakeupModule.js');
 
 // ******************************************************************************************* Main App Logic
 Accel.config(); // apparently this is necessary before using the accelerometer
-console.log("You are running version 0.5.4.");
+console.log("You are running version 0.5.8.");
 mainWindow.showMainWindow(); // Shows the main window to the user
 
 // For wakeup (checks whether there's a localStorage item with the wakeup key, and whether it's enabled)
