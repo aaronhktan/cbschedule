@@ -408,9 +408,10 @@ Pebble.addEventListener('webviewclosed', function(e) {
 	} else {
 		Wakeup.cancel('all');
 	}
+	
+	usernames = ["Somebody", "Somebody else"];
   for (var i = 0; i < parseInt(users); i++) {
     localStorage.setItem(String(8 * (parseInt(users) + 1) + i), configData[8 * (parseInt(users) + 1) + i]); // sets names of users based on number of users
-    usernames = ["Somebody", "Somebody else"];
 		usernames[i] = localStorage.getItem(String(8 * (parseInt(users) + 1) + i));
 		console.log('username: ' + usernames[i]);
   }
