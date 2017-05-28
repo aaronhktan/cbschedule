@@ -6,169 +6,214 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
  		<title>CB Schedule Manager</title>
  		<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdCb3g9IjAgMCA4IDgiPgogIDxwYXRoIGQ9Ik01LjUgMGMtMS4zOCAwLTIuNSAxLjEyLTIuNSAyLjUgMCAuMTYgMCAuMzIuMDMuNDdsLTMuMDMgMy4wM3YyaDN2LTJoMnYtMWwuMDMtLjAzYy4xNS4wMy4zMS4wMy40Ny4wMyAxLjM4IDAgMi41LTEuMTIgMi41LTIuNXMtMS4xMi0yLjUtMi41LTIuNXptLjUgMWMuNTUgMCAxIC40NSAxIDFzLS40NSAxLTEgMS0xLS40NS0xLTEgLjQ1LTEgMS0xeiIgLz4KPC9zdmc+"/>
- 		<style>
- 			.title {
- 				padding: 15px 10px;
- 				text-transform: uppercase;
- 				font-family: 'PT-SANS', sans-serif;
- 				font-size: 1.2em;
- 				font-weight: 500;
- 				color: #888888;
- 				text-align: center;
- 			}
- 			.subtitle {
- 				margin-left: 10px;
- 				font-family: 'PT-SANS', sans-serif;
- 			}
- 		</style>
  	</head>
  	<body onLoad=clickThings()>
  		<div>
- 			<h1 class="title"><br>CB Schedule Manager</h1><br>
+ 			<h1 class="title">Settings</h1>
  		</div>
 
- 		<div class="description">
- 			<div class="item-container-content">
-	 			<div class="item">
-	 				Fill out as many or as few of these as you want. No need to worry about filling them all out!
-	 			</div>
-	 		</div>
- 		</div>
+		<div class="item">
+			This is the settings page for the CB Schedule app. Fill out the fields, then tap the save button to send them back to your watch!
+		</div>
 
  		<div class="item-container" id="inputs0">
  			<div class="item-container-header">Your schedule</div>
  			<div class="form">
  				<div class="item-container-content">
- 					<label class="item">
+ 					<label class="subitem">
 		 				<h5 class="subtitle">Period 1A</h5>
+		 			</label>
+		 			<label class="subitem">
 		 				<div class="item-input-wrapper">
 							<input class="class item-input" type="text" placeholder="Class" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="code item-input" type="text" placeholder="Course Code" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="teacher item-input" type="text" placeholder="Teacher" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="room item-input" type="text" placeholder="Room" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
 					</label>
 				</div>
  				<div class="item-container-content">
- 					<label class="item">
+ 					<label class="subitem">
 		 				<h5 class="subtitle">Period 1B</h5>
+		 			</label>
+		 			<label class="subitem">
 		 				<div class="item-input-wrapper">
 							<input class="class item-input" type="text" placeholder="Class" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="code item-input" type="text" placeholder="Course Code" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="teacher item-input" type="text" placeholder="Teacher" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="room item-input" type="text" placeholder="Room" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
 					</label>
 				</div>
 				<div class="item-container-content">
- 					<label class="item">
+ 					<label class="subitem">
 		 				<h5 class="subtitle">Period 1C</h5>
+		 			</label>
+		 			<label class="subitem">
 		 				<div class="item-input-wrapper">
 							<input class="class item-input" type="text" placeholder="Class" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="code item-input" type="text" placeholder="Course Code" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="teacher item-input" type="text" placeholder="Teacher" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="room item-input" type="text" placeholder="Room" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
 					</label>
 				</div>
  				<div class="item-container-content">
- 					<label class="item">
+ 					<label class="subitem">
 		 				<h5 class="subtitle">Period 1D</h5>
+		 			</label>
+		 			<label class="subitem">
 		 				<div class="item-input-wrapper">
 							<input class="class item-input" type="text" placeholder="Class" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="code item-input" type="text" placeholder="Course Code" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="teacher item-input" type="text" placeholder="Teacher" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="room item-input" type="text" placeholder="Room" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
 					</label>
 				</div>
  				<div class="item-container-content">
- 					<label class="item">
+ 					<label class="subitem">
 		 				<h5 class="subtitle">Period 2A</h5>
+		 			</label>
+		 			<label class="subitem">
 		 				<div class="item-input-wrapper">
 							<input class="class item-input" type="text" placeholder="Class" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="code item-input" type="text" placeholder="Course Code" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="teacher item-input" type="text" placeholder="Teacher" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="room item-input" type="text" placeholder="Room" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
 					</label>
 				</div>
  				<div class="item-container-content">
- 					<label class="item">
+ 					<label class="subitem">
 		 				<h5 class="subtitle">Period 2B</h5>
+		 			</label>
+		 			<label class="subitem">
 		 				<div class="item-input-wrapper">
 							<input class="class item-input" type="text" placeholder="Class" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="code item-input" type="text" placeholder="Course Code" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="teacher item-input" type="text" placeholder="Teacher" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="room item-input" type="text" placeholder="Room" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
 					</label>
 				</div>
  				<div class="item-container-content">
- 					<label class="item">
+ 					<label class="subitem">
 		 				<h5 class="subtitle">Period 2C</h5>
+		 			</label>
+		 			<label class="subitem">
 		 				<div class="item-input-wrapper">
 							<input class="class item-input" type="text" placeholder="Class" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="code item-input" type="text" placeholder="Course Code" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="teacher item-input" type="text" placeholder="Teacher" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="room item-input" type="text" placeholder="Room" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
 					</label>
 				</div>
  				<div class="item-container-content">
- 					<label class="item">
+ 					<label class="subitem">
 		 				<h5 class="subtitle">Period 2D</h5>
+		 			</label>
+		 			<label class="subitem">
 		 				<div class="item-input-wrapper">
 							<input class="class item-input" type="text" placeholder="Class" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="code item-input" type="text" placeholder="Course Code" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="teacher item-input" type="text" placeholder="Teacher" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
+					</label>
+					<label class="subitem">
 						<div class="item-input-wrapper">
 							<input class="room item-input" type="text" placeholder="Room" onblur="this.value=removeSpaces(this.value)"/>
 						</div>
@@ -193,17 +238,17 @@
 
  		<div class="item-container">
  			<div class="button-container">
-				<button id="add_button" class="item-button" onClick=addInput("inputs0")>Add another schedule</button>
+				<button id="add_button" class="item-button" onClick=addInput("inputs0")>ADD ANOTHER SCHEDULE</button>
 			</div>
 		</div>
 		<div class="item-container">
 	 		<div class="button-container">
-	 			<button id="remove_button" class="item-button" onClick=removeInput() disabled=true>Remove a schedule</button>
+	 			<button id="remove_button" class="item-button" onClick=removeInput() disabled=true>REMOVE A SCHEDULE</button>
 	 		</div>
 	 	</div>
 	 	<div class="item-container">
 			<div class="button-container">
-				<button id="submit_button" class="item-button">Save</button>
+				<button id="submit_button" class="item-button">SAVE</button>
 	 		</div>
  		</div>
 
@@ -221,16 +266,32 @@
 		</div>
 		<div class="item-container">
 			<div class="button-container">
-	 			<button id="generate_button" class="button item-button" onClick=generateCodes()>Generate</button>
+	 			<button id="generate_button" class="button item-button" onClick=generateCodes()>GENERATE</button>
 	 		</div>
  		</div>
  		<div class="item-container">
 	 		<div class="button-container">
-	 			<button id="load_button" class="button item-button" onClick=loadURL()>Load</button>
+	 			<button id="load_button" class="button item-button" onClick=loadURL()>LOAD</button>
 	 		</div>
 	 	</div>
 	 	<script type="text/javascript" src="javascripts/main.js"></script>
 		<script type="text/javascript" src="javascripts/slate.min.js"></script>
 		<link href="css/slate.css" rel="stylesheet" type="text/css"/>
+		<style>
+ 			.title {
+ 				padding: 20px 10px 0px;
+ 				text-transform: uppercase;
+ 				font-family: 'PFDinDisplayProLightWebfont', sans-serif;
+ 				font-size: 1.5em;
+ 				font-weight: 500;
+ 				color: #FFFFFF;
+ 				text-align: left;
+ 			}
+ 			.subtitle {
+ 				margin: 10px;
+ 				font-family: 'PFDinDisplayProLightWebfont', sans-serif;
+ 				font-weight: normal;
+ 			}
+ 		</style>
  	</body>
  </html>

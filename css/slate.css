@@ -1,7 +1,13 @@
 @font-face {
   font-family: 'PFDinDisplayProLightWebfont';
-  src: url("../fonts/PFDinDisplayPro-Light.woff") format("woff");
+  src: url("../fonts/PFDinDisplayPro-light.woff") format("woff");
   font-weight: normal;
+  font-style: normal;
+  font-variant: normal; }
+@font-face {
+  font-family: 'PFDinDisplayProLightWebfont';
+  src: url("../fonts/PFDinDisplayPro-bold.woff") format("woff");
+  font-weight: 500;
   font-style: normal;
   font-variant: normal; }
 @font-face {
@@ -22,7 +28,7 @@ a {
   text-decoration: none; }
 
 body {
-  background-color: #EAEAEA;
+  background-color: #333333;
   margin-bottom: 15px;
   font-size: 1.2em;
   line-height: 1.4em;
@@ -81,12 +87,12 @@ input[type=date] {
   font-family: 'PT Sans', PTSansRegularWebfont, sans-serif;
   font-size: .8em;
   font-weight: normal;
-  color: #A8A8A8; }
+  color: #FFFFFF; }
 
 .item-container-content {
-  background-color: #F7F7F7;
-  border-top: 1px solid #DEDEDE;
-  border-bottom: 1px solid #DEDEDE; }
+  background-color: #414141;
+  border-top: 1px solid #666666;
+  border-bottom: 1px solid #666666; }
 
 .item-container-footer {
   padding: 3px 10px;
@@ -95,13 +101,17 @@ input[type=date] {
   color: #A8A8A8; }
 
 .item {
-  position: relative;
+  color: #FFFFFF;
   padding: 10px;
+  position: relative;
   display: block;
   overflow: hidden; }
 
-.item:not(:first-child) {
-  border-top: 1px solid #DEDEDE; }
+.subitem {
+  color: #FFFFFF;
+  position: relative;
+  display: inline;
+  overflow: hidden; }
 
 .item-subtitle-wrapper {
   font-size: 1em; }
@@ -184,7 +194,7 @@ input[type=date] {
   display: none; }
 
 .item-checkbox + .item-styled-checkbox {
-  border-color: #DEDEDE; }
+  border-color: #767676; }
 
 .item-checkbox:checked + .item-styled-checkbox {
   border-color: #FF4700;
@@ -301,8 +311,7 @@ input[type=date] {
 
 .item-input-wrapper {
   margin: 10px;
-  border-radius: 5px;
-  border: 2px solid #DEDEDE; }
+  border-radius: 5px; }
 
 .item-input-wrapper-button {
   box-sizing: border-box;
@@ -310,11 +319,24 @@ input[type=date] {
 
 .item-input {
   border: 0;
-  background-color: transparent;
-  padding: 0 10px 7px 10px;
-  font-size: 13px;
+  color: #FFFFFF;
+  background-color: #333333;
+  padding: 7px 13px 5px 10px;
+  font-size: 16px;
   width: 100%;
   box-sizing: border-box; }
+
+::-webkit-input-placeholder {
+  color: #858585;
+}
+
+::-moz-placeholder {
+  color: #858585;
+}
+
+:ms-input-placeholder {
+  color: #858585;
+}
 
 .button-container {
   text-align: center; }
@@ -333,7 +355,7 @@ input[type=date] {
   appearance: none; }
 
 .item-button:disabled {
-  background-color: #A8A8A8;
+  background-color: #767676;
 }
 
 .item-input-button {
