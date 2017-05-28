@@ -85,8 +85,8 @@ input[type=date] {
   padding: 3px 10px;
   text-transform: uppercase;
   font-family: 'PT Sans', PTSansRegularWebfont, sans-serif;
-  font-size: .8em;
-  font-weight: normal;
+  font-size: 0.9em;
+  font-weight: 700;
   color: #FFFFFF; }
 
 .item-container-content {
