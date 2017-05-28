@@ -1,12 +1,12 @@
 @font-face {
   font-family: 'PFDinDisplayProLightWebfont';
-  src: url("../fonts/PFDinDisplayPro-light.woff") format("woff");
+  src: url("../fonts/PFDinDisplayPro-Light.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-variant: normal; }
 @font-face {
   font-family: 'PFDinDisplayProLightWebfont';
-  src: url("../fonts/PFDinDisplayPro-bold.woff") format("woff");
+  src: url("../fonts/PFDinDisplayPro-Bold.woff") format("woff");
   font-weight: 500;
   font-style: normal;
   font-variant: normal; }
