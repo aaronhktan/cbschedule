@@ -1,19 +1,13 @@
 @font-face {
-  font-family: 'PFDinDisplayProLightWebfont';
+  font-family: 'PFDinDisplayProWebfont';
   src: url("../fonts/PFDinDisplayPro-Light.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-variant: normal; }
 @font-face {
-  font-family: 'PFDinDisplayProLightWebfont';
+  font-family: 'PFDinDisplayProWebfont';
   src: url("../fonts/PFDinDisplayPro-Bold.woff") format("woff");
-  font-weight: 500;
-  font-style: normal;
-  font-variant: normal; }
-@font-face {
-  font-family: 'PTSansRegularWebfont';
-  src: url("../fonts/PTSans-regular.woff") format("woff");
-  font-weight: normal;
+  font-weight: 700;
   font-style: normal;
   font-variant: normal; }
 * {
@@ -38,7 +32,7 @@ body {
   user-select: none !important; }
 
 body, select, input[type=text], input[type=time], input[type=date] {
-  font-family: 'PFDinDisplayPro-Light', PFDinDisplayProLightWebfont, sans-serif;
+  font-family: 'PFDinDisplayProWebFont', PFDinDisplayProWebfont, sans-serif;
   font-weight: normal; }
 
 select, input[type=time], input[type=date] {
@@ -84,7 +78,7 @@ input[type=date] {
 .item-container-header {
   padding: 3px 10px;
   text-transform: uppercase;
-  font-family: 'PT Sans', PTSansRegularWebfont, sans-serif;
+  font-family: 'PFDinDisplayProWebfont', PFDinDisplayProWebfont, sans-serif;
   font-size: 0.9em;
   font-weight: 700;
   color: #FFFFFF; }
@@ -322,6 +316,7 @@ input[type=date] {
   color: #FFFFFF;
   background-color: #333333;
   padding: 7px 13px 5px 10px;
+  font-weight: normal;
   font-size: 16px;
   width: 100%;
   box-sizing: border-box; }
