@@ -31,6 +31,13 @@ body {
   -ms-user-select: none !important;
   user-select: none !important; }
 
+@media screen and (min-width: 30rem) {
+	body {
+		max-width: 50%;
+		margin: 0 auto;
+	}
+}
+
 body, select, input[type=text], input[type=time], input[type=date] {
   font-family: 'PFDinDisplayProWebFont', PFDinDisplayProWebfont, sans-serif;
   font-weight: normal; }
