@@ -148,7 +148,7 @@ var dateFetched = localStorage.getItem('dateFetched'); // gets the date the last
 var timesSkipped = 0; // used to keep track of how many times 'no day' there have been
 
 // Construct URL
-var URL = 'https://www.googleapis.com/calendar/v3/calendars/ocdsb.ca_783e3p4smqg0s5nn1mtu921340@group.calendar.google.com/events?key=AIzaSyAjadW_dG-vMWLeXhb_8YodtQ9r5Y23Hvc';
+var URL = 'https://www.googleapis.com/calendar/v3/calendars/ocdsb.ca_gkbg3nq10aereelvn6isf3r02s@group.calendar.google.com/events?key=AIzaSyAjadW_dG-vMWLeXhb_8YodtQ9r5Y23Hvc';
 var daySkipped = 0; // used to keep track of how many times days have been skipped
 var start = moment().startOf('day').format(); // used for construction of URL (start time)
 var end = moment().endOf('day').format(); // used for construction of URL (end time)
