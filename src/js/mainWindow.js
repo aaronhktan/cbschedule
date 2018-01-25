@@ -129,7 +129,7 @@ var cardIndex = 0;
 // Get periods and users' names from local storage on phone
 var users = localStorage.getItem('users');
 // Gets user' names from storage
-var usernames = ["Somebody", "Somebody else"];
+var usernames = ['Somebody', 'Somebody else'];
 // Assigns users to the username array
 for (var i = 0; i < parseInt(users); i++) {
   usernames[i] = localStorage.getItem(String(8 * (parseInt(users) + 1) + i));
@@ -142,21 +142,69 @@ for (i = 0; i <= (users * 8 + 7); i++) {
 }
 var online = true; // determines whether the user is online or not
 var working = true; // determines whether the calendar is on or not
-var currentPeriod = 0; // determines what period of the schedule will be shown
-var Day = 'day'; // a string that holds what day it is
+var currentPeriod = 0;
+var Day = 'day';
 var dateFetched = localStorage.getItem('dateFetched'); // gets the date the last time the Day was fethed
 var timesSkipped = 0; // used to keep track of how many times 'no day' there have been
 
 // Construct URL
-var URL = 'https://www.googleapis.com/calendar/v3/calendars/ocdsb.ca_gkbg3nq10aereelvn6isf3r02s@group.calendar.google.com/events?key=AIzaSyAjadW_dG-vMWLeXhb_8YodtQ9r5Y23Hvc';
-var daySkipped = 0; // used to keep track of how many times days have been skipped
-var start = moment().startOf('day').format(); // used for construction of URL (start time)
-var end = moment().endOf('day').format(); // used for construction of URL (end time)
+var URL = '';
+var daySkipped = 0;
+var start = moment().startOf('day').format();
+var end = moment().endOf('day').format();
+
+function fetchURL() {
+		ajax(
+    {
+			url: 'http://cbschedulemana.ga/url.json'
+    },
+    function(data) {
+      // Extract data
+      var json = JSON.parse(data);
+  
+      // Get calendar URL from data
+      if (json.hasOwnProperty('url')) {
+        URL = json.url;
+      }
+			request();
+    },
+    function(error) {
+      // Failure!
+      if (localStorage.getItem('Day') === null) { // this means that the user does not have a day that was fetched in local storage
+        dayDescription[cardIndex].text('You\'re offline!');
+        dayText[cardIndex].text(':(');
+        periodDescription[cardIndex].text('Check again later!');
+        periodText[cardIndex].text(':(');
+        console.log('There is no date stored!');
+      } else {console.log('Failed fetching schedule data: ' + error);
+        console.log('The day is ' + localStorage.getItem('Day')); // shows the day that was last fetched from local storage
+        online = false;
+        Day = localStorage.getItem('Day');
+        dateFetched = localStorage.getItem('dateFetched');
+        var timeShown = moment(dateFetched).format('ddd Do');
+        if (moment().isAfter(dateFetched, 'day')) {
+          dayDescription[cardIndex].text(timeShown + ' was a');
+          dayText[cardIndex].text(Day); // shows the day
+          periodDescription[cardIndex].text('You\'re offline!');
+          periodText[cardIndex].text(':(');
+        } else if (moment().isSame(dateFetched, 'day')) { // if the date is the same, use the data.
+          dayDescription[cardIndex].text(timeShown + ' is a');
+          dayText[cardIndex].text(Day.toUpperCase());
+          setPeriod(parseInt(Day.substring(4,5)));
+        } else { // if the date is in the future, use the date.
+          dayDescription[cardIndex].text(timeShown + ' will be a');
+          dayText[cardIndex].text(Day.toUpperCase());
+          setPeriod(parseInt(Day.substring(4,5)));
+        }
+      }
+    }
+  );
+}
 
 function request() {
   ajax(
     {
-      url: URL + "&timeMin=" + start + "&timeMax=" + end
+      url: URL + '&timeMin=' + start + '&timeMax=' + end
     },
     function(data) {
       // Success!
@@ -166,15 +214,15 @@ function request() {
   
       // Interpret data; try next day if not school day
       if (Day == 'no school') {
-        timesSkipped++; // adds one to the counter of how many times there has been 'no school'
+        timesSkipped++;
         if (timesSkipped < 9) {
-        daySkipped ++; // adds one to the counter of how many times days have been skipped
-        start = moment().startOf('day').add(daySkipped, 'days').format(); // changes the start time to one day forward
-        end = moment().endOf('day').add(daySkipped, 'days').format(); // change the end time to one day forward
+        daySkipped ++;
+        start = moment().startOf('day').add(daySkipped, 'days').format();
+        end = moment().endOf('day').add(daySkipped, 'days').format();
         request(); //requests again
         } else {
           working = false; // it has been 9 or more days since the calendar has a day, therefore it's likely that it is now a vacation day or break
-          dayDescription[cardIndex].text('It\'s vacation!'); // sets the text assuming it's a vacation or a break
+          dayDescription[cardIndex].text('It\'s vacation!');
           dayText[cardIndex].text(':)');
           periodDescription[cardIndex].text('Or sum ting wong.');
           periodText[cardIndex].text(':(');
@@ -188,11 +236,11 @@ function request() {
         localStorage.setItem('dateFetched', moment().
                              add(daySkipped, 'days').format('YYYY-MM-DD')); // stores the date that the day is describing
         console.log(moment().add(daySkipped, 'days').format('YYYY-MM-DD'));
-        display(daySkipped); // shows the day in the top half
-        setPeriod(parseInt(Day.substring(4,5))); // shows the period in the bottom half\
+        display(daySkipped);
+        setPeriod(parseInt(Day.substring(4,5)));
 				dateFetched = localStorage.getItem('dateFetched');
 				if (localStorage.getItem('timelinePinIsCreated') != dateFetched + 'true') {
-					console.log("timeline pins are being created.");
+					console.log('timeline pins are being created.');
 					timelineModule.putTimelinePin(Day, periods, daySkipped); // creates and puts timelineModule Pins
 				}
 			}
@@ -200,22 +248,22 @@ function request() {
     function(error) {
       // Failure!
       if (localStorage.getItem('Day') === null) { // this means that the user does not have a day that was fetched in local storage
-        dayDescription[cardIndex].text('You\'re offline!');  // sets text in the main window
+        dayDescription[cardIndex].text('You\'re offline!');
         dayText[cardIndex].text(':(');
         periodDescription[cardIndex].text('Check again later!');
         periodText[cardIndex].text(':(');
         console.log('There is no date stored!');
       } else {console.log('Failed fetching schedule data: ' + error);
         console.log('The day is ' + localStorage.getItem('Day')); // shows the day that was last fetched from local storage
-        online = false; // the user is offline!
-        Day = localStorage.getItem('Day'); // gets the last day from persistent storage
-        dateFetched = localStorage.getItem('dateFetched'); // get the date that is attached to the day
-        var timeShown = moment(dateFetched).format('ddd Do'); // formats the date like 'Mon 13th'
-        if (moment().isAfter(dateFetched, 'day')) { // depending on what the date is compared to today, will display something different.
-          dayDescription[cardIndex].text(timeShown + ' was a'); // shows something like 'Mon 13th was a'
+        online = false;
+        Day = localStorage.getItem('Day');
+        dateFetched = localStorage.getItem('dateFetched');
+        var timeShown = moment(dateFetched).format('ddd Do');
+        if (moment().isAfter(dateFetched, 'day')) {
+          dayDescription[cardIndex].text(timeShown + ' was a');
           dayText[cardIndex].text(Day); // shows the day
-          periodDescription[cardIndex].text('You\'re offline!'); // tells user that they are offline in the bottom half of the window
-          periodText[cardIndex].text(':('); // sad face!
+          periodDescription[cardIndex].text('You\'re offline!');
+          periodText[cardIndex].text(':(');
         } else if (moment().isSame(dateFetched, 'day')) { // if the date is the same, use the data.
           dayDescription[cardIndex].text(timeShown + ' is a');
           dayText[cardIndex].text(Day.toUpperCase());
@@ -243,8 +291,8 @@ function display(day) { // looks at how many days have been skipped and creates 
       dayText[cardIndex].text(Day.toUpperCase());
       break;
     default: // this means that the day is sometime in the future, but isn't tomorrow
-      dayDescription[cardIndex].text(moment().add(day, 'days').format("ddd ") + 
-                          moment().add(day, 'days').format("Do") + ' will be a');
+      dayDescription[cardIndex].text(moment().add(day, 'days').format('ddd ') + 
+                          moment().add(day, 'days').format('Do') + ' will be a');
       dayText[cardIndex].text(Day.toUpperCase());
   }
 }
@@ -357,23 +405,23 @@ mainWind.on('accelTap', function showEasterEggWindow(e) {
 Pebble.addEventListener('showConfiguration', function() {
   var configURL = 'http://cbschedulemana.ga/index.html';
   if (users !== null && periods[0] !== null) { // if the user has opened the settings page before, add parameters to URL in order to prefill it
-    configURL += "?users=" + users;
+    configURL += '?users=' + users;
     if (users !== 0) {
       for (i = 0; i < users; i++) {
-        configURL += "&user" + i + "=" + usernames[i];
+        configURL += '&user' + i + '=' + usernames[i];
       }
     }
     for (i = 0; i < (periods.length * 4 - 1); i += 4) {
-      configURL += "&" + i + "=" + encodeURIComponent(String(periods[i / 4].name)) +
-        "&" + (i + 1) + "=" + encodeURIComponent(String(periods[i / 4].code)) +
-        "&" + (i + 2) + "=" + encodeURIComponent(String(periods[i / 4].teacher)) +
-        "&" + (i + 3) + "=" + encodeURIComponent(String(periods[i / 4].room));
+      configURL += '&' + i + '=' + encodeURIComponent(String(periods[i / 4].name)) +
+        '&' + (i + 1) + '=' + encodeURIComponent(String(periods[i / 4].code)) +
+        '&' + (i + 2) + '=' + encodeURIComponent(String(periods[i / 4].teacher)) +
+        '&' + (i + 3) + '=' + encodeURIComponent(String(periods[i / 4].room));
     }
-		configURL += "&wakeup=" + localStorage.getItem('wakeup_enabled');
+		configURL += '&wakeup=' + localStorage.getItem('wakeup_enabled');
 	} else {
-		configURL += "?wakeup=" + localStorage.getItem('wakeup_enabled');
+		configURL += '?wakeup=' + localStorage.getItem('wakeup_enabled');
 	}
-	configURL = configURL.split('"').join('');
+	configURL = configURL.split('\'').join('');
   Pebble.openURL(configURL);
   console.log(configURL);
 });
@@ -409,7 +457,7 @@ Pebble.addEventListener('webviewclosed', function(e) {
 		Wakeup.cancel('all');
 	}
 	
-	usernames = ["Somebody", "Somebody else"];
+	usernames = ['Somebody', 'Somebody else'];
   for (var i = 0; i < parseInt(users); i++) {
     localStorage.setItem(String(8 * (parseInt(users) + 1) + i), configData[8 * (parseInt(users) + 1) + i]); // sets names of users based on number of users
 		usernames[i] = localStorage.getItem(String(8 * (parseInt(users) + 1) + i));
@@ -437,8 +485,9 @@ exports.showMainWindow = function () {
 	createElements(0, cardIndex);
 	mainWind.show();
 	
+	// Contact server to get most current calendar, then
 	// Make the request to see what day it is
-	request();
+	fetchURL();
 };
 
 exports.hideMainWindow = function() {

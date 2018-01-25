@@ -23,7 +23,7 @@ exports.findDay = function (data) {
             { break; } // lol i have no idea why curly braces
           }
         }
-        }
+			}
       console.log('*gasp* fake day');
       return 'no school';
   } else {

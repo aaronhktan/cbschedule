@@ -71,7 +71,7 @@ exports.createEasterEggWindow = function(e) {
       font: 'gothic-18',
       position: Feature.rectangle(new Vector2(12, Feature.resolution().y / 2 + 55),
                                   new Vector2(Feature.resolution().x * 0.125, Feature.resolution().y / 2 + 50)),
-      text: '© 2017, v0.58',
+      text: '© 2018, v0.70',
       textAlign: 'center',
       textOverflow: 'ellipsis',
       color: 'black'
