@@ -1,7 +1,7 @@
 var exports = this.exports = {};
 var periodNumbers = [];
 
-//Sets the index of the period array
+// Sets the index of the period array
 exports.setPeriod = function (day, user) {
   switch (day){
     case 1:

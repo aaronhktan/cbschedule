@@ -2,7 +2,7 @@ var Feature = require('platform/feature');
 var exports = this.exports = {};
 var string = '';
 
-//Sets the title of the menu object depending on what day it is
+// Sets the title of the menu object depending on what day it is
 exports.setTitle = function (day) {
   switch (day) {
     case 1:

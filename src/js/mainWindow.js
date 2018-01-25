@@ -140,12 +140,12 @@ var periods = [];
 for (i = 0; i <= (users * 8 + 7); i++) {
   periods[i] = JSON.parse(localStorage.getItem(i.toString()));
 }
-var online = true; // determines whether the user is online or not
-var working = true; // determines whether the calendar is on or not
+var online = true; // Determines whether the user is online or not
+var working = true; // Determines whether the calendar is on or not
 var currentPeriod = 0;
 var Day = 'day';
-var dateFetched = localStorage.getItem('dateFetched'); // gets the date the last time the Day was fethed
-var timesSkipped = 0; // used to keep track of how many times 'no day' there have been
+var dateFetched = localStorage.getItem('dateFetched'); // Gets the date the last time the Day was fetched
+var timesSkipped = 0; // Used to keep track of how many times 'no day' there have been
 
 // Construct URL
 var URL = '';
@@ -154,9 +154,9 @@ var start = moment().startOf('day').format();
 var end = moment().endOf('day').format();
 
 function fetchURL() {
-		ajax(
+    ajax(
     {
-			url: 'http://cbschedulemana.ga/url.json'
+      url: 'http://cbschedulemana.ga/url.json'
     },
     function(data) {
       // Extract data
@@ -166,32 +166,32 @@ function fetchURL() {
       if (json.hasOwnProperty('url')) {
         URL = json.url;
       }
-			request();
+      request();
     },
     function(error) {
       // Failure!
-      if (localStorage.getItem('Day') === null) { // this means that the user does not have a day that was fetched in local storage
+      if (localStorage.getItem('Day') === null) { // This means that the user does not have a day that was fetched in local storage
         dayDescription[cardIndex].text('You\'re offline!');
         dayText[cardIndex].text(':(');
         periodDescription[cardIndex].text('Check again later!');
         periodText[cardIndex].text(':(');
         console.log('There is no date stored!');
       } else {console.log('Failed fetching schedule data: ' + error);
-        console.log('The day is ' + localStorage.getItem('Day')); // shows the day that was last fetched from local storage
+        console.log('The day is ' + localStorage.getItem('Day')); // Shows the day that was last fetched from local storage
         online = false;
         Day = localStorage.getItem('Day');
         dateFetched = localStorage.getItem('dateFetched');
         var timeShown = moment(dateFetched).format('ddd Do');
         if (moment().isAfter(dateFetched, 'day')) {
           dayDescription[cardIndex].text(timeShown + ' was a');
-          dayText[cardIndex].text(Day); // shows the day
+          dayText[cardIndex].text(Day); // Shows the day
           periodDescription[cardIndex].text('You\'re offline!');
           periodText[cardIndex].text(':(');
-        } else if (moment().isSame(dateFetched, 'day')) { // if the date is the same, use the data.
+        } else if (moment().isSame(dateFetched, 'day')) { // If the date is the same, use the data.
           dayDescription[cardIndex].text(timeShown + ' is a');
           dayText[cardIndex].text(Day.toUpperCase());
           setPeriod(parseInt(Day.substring(4,5)));
-        } else { // if the date is in the future, use the date.
+        } else { // If the date is in the future, use the date.
           dayDescription[cardIndex].text(timeShown + ' will be a');
           dayText[cardIndex].text(Day.toUpperCase());
           setPeriod(parseInt(Day.substring(4,5)));
@@ -219,56 +219,56 @@ function request() {
         daySkipped ++;
         start = moment().startOf('day').add(daySkipped, 'days').format();
         end = moment().endOf('day').add(daySkipped, 'days').format();
-        request(); //requests again
+        request(); // Requests again
         } else {
-          working = false; // it has been 9 or more days since the calendar has a day, therefore it's likely that it is now a vacation day or break
+          working = false; // It has been 9 or more days since the calendar has a day, therefore it's likely that it is now a vacation day or break
           dayDescription[cardIndex].text('It\'s vacation!');
           dayText[cardIndex].text(':)');
           periodDescription[cardIndex].text('Or sum ting wong.');
           periodText[cardIndex].text(':(');
-          Day = 'Day 1'; // sets to Day 1 if nothing is working
-          currentPeriod = 0; // sets current period to the first period if nothing is working
+          Day = 'Day 1'; // Sets to Day 1 if nothing is working
+          currentPeriod = 0; // Sets current period to the first period if nothing is working
         }
-      } 
+      }
       // Show to user if school day
       else {
-        localStorage.setItem('Day', Day); // stores the day in persistent storage
+        localStorage.setItem('Day', Day); // Stores the day in persistent storage
         localStorage.setItem('dateFetched', moment().
-                             add(daySkipped, 'days').format('YYYY-MM-DD')); // stores the date that the day is describing
+                             add(daySkipped, 'days').format('YYYY-MM-DD')); // Stores the date that the day is describing
         console.log(moment().add(daySkipped, 'days').format('YYYY-MM-DD'));
         display(daySkipped);
         setPeriod(parseInt(Day.substring(4,5)));
-				dateFetched = localStorage.getItem('dateFetched');
-				if (localStorage.getItem('timelinePinIsCreated') != dateFetched + 'true') {
-					console.log('timeline pins are being created.');
-					timelineModule.putTimelinePin(Day, periods, daySkipped); // creates and puts timelineModule Pins
-				}
-			}
+        dateFetched = localStorage.getItem('dateFetched');
+        if (localStorage.getItem('timelinePinIsCreated') != dateFetched + 'true') {
+          console.log('timeline pins are being created.');
+          timelineModule.putTimelinePin(Day, periods, daySkipped); // Creates and puts timelineModule Pins
+        }
+      }
     },
     function(error) {
       // Failure!
-      if (localStorage.getItem('Day') === null) { // this means that the user does not have a day that was fetched in local storage
+      if (localStorage.getItem('Day') === null) { // This means that the user does not have a day that was fetched in local storage
         dayDescription[cardIndex].text('You\'re offline!');
         dayText[cardIndex].text(':(');
         periodDescription[cardIndex].text('Check again later!');
         periodText[cardIndex].text(':(');
         console.log('There is no date stored!');
       } else {console.log('Failed fetching schedule data: ' + error);
-        console.log('The day is ' + localStorage.getItem('Day')); // shows the day that was last fetched from local storage
+        console.log('The day is ' + localStorage.getItem('Day')); // Shows the day that was last fetched from local storage
         online = false;
         Day = localStorage.getItem('Day');
         dateFetched = localStorage.getItem('dateFetched');
         var timeShown = moment(dateFetched).format('ddd Do');
         if (moment().isAfter(dateFetched, 'day')) {
           dayDescription[cardIndex].text(timeShown + ' was a');
-          dayText[cardIndex].text(Day); // shows the day
+          dayText[cardIndex].text(Day); // Shows the day
           periodDescription[cardIndex].text('You\'re offline!');
           periodText[cardIndex].text(':(');
-        } else if (moment().isSame(dateFetched, 'day')) { // if the date is the same, use the data.
+        } else if (moment().isSame(dateFetched, 'day')) { // If the date is the same, use the data.
           dayDescription[cardIndex].text(timeShown + ' is a');
           dayText[cardIndex].text(Day.toUpperCase());
           setPeriod(parseInt(Day.substring(4,5)));
-        } else { // if the date is in the future, use the date.
+        } else { // If the date is in the future, use the date.
           dayDescription[cardIndex].text(timeShown + ' will be a');
           dayText[cardIndex].text(Day.toUpperCase());
           setPeriod(parseInt(Day.substring(4,5)));
@@ -280,17 +280,17 @@ function request() {
 
 // ******************************************************************************************* Display the Day on the card
 // Displays day to user
-function display(day) { // looks at how many days have been skipped and creates text accordingly
+function display(day) { // Looks at how many days have been skipped and creates text accordingly
   switch(day) {
     case 0: // this means that the day is today
       dayDescription[cardIndex].text('It\'s a');
       dayText[cardIndex].text(Day.toUpperCase());
       break;
-    case 1: // this means that the day is tomorrow
+    case 1: // This means that the day is tomorrow
       dayDescription[cardIndex].text('Tomorrow\'s a');
       dayText[cardIndex].text(Day.toUpperCase());
       break;
-    default: // this means that the day is sometime in the future, but isn't tomorrow
+    default: // This means that the day is sometime in the future, but isn't tomorrow
       dayDescription[cardIndex].text(moment().add(day, 'days').format('ddd ') + 
                           moment().add(day, 'days').format('Do') + ' will be a');
       dayText[cardIndex].text(Day.toUpperCase());
@@ -300,22 +300,22 @@ function display(day) { // looks at how many days have been skipped and creates 
 // ******************************************************************************************* Display the period on the card
 
 function displayPeriod(day, periodNumber, periodNumberString, periodString, current, currentPeriodString) {
-	var ogPeriods = [0, 1, 2, 3];
-	var notogPeriods = [1, 0, 3, 2];
-	if (day == 1 || day == 2) { // depending on which day it is, the schedule will show a different block
-		currentPeriod = ogPeriods[periodNumber];
-	} else {
-		currentPeriod = notogPeriods[periodNumber];
-	}
-	if (current) {
-			dayDescription[cardIndex].text('Current period');
-		if (moment().isAfter(moment().set({'hour': 15, 'minute':15}))) {
-			dayText[cardIndex].text('NONE!');
-		} else {
-			dayText[cardIndex].text(currentPeriodString);
-		}
-	}
-	periodDescription[cardIndex].text(periodNumberString); // shows the next period; in this case, it's the first period
+  var ogPeriods = [0, 1, 2, 3];
+  var notogPeriods = [1, 0, 3, 2];
+  if (day == 1 || day == 2) { // Depending on which day it is, the schedule will show a different block
+    currentPeriod = ogPeriods[periodNumber];
+  } else {
+    currentPeriod = notogPeriods[periodNumber];
+  }
+  if (current) {
+      dayDescription[cardIndex].text('Current period');
+    if (moment().isAfter(moment().set({'hour': 15, 'minute':15}))) {
+      dayText[cardIndex].text('NONE!');
+    } else {
+      dayText[cardIndex].text(currentPeriodString);
+    }
+  }
+  periodDescription[cardIndex].text(periodNumberString); // Shows the next period; in this case, it's the first period
   periodText[cardIndex].text(periodString);
 }
 
@@ -337,46 +337,46 @@ function setPeriod(day, current) {
     // If before start of second period, shows second period (which is the next period)
     else if (moment().isBefore(moment().set({'hour': 10, 'minute':35}))) {
       console.log('Period 2');
-			displayPeriod(day, 0, 'Second period', String(periods[periodSetter.setPeriod(day, cardIndex)[1]].name).toUpperCase(), current, String(periods[periodSetter.setPeriod(day, cardIndex)[0]].name).toUpperCase());
+      displayPeriod(day, 0, 'Second period', String(periods[periodSetter.setPeriod(day, cardIndex)[1]].name).toUpperCase(), current, String(periods[periodSetter.setPeriod(day, cardIndex)[0]].name).toUpperCase());
     }
     // If before start of third period, shows third period
     else if (moment().isBefore(moment().set({'hour': 12, 'minute':40}))) {
       console.log('Period 3');
-			displayPeriod(day, 1, 'Third period', String(periods[periodSetter.setPeriod(day, cardIndex)[2]].name).toUpperCase(), current, String(periods[periodSetter.setPeriod(day, cardIndex)[1]].name).toUpperCase());
+      displayPeriod(day, 1, 'Third period', String(periods[periodSetter.setPeriod(day, cardIndex)[2]].name).toUpperCase(), current, String(periods[periodSetter.setPeriod(day, cardIndex)[1]].name).toUpperCase());
     }
     // If before start of fourth period, shows fourth period
     else if (moment().isBefore(moment().set({'hour': 14, 'minute':0}))) {
       console.log('Period 3');
-			displayPeriod(day, 2, 'Fourth period', String(periods[periodSetter.setPeriod(day, cardIndex)[3]].name).toUpperCase(), current, String(periods[periodSetter.setPeriod(day, cardIndex)[2]].name).toUpperCase());
+      displayPeriod(day, 2, 'Fourth period', String(periods[periodSetter.setPeriod(day, cardIndex)[3]].name).toUpperCase(), current, String(periods[periodSetter.setPeriod(day, cardIndex)[2]].name).toUpperCase());
     }
     // Otherwise, assume it's outside of school hours and show that there is no class left.
     else {
       console.log('Period 4');
-			displayPeriod(day, 3, 'No next class!', 'DONE!', current, 'NONE!');
+      displayPeriod(day, 3, 'No next class!', 'DONE!', current, 'NONE!');
     }
   }
 }
 
 // ******************************************************************************************* Other user UI Elements
 // Scrolls to next element
-var created = []; // keeps track of whether the elements have been created for this user
+var created = []; // Keeps track of whether the elements have been created for this user
 mainWind.on('click', 'down', function (animateThingsDown) {
-  cardIndex += 1; // adds one to the card number that the user is currently on
+  cardIndex += 1; // Adds one to the card number that the user is currently on
   // Create other elements
-  if (created[cardIndex] !== true && cardIndex <= users) { // if the card has not previously been created and the user has not reached the last user
-    createElements(1, cardIndex); // things are created!
-    created[cardIndex] = true; // sets that this card has now been created and no longer needs to be created
-    setPeriod(parseInt(Day.substring(4,5)), true); // in the card, show the current period and the next period of a friend
+  if (created[cardIndex] !== true && cardIndex <= users) { // If the card has not previously been created and the user has not reached the last user
+    createElements(1, cardIndex); // Things are created!
+    created[cardIndex] = true; // Sets that this card has now been created and no longer needs to be created
+    setPeriod(parseInt(Day.substring(4,5)), true); // In the card, show the current period and the next period of a friend
   }
   
   // Animate the elements down
   if (cardIndex <= users) {
     mainWind.each(function (element) {
-      if (element.backgroundColor() != 'jaeger green' && element.backgroundColor() != 'blue moon') { // animates everything down except for background!
+      if (element.backgroundColor() != 'jaeger green' && element.backgroundColor() != 'blue moon') { // Animates everything down except for background!
         element.animate('position', new Vector2(element.position().x, element.position().y -= Feature.resolution().y), 150);
       }});
   } else {
-    cardIndex -= 1; // because the user is not going down, takes out the cardIndex += 1 at the beginning of this function
+    cardIndex -= 1; // Because the user is not going down, takes out the cardIndex += 1 at the beginning of this function
   }
   console.log('clicked down! to card #' + cardIndex);
 });
@@ -385,10 +385,10 @@ mainWind.on('click', 'down', function (animateThingsDown) {
 mainWind.on('click', 'up', function (animateThingsUp) {
   if (cardIndex >= 1) {
     mainWind.each(function (element) {
-    if (element.backgroundColor() != 'jaeger green' && element.backgroundColor() != 'blue moon') { // same as above
+    if (element.backgroundColor() != 'jaeger green' && element.backgroundColor() != 'blue moon') { // Same as above
                 element.animate('position', new Vector2(element.position().x, element.position().y += Feature.resolution().y), 150);
     }});
-    cardIndex -= 1; // tells program that the card that the user is on is one higher up.
+    cardIndex -= 1; // Tells program that the card that the user is on is one higher up.
   }
   console.log('clicked up! to card #' + cardIndex);
 });
@@ -396,7 +396,7 @@ mainWind.on('click', 'up', function (animateThingsUp) {
 // Sets the button handlers for the main window, to show the schedule when select is clicked
 mainWind.on('click', 'select', function() {scheduleMenu.showSchedule(Day, cardIndex, working, currentPeriod);});
 mainWind.on('accelTap', function showEasterEggWindow(e) {
-	easterEggWindow.createEasterEggWindow(e);
+  easterEggWindow.createEasterEggWindow(e);
 });
 
 // ******************************************************************************************* Settings Handlers
@@ -404,7 +404,7 @@ mainWind.on('accelTap', function showEasterEggWindow(e) {
 // App Settings
 Pebble.addEventListener('showConfiguration', function() {
   var configURL = 'http://cbschedulemana.ga/index.html';
-  if (users !== null && periods[0] !== null) { // if the user has opened the settings page before, add parameters to URL in order to prefill it
+  if (users !== null && periods[0] !== null) { // If the user has opened the settings page before, add parameters to URL in order to prefill it
     configURL += '?users=' + users;
     if (users !== 0) {
       for (i = 0; i < users; i++) {
@@ -417,11 +417,11 @@ Pebble.addEventListener('showConfiguration', function() {
         '&' + (i + 2) + '=' + encodeURIComponent(String(periods[i / 4].teacher)) +
         '&' + (i + 3) + '=' + encodeURIComponent(String(periods[i / 4].room));
     }
-		configURL += '&wakeup=' + localStorage.getItem('wakeup_enabled');
-	} else {
-		configURL += '?wakeup=' + localStorage.getItem('wakeup_enabled');
-	}
-	configURL = configURL.split('\'').join('');
+    configURL += '&wakeup=' + localStorage.getItem('wakeup_enabled');
+  } else {
+    configURL += '?wakeup=' + localStorage.getItem('wakeup_enabled');
+  }
+  configURL = configURL.split('\'').join('');
   Pebble.openURL(configURL);
   console.log(configURL);
 });
@@ -443,53 +443,53 @@ Pebble.addEventListener('webviewclosed', function(e) {
   * index 25 (total number of users * 8 + 1): user name #2
   * index 26 (total number of users * 8 + 2): user name #3
   * index 27 (total number of users * 8 + total number of users): 2 (number of users, starting from index 0)
-	* index 27 (enable waking up at 12AM?)
+  * index 27 (enable waking up at 12AM?)
   */
   var configData = JSON.parse(decodeURIComponent(e.response));
-  users = configData[configData.length - 2]; // sets number of users based on the second last element of the array
-	var wakeup_enabled = configData[configData.length - 1]; // sets whether to enable the wakeup module based on the last element of the array
-	localStorage.setItem('wakeup_enabled', wakeup_enabled);
-	console.log('The wakeup is set to ' + wakeup_enabled);
-	if (wakeup_enabled) {
-		wakeupModule.scheduleWakeup();
-		wakeupModule.wakeupEvent();
-	} else {
-		Wakeup.cancel('all');
-	}
-	
-	usernames = ['Somebody', 'Somebody else'];
+  users = configData[configData.length - 2]; // Sets number of users based on the second last element of the array
+  var wakeup_enabled = configData[configData.length - 1]; // Sets whether to enable the wakeup module based on the last element of the array
+  localStorage.setItem('wakeup_enabled', wakeup_enabled);
+  console.log('The wakeup is set to ' + wakeup_enabled);
+  if (wakeup_enabled) {
+    wakeupModule.scheduleWakeup();
+    wakeupModule.wakeupEvent();
+  } else {
+    Wakeup.cancel('all');
+  }
+  
+  usernames = ['Somebody', 'Somebody else'];
   for (var i = 0; i < parseInt(users); i++) {
-    localStorage.setItem(String(8 * (parseInt(users) + 1) + i), configData[8 * (parseInt(users) + 1) + i]); // sets names of users based on number of users
-		usernames[i] = localStorage.getItem(String(8 * (parseInt(users) + 1) + i));
-		console.log('username: ' + usernames[i]);
+    localStorage.setItem(String(8 * (parseInt(users) + 1) + i), configData[8 * (parseInt(users) + 1) + i]); // Sets names of users based on number of users
+    usernames[i] = localStorage.getItem(String(8 * (parseInt(users) + 1) + i));
+    console.log('username: ' + usernames[i]);
   }
   localStorage.setItem('users', users);
-	console.log('users: ' + users);
-  for (i = 0; i < configData.length - (users + 1); i++) { // sets periods based on number of users
+  console.log('users: ' + users);
+  for (i = 0; i < configData.length - (users + 1); i++) { // Sets periods based on number of users
     localStorage.setItem(i.toString(), JSON.stringify(configData[i]));
     periods[i] = JSON.parse(localStorage.getItem(i.toString()));
   }
   request();
-	timelineModule.putTimelinePin(Day, periods, daySkipped);
+  timelineModule.putTimelinePin(Day, periods, daySkipped);
 });
 
 // ******************************************************************************************* Accessible to other apps
 var exports = this.exports = {};
 
 exports.showMainWindow = function () {
-	// Adds the background rectangles
-	mainWind.add(backTop);
-	mainWind.add(backBottom);
+  // Adds the background rectangles
+  mainWind.add(backTop);
+  mainWind.add(backBottom);
 
-	// Adds the first card and pushes window
-	createElements(0, cardIndex);
-	mainWind.show();
-	
-	// Contact server to get most current calendar, then
-	// Make the request to see what day it is
-	fetchURL();
+  // Adds the first card and pushes window
+  createElements(0, cardIndex);
+  mainWind.show();
+  
+  // Contact server to get most current calendar, then
+  // Make the request to see what day it is
+  fetchURL();
 };
 
 exports.hideMainWindow = function() {
-	mainWind.hide();
+  mainWind.hide();
 };

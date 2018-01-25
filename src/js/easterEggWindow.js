@@ -7,9 +7,9 @@ var exports = this.exports = {};
 // A little easter egg for those that decide to see it
 var tapped = 0;
 exports.createEasterEggWindow = function(e) {
-  tapped ++; // adds one to counter of how many times the user has shaken the watch
+  tapped ++; // Adds one to counter of how many times the user has shaken the watch
   console.log('Tapped the window ' + tapped + ' times!');
-  if (tapped == 10) { // shows a bunch of credits after 10 taps
+  if (tapped == 10) { // Shows a bunch of credits after 10 taps
     tapped = 0;
     var easterEgg = new UI.Window({
       backgroundColor: 'white',
@@ -17,7 +17,7 @@ exports.createEasterEggWindow = function(e) {
     });
     var devText = new UI.Text({
       size: Feature.rectangle(new Vector2(Feature.resolution().x - 24, 27),
-                             new Vector2(Feature.resolution().x / 2, 27)),
+                              new Vector2(Feature.resolution().x / 2, 27)),
       font: 'gothic-18',
       position: Feature.rectangle(new Vector2(12, Feature.resolution().y / 2 - 80),
                                   new Vector2(Feature.resolution().x / 4, Feature.resolution().y / 2 - 80)),
@@ -28,7 +28,7 @@ exports.createEasterEggWindow = function(e) {
     });
     var devName = new UI.Text({ //textbox for name of developer
     size: Feature.rectangle(new Vector2(Feature.resolution().x - 24, 42),
-                           new Vector2(Feature.resolution().x * 0.75, 42)),
+                            new Vector2(Feature.resolution().x * 0.75, 42)),
     font: 'gothic-28-bold',
     position: Feature.rectangle(new Vector2(12, Feature.resolution().y / 2 - 66),
                                 new Vector2(Feature.resolution().x * 0.125, Feature.resolution().y / 2 - 66)),
@@ -45,7 +45,7 @@ exports.createEasterEggWindow = function(e) {
   });
     var captionText = new UI.Text({
       size: Feature.rectangle(new Vector2(Feature.resolution().x - 24, 42),
-                             new Vector2(Feature.resolution().x * 0.75, 42)),
+                              new Vector2(Feature.resolution().x * 0.75, 42)),
       font: 'gothic-18',
       position: Feature.rectangle(new Vector2(12, Feature.resolution().y / 2 - 40),
                                   new Vector2(Feature.resolution().x * 0.125, Feature.resolution().y / 2 - 40)),
@@ -67,7 +67,7 @@ exports.createEasterEggWindow = function(e) {
     });
     var copyrightText = new UI.Text({
       size: Feature.rectangle(new Vector2(Feature.resolution().x - 24, 42),
-                             new Vector2(Feature.resolution().x * 0.75, 42)),
+                              new Vector2(Feature.resolution().x * 0.75, 42)),
       font: 'gothic-18',
       position: Feature.rectangle(new Vector2(12, Feature.resolution().y / 2 + 55),
                                   new Vector2(Feature.resolution().x * 0.125, Feature.resolution().y / 2 + 50)),
