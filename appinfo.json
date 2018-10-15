@@ -1,163 +1,48 @@
 {
-    "appKeys": {},
-    "capabilities": [
-        "configurable"
-    ],
-    "companyName": "cheeseisdisgusting",
-    "longName": "CB Schedule",
-    "projectType": "pebblejs",
-    "resources": {
-        "media": [
-            {
-                "file": "images/menu_icon.png",
-                "name": "IMAGE_MENU_ICON",
-                "type": "bitmap"
-            },
-            {
-                "file": "images/logo_splash.png",
-                "name": "IMAGE_LOGO_SPLASH",
-                "type": "bitmap"
-            },
-            {
-                "file": "images/tile_splash.png",
-                "name": "IMAGE_TILE_SPLASH",
-                "type": "bitmap"
-            },
-            {
-                "file": "fonts/UbuntuMono-Regular.ttf",
-                "name": "MONO_FONT_14",
-                "type": "font"
-            },
-            {
-                "file": "images/undo.png",
-                "name": "IMAGES_UNDO_PNG",
-                "type": "bitmap"
-            },
-            {
-                "file": "images/star.png",
-                "name": "IMAGES_STAR_PNG",
-                "type": "bitmap"
-            },
-            {
-                "file": "images/sombrero.png",
-                "name": "IMAGES_SOMBRERO_PNG",
-                "type": "bitmap"
-            },
-            {
-                "file": "images/rocket.png",
-                "name": "IMAGES_ROCKET_PNG",
-                "type": "bitmap"
-            },
-            {
-                "file": "images/puzzle.png",
-                "name": "IMAGES_PUZZLE_PNG",
-                "type": "bitmap"
-            },
-            {
-                "file": "images/plus.png",
-                "name": "IMAGES_PLUS_PNG",
-                "type": "bitmap"
-            },
-            {
-                "file": "images/person.png",
-                "name": "IMAGES_PERSON_PNG",
-                "type": "bitmap"
-            },
-            {
-                "file": "images/pencil.png",
-                "name": "IMAGES_PENCIL_PNG",
-                "type": "bitmap"
-            },
-            {
-                "file": "images/note.png",
-                "name": "IMAGES_NOTE_PNG",
-                "type": "bitmap"
-            },
-            {
-                "file": "images/monitor.png",
-                "name": "IMAGES_MONITOR_PNG",
-                "type": "bitmap"
-            },
-            {
-                "file": "images/icon.png",
-                "menuIcon": true,
-                "name": "IMAGES_ICON_PNG",
-                "type": "png"
-            },
-            {
-                "file": "images/heart.png",
-                "name": "IMAGES_HEART_PNG",
-                "type": "bitmap"
-            },
-            {
-                "file": "images/globe.png",
-                "name": "IMAGES_GLOBE_PNG",
-                "type": "bitmap"
-            },
-            {
-                "file": "images/eiffel.png",
-                "name": "IMAGES_EIFFEL_PNG",
-                "type": "bitmap"
-            },
-            {
-                "file": "images/dollar.png",
-                "name": "IMAGES_DOLLAR_PNG",
-                "type": "bitmap"
-            },
-            {
-                "file": "images/cow.png",
-                "name": "IMAGES_COW_PNG",
-                "type": "bitmap"
-            },
-            {
-                "file": "images/camera.png",
-                "name": "IMAGES_CAMERA_PNG",
-                "type": "bitmap"
-            },
-            {
-                "file": "images/calendar.png",
-                "name": "IMAGES_CALENDAR_PNG",
-                "type": "bitmap"
-            },
-            {
-                "file": "images/bug.png",
-                "name": "IMAGES_BUG_PNG",
-                "type": "bitmap"
-            },
-            {
-                "file": "images/brush.png",
-                "name": "IMAGES_BRUSH_PNG",
-                "type": "bitmap"
-            },
-            {
-                "file": "images/briefcase.png",
-                "name": "IMAGES_BRIEFCASE_PNG",
-                "type": "bitmap"
-            },
-            {
-                "file": "images/book.png",
-                "name": "IMAGES_BOOK_PNG",
-                "type": "bitmap"
-            },
-            {
-                "file": "images/beaker.png",
-                "name": "IMAGES_BEAKER_PNG",
-                "type": "bitmap"
-            }
-        ]
-    },
-    "sdkVersion": "3",
-    "shortName": "CBschedule",
-    "targetPlatforms": [
-        "aplite",
-        "basalt",
-        "chalk"
-    ],
-    "uuid": "1cf5ee6c-1dc1-4be1-ac6a-02470b44a922",
-    "versionCode": 1,
-    "versionLabel": "0.70",
-    "watchapp": {
-        "hiddenApp": false,
-        "watchface": false
-    }
+  "appKeys": {},
+  "capabilities": [
+    "configurable"
+  ],
+  "companyName": "Meiguro",
+  "longName": "Pebble.js",
+  "resources": {
+    "media": [
+      {
+        "file": "images/menu_icon.png",
+        "menuIcon": true,
+        "name": "IMAGE_MENU_ICON",
+        "type": "bitmap"
+      },
+      {
+        "file": "images/logo_splash.png",
+        "name": "IMAGE_LOGO_SPLASH",
+        "type": "bitmap"
+      },
+      {
+        "file": "images/tile_splash.png",
+        "name": "IMAGE_TILE_SPLASH",
+        "type": "bitmap"
+      },
+      {
+        "file": "fonts/UbuntuMono-Regular.ttf",
+        "name": "MONO_FONT_14",
+        "type": "font"
+      }
+    ]
+  },
+  "sdkVersion": "3",
+  "shortName": "Pebble.js",
+  "targetPlatforms": [
+    "aplite",
+    "basalt",
+    "chalk",
+    "diorite",
+    "emery"
+  ],
+  "uuid": "133215f0-cf20-4c05-997b-3c9be5a64e5b",
+  "versionCode": 1,
+  "versionLabel": "0.4",
+  "watchapp": {
+    "watchface": false
+  }
 }
